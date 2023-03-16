@@ -17,9 +17,8 @@ const ExpenseItem = (props) => {
 				<span className='alert alert-primary'>
 				${props.cost}
 				</span>
-				<button onClick={handleDeleteExpense}>
-					<Icon icon="mdi:delete-circle" width="20"/>
-				</button>
+				<Icon icon="mdi:delete-circle" width="20" onClick={handleDeleteExpense}/>
+				
 			</div>
 		</li>
 	);

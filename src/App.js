@@ -33,6 +33,9 @@ const App = () => {
 					<ExpenseTotal />
 				</div>
 			</div>
+			<h3 className='mt-3'> 
+			Expenses
+			</h3>
 		</div> 
 	);
 };

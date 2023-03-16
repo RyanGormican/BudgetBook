@@ -45,11 +45,13 @@ const onSubmit = (event) =>{
 						onChange={(event)=> setCost(event.target.value)}
 					/>
 				</div> 
+				</div> 
+				<div class='row mt-3'>
 				<div className='col-sm'>
 					<button type='submit' className='btn btn-primary'>
 					Save
 					</button>
-				</div> 
+				</div>
 			</div>
 		</form>
 	);

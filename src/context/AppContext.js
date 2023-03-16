@@ -28,7 +28,7 @@ const AppReducer =(state, action) => {
 };
 const getStorage = () => {
 	const budget = localStorage.getItem('BudgetBook-budget') || initialState.budget;
-	const exepnses = JSON.parse(localStorage.getItem('BudgetBook-expenses') || initialState.expenses;
+	const expenses = JSON.parse(localStorage.getItem('BudgetBook-expenses')) || initialState.expenses;
 	return {
 		budget:parseInt(budget),
 		expenses,

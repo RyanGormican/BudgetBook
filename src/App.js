@@ -28,6 +28,9 @@ const App = () => {
 				<div className='col-sm'>
 					<Remaining />
 				</div>
+				<div className='col-sm'>
+					<Spent />
+				</div>
 			</div>
 		</div> 
 	);

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ExpenseItem from './ExpenseItem';
 const ExpenseList = () => {
 const expenses = [
 			{id: 123, name= "Shopping", cost: 50},

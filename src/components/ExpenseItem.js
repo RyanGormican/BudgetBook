@@ -16,7 +16,7 @@ const ExpenseItem = (props) => {
 				<span className='badge badge-primary badge-pill mr-3'>
 				${props.cost}
 				</span>
-				<Icon icon="mdi:delete-circle" />
+				<Icon icon="mdi:delete-circle" onClick={handleDeleteExpense}/>
 			</div>
 		</li>
 	);

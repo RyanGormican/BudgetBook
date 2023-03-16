@@ -5,10 +5,12 @@ import Remaining from './components/Remaining';
 import ExpenseTotal from './components/ExpenseTotal';
 import ExpenseList from './components/ExpenseList';
 import AddExpenseForm from './components/AddExpenseForm';
+import { AppProvider} from './context/AppContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
 	return (
+		<AppProvider>
 		<div className='container'>
 			<h1 className ='mt-3'>
 				BudgetBook
@@ -52,6 +54,8 @@ const App = () => {
 				</div>
 			</div>
 		</div> 
+		</AppProvider>
+		
 	);
 };
 

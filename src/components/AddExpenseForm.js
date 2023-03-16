@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const AddExpenseForm = () => {
+const [name,setName] = useState('');
+const [cost,setCost] = useState('');
 	return (
 		<form>
 			<div className='row'>
@@ -11,6 +13,8 @@ const AddExpenseForm = () => {
 						type='text'
 						className='form-control'
 						id='name'
+						value={name}
+						onChange={(event)=> setName(event.target.value)}
 					/>
 				</div>
 				<div className='col-sm'>
@@ -20,6 +24,8 @@ const AddExpenseForm = () => {
 						type='text'
 						className='form-control'
 						id='name'
+						value={cost}
+						onChange={(event)=> setCost(event.target.value)}
 					/>
 				</div> 
 				<div className='col-sm'>

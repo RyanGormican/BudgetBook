@@ -5,28 +5,29 @@ const AppReducer =(state, action) => {
 		default:
 			return state;
 	}
-}
+};
 const initialState= {
 	budget: 1000,
-	expenses: {
+	expenses: [
 		{id: 10, name: 'test', cost:20},
 		{id: 20, name: 'test', cost:20},
 		{id: 30, name: 'test', cost:20},
-	},
+	],
 };
 
 export const AppContext = createContext();
 
-const AppProvider = (props) => {
+export const AppProvider = (props) => {
 	const[state,dispatch] = useReducer(AppReducer, initialState);
 
-	return(<AppContext.Provide> value={{
+	return(<AppContext.Provider value={{
 		budget: state.budget,
-		budget: state.expenses,
-		dispatch
+		expenses: state.expenses,
+		dispatch,
 	}}
+	> 
 	
 	{props.children}
-	</AppContext.Provide> 
+	</AppContext.Provider> 
 	);
 };

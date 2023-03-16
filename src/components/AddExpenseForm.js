@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {AppContext} from '../context/AppContext';
 import {v4 as uuidv4} from 'uuid';
 const AddExpenseForm = () => {
-const {dipatch} = useContext(AppContext);
+const {dispatch} = useContext(AppContext);
 const [name,setName] = useState('');
 const [cost,setCost] = useState('');
 

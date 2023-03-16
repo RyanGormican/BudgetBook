@@ -8,7 +8,7 @@ const expenses = [
 			{id: 123, name: 'Shopping', cost: 50},
 		];	
 return (
-		<ul>
+		<ul className='list-group'>
 			{expenses.map(((expense)=> (
 				<ExpenseItem 
 					id={expense.id} 

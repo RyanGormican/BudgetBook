@@ -6,9 +6,9 @@ const ExpenseItem = (props) => {
 			{props.name}
 			<div>
 				<span className='badge badge-primary badge-pill mr-3'>
-					${props.cost}
-					<Icon icon="mdi:delete-circle" />
+				${props.cost}
 				</span>
+				<Icon icon="mdi:delete-circle" />
 			</div>
 		</li>
 	);

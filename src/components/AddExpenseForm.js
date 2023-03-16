@@ -12,8 +12,14 @@ const onSubmit = (event) =>{
 		id:uuidv4(),
 		name:name,
 		cost: parseInt(cost),
-	}
-}
+	};
+
+	dispatch({
+		type: 'ADD_EXPENSE',
+		payload: expense,
+
+	});
+};
 	return (
 		<form onSubmit={onSubmit}>
 			<div className='row'>

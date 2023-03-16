@@ -21,9 +21,7 @@ const AppReducer =(state, action) => {
 const initialState= {
 	budget: 1000,
 	expenses: [
-		{id: 10, name: 'test', cost:20},
-		{id: 20, name: 'test', cost:20},
-		{id: 30, name: 'test', cost:20},
+		{id: 1, name: 'Add Expenses Below!', cost:20},
 	],
 };
 

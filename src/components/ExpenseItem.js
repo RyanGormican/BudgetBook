@@ -14,11 +14,11 @@ const ExpenseItem = (props) => {
 		<li className='list-group-item d-flex justify-content-between align-items-center'>
 			{props.name}
 			<div>
-				<span className='badge badge-primary badge-pill mr-3'>
+				<span className='alert alert-primary'>
 				${props.cost}
 				</span>
 				<button onClick={handleDeleteExpense}>
-					<Icon icon="mdi:delete-circle" />
+					<Icon icon="mdi:delete-circle" width="20"/>
 				</button>
 			</div>
 		</li>

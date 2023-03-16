@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import Budget from './components/Budget';
 import Remaining from './components/Remaining';
+import ExpenseTotal from './components/ExpenseTotal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -29,7 +30,7 @@ const App = () => {
 					<Remaining />
 				</div>
 				<div className='col-sm'>
-					<Spent />
+					<ExpenseTotal />
 				</div>
 			</div>
 		</div> 

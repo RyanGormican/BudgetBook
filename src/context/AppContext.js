@@ -1,9 +1,9 @@
-import {createContext, useReducer} from 'react';
+import {createContext, useReducer, useEffect} from 'react';
 
 const AppReducer =(state, action) => {
 	switch(action.type){
 		case 'ADD_EXPENSE':
-			const expense = [...state.expenses, action.payload];
+			const expenses = [...state.expenses, action.payload];
 			localStorage.setItem('BudgetBook-expenses', JSON.stringify(expenses));
 			return {
 				...state,

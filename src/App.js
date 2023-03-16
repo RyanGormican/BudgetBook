@@ -1,5 +1,7 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
+import Budget from './components/Budget';
+import Remaining from './components/Remaining';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -19,9 +21,12 @@ const App = () => {
 					<Icon icon="teenyicons:computer-outline" color="#199c35" width="40" />
 				</a>
 			</span>
-			<div className="row mt-3">
-				<div className="col-sm">
-
+			<div className='row mt-3'>
+				<div className='col-sm'>
+					<Budget />
+				</div>
+				<div className='col-sm'>
+					<Remaining />
 				</div>
 			</div>
 		</div> 

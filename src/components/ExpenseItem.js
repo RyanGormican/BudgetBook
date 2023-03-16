@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import { Icon } from '@iconify/react';
+import { AppContext } from '../context/AppContext';
 const ExpenseItem = (props) => {
 	const { dispatch } = useContext(AppContext);
 
@@ -16,7 +17,9 @@ const ExpenseItem = (props) => {
 				<span className='badge badge-primary badge-pill mr-3'>
 				${props.cost}
 				</span>
-				<Icon icon="mdi:delete-circle" onClick={handleDeleteExpense}/>
+				<button onClick={handleDeleteExpense}>
+					<Icon icon="mdi:delete-circle" />
+				</button>
 			</div>
 		</li>
 	);

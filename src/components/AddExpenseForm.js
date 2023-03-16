@@ -24,7 +24,7 @@ const onSubmit = (event) =>{
 		<form onSubmit={onSubmit}>
 			<div className='row'>
 				<div className='col-sm'>
-					<label for="name"> Name </label>
+					<label for='name'> Name </label>
 					<input 
 						required='required' 
 						type='text'
@@ -35,7 +35,7 @@ const onSubmit = (event) =>{
 					/>
 				</div>
 				<div className='col-sm'>
-					<label for="cost"> Cost </label>
+					<label for='cost'> Cost </label>
 					<input 
 						required='required' 
 						type='text'

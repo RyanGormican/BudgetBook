@@ -9,7 +9,8 @@ return (
 				<ExpenseItem 
 					id={expense.id} 
 					name={expense.name} 
-					cost={expense.cost}/>
+					cost={expense.cost}
+					tag={expense.tag}/>
 			)))}
 		</ul>
 		);

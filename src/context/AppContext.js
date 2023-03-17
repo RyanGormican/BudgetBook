@@ -37,7 +37,7 @@ const getStorage = () => {
 const initialState= {
 	budget: 1000,
 	expenses: [
-		{id: 1, name: 'Add Expenses Below!', cost:20},
+		{id: 1, name: 'Add Expenses Below!', cost:20, tag:'Hey'},
 	],
 };
 

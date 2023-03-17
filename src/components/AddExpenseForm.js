@@ -5,13 +5,14 @@ const AddExpenseForm = () => {
 const {dispatch} = useContext(AppContext);
 const [name,setName] = useState('');
 const [cost,setCost] = useState('');
-
+const [tag, setTag] = useState('');
 const onSubmit = (event) =>{
 	event.preventDefault();
 	const expense ={
 		id:uuidv4(),
 		name:name,
 		cost: parseInt(cost),
+		tag:tag,
 	};
 
 	dispatch({
@@ -43,6 +44,17 @@ const onSubmit = (event) =>{
 						id='name'
 						value={cost}
 						onChange={(event)=> setCost(event.target.value)}
+					/>
+				</div> 
+				<div className='col-sm'>
+					<label for='cost'> Tag </label>
+					<input 
+						required='required' 
+						type='text'
+						className='form-control'
+						id='name'
+						value={tag}
+						onChange={(event)=> setTag(event.target.value)}
 					/>
 				</div> 
 				</div> 

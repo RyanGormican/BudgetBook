@@ -20,9 +20,9 @@ const ExpenseTotal = () => {
 	},{});
 	const renderTagList = (tagList) => {
 		return tagList.map((tag) => (
-			<li key = {tag.tag}>
+			<p>
 				{tag.tag}: ${tag.cost}
-			</li>
+			</p>
 		))
 	}
 	const tagArray = Object.keys(tagList).map((tag)=> {

@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import {AppContext} from '../context/AppContext';
 import { Icon } from '@iconify/react';
 import { Tooltip } from 'react-tooltip'
+import {renderToString} from 'react-dom/server';
 const ExpenseTotal = () => {
 	const {expenses} = useContext(AppContext);
 	
@@ -32,7 +33,7 @@ const ExpenseTotal = () => {
 			<span>
 			Spent: ${totalExpenses}
 			</span>
-			<a data-tooltip-id="tagList" data-tooltip-content={<ul>{renderTagList(tagArray)} </ul>} data-tooltip-place="bottom">
+			<a data-tooltip-id="tagList" data-tooltip-content={renderToString(<ul>{renderTagList(tagArray)} </ul>)} data-tooltip-place="bottom">
 				<Icon icon="mdi:question-mark-circle"/>
 			</a>
 			<Tooltip id="tagList" />

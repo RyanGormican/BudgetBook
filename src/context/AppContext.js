@@ -7,14 +7,14 @@ const AppReducer =(state, action) => {
 			localStorage.setItem('BudgetBook-expenses', JSON.stringify(expenses));
 			return {
 				...state,
-				expenses,
+				expenses: expenses,
 			};
 		case 'DELETE_EXPENSE':
 			const updatedExpenses = state.expenses.filter((expense)=> expense.id !== action.payload);
 			localStorage.setItem('BudgetBook-expenses', JSON.stringify(updatedExpenses));
 			return {
 				...state,
-				updatedExpenses
+				expenses: updatedExpenses
 			};
 		case 'SET_BUDGET':
 			localStorage.setItem('BudgetBook-budget', action.payload);

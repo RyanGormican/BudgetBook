@@ -17,19 +17,22 @@ const ExpenseTotal = () => {
 		}
 		return tag;
 	},{});
-	const renderTagList = () => {
-		return Object.keys(tagList).map((tag)=> (
-			<li key={tag}>
-				{tag}: ${tagList[tag]}
+	const renderTagList = (tagList) => {
+		return tagList.map((tag) => (
+			<li key = {tag.tag}>
+				{tag.tag}: ${tag.cost}
 			</li>
 		))
 	}
+	const tagArray = Object.keys(tagList).map((tag)=> {
+		return {tag: tag, cost: tagList[tag]}
+	})
 	return (
 		<div className = 'alert alert-primary'>
 			<span>
 			Spent: ${totalExpenses}
 			</span>
-			<a data-tooltip-id="tagList" data-tooltip-content={<ul>{renderTagList()} </ul>} data-tooltip-place="bottom">
+			<a data-tooltip-id="tagList" data-tooltip-content={<ul>{renderTagList(tagArray)} </ul>} data-tooltip-place="bottom">
 				<Icon icon="mdi:question-mark-circle"/>
 			</a>
 			<Tooltip id="tagList" />

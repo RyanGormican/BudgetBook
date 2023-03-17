@@ -28,12 +28,16 @@ const ExpenseTotal = () => {
 	const tagArray = Object.keys(tagList).map((tag)=> {
 		return {tag: tag, cost: tagList[tag]}
 	})
+
+	const tagString = tagArray.map((tag) => {
+		return `${tag.tag}: $${tag.cost}`;
+	}).join(', ');
 	return (
 		<div className = 'alert alert-primary'>
 			<span>
 			Spent: ${totalExpenses}
 			</span>
-			<a data-tooltip-id="tagList" data-tooltip-content={renderToString(<ul>{renderTagList(tagArray)} </ul>)} data-tooltip-place="bottom">
+			<a data-tooltip-id="tagList" data-tooltip-content={tagString} data-tooltip-place="bottom">
 				<Icon icon="mdi:question-mark-circle"/>
 			</a>
 			<Tooltip id="tagList" />

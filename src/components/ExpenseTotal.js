@@ -4,15 +4,15 @@ import { Icon } from '@iconify/react';
 import { Tooltip } from 'react-tooltip'
 import {renderToString} from 'react-dom/server';
 const ExpenseTotal = () => {
-	const {expenses} = useContext(AppContext);
+	const {expenses,budget} = useContext(AppContext);
 	
 	const totalExpenses = expenses.reduce((total,item) =>{
-		return (total += item.cost);
+		return (total += ((item.cost) * 1.00));
 	},0);
 	
 	const tagList = expenses.reduce((tag,item) =>{
 		if(tag[item.tag]){
-			tag[item.tag]+=item.cost;
+			tag[item.tag]+=((item.cost) * 1.00);
 		} else {
 			tag[item.tag] = item.cost;
 		}
@@ -30,7 +30,8 @@ const ExpenseTotal = () => {
 	})
 
 	const tagString = tagArray.map((tag) => {
-		return `${tag.tag}: $${tag.cost}`;
+		const percentage = ((tag.cost / parseFloat(budget)) * 100).toFixed(2);
+		return `${tag.tag}: $${tag.cost} (${percentage}%)`;
 	}).join(', ');
 	return (
 		<div className = 'alert alert-primary'>

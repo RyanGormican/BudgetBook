@@ -11,7 +11,7 @@ const onSubmit = (event) =>{
 	const expense ={
 		id:uuidv4(),
 		name:name,
-		cost: parseInt(cost),
+		cost: parseFloat(cost).toFixed(2),
 		tag:tag,
 	};
 

@@ -30,7 +30,7 @@ const getStorage = () => {
 	const budget = localStorage.getItem('BudgetBook-budget') || initialState.budget;
 	const expenses = JSON.parse(localStorage.getItem('BudgetBook-expenses')) || initialState.expenses;
 	return {
-		budget:parseInt(budget),
+		budget:parseFloat(budget).toFixed(2),
 		expenses,
 	};
 };

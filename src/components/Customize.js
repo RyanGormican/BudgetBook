@@ -1,9 +1,8 @@
 import React, {useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
-
 const Customize = () => {
-	const { styles, dispatch } = useContext (AppContext);
+	const { expenses, styles, dispatch } = useContext (AppContext);
 
 	
 	const handleFormSubmit= (e)=> {
@@ -19,7 +18,16 @@ const Customize = () => {
 	return (
 		<div>
 			<form onSubmit = {handleFormSubmit}>
-			
+				{styles.map((style) => (
+					<div className='row'>
+						<div className='col-sm'>
+							<li key={style.tag}>
+								{style.tag} : {style.color}
+							</li>
+						</div>
+					</div>
+				))}
+				<button type="submit"  className='btn btn-primary'> Update Styles </button>
 			</form>
 		</div>
 	);

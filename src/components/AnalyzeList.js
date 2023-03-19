@@ -13,7 +13,7 @@ const AnalyzeList = () => {
     if (tag in tagCosts) {
       tagCosts[tag] += (cost * 1.00 );
     } else {
-      tagCosts[tag] = cost;
+      tagCosts[tag] = (cost * 1.00);
     }
   });
 
@@ -38,17 +38,15 @@ const AnalyzeList = () => {
         backgroundColor: backgroundColor,
       },
     ],
-     options: {
     tooltips: {
       callbacks: {
         label: function (context) {
-          const tagCost = context.parsed.y;
-          const percent = ((tagCost / budget) * 100).toFixed(2);
-          return `${context.label}: $${tagCost} (${percent}%)`;
+          const value = data[context.dataIndex];
+          const percent = ((value / budget) * 100).toFixed(2);
+          return `${context.label}: $${value} (${percent}%)`;
         },
       },
     },
-  },
   };
 
   return (

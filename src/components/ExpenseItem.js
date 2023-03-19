@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext';
 const ExpenseItem = (props) => {
 	const { dispatch } = useContext(AppContext);
 
-	const date = props.time ? new Date(props.time) : new Date();
+	const date = props.timestamp ? new Date(props.timestamp) : new Date();
 	const dateTimeString = date.toLocaleString()
 
 
@@ -14,16 +14,16 @@ const ExpenseItem = (props) => {
 			payload: props.id,
 		});
 	};
-	const theTime = props.time ? (
-	<span className='btn btn-primary'>
-				{theTime}
-	</span>
-	) : null;
+	
 	return (
 		<li className='list-group-item d-flex justify-content-between align-items-center'>
 			{props.name}
 			<div>
-				{theTime}
+				{props.timestamp && (
+				<span className='btn btn-primary'>
+				{dateTimeString}
+				</span> 
+				)}
 				<span className='btn btn-primary'>
 				{props.tag}
 				</span>

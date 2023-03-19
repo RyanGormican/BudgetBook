@@ -15,6 +15,9 @@ const ExpenseItem = (props) => {
 			{props.name}
 			<div>
 				<span className='btn btn-primary'>
+				{props.time.toLocalDateString()}
+				</span>
+				<span className='btn btn-primary'>
 				{props.tag}
 				</span>
 				<span className='btn btn-primary'>

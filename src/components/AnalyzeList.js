@@ -18,16 +18,16 @@ const AnalyzeList = () => {
   });
 
   const tags = Object.keys(tagCosts);
-  const unusedBudget = budget - Object.values(tagCosts).reduce((acc, cost) => acc + cost, 0);
+  const remainingBudget = budget - Object.values(tagCosts).reduce((acc, cost) => acc + cost, 0);
 
 
   const labels = tags.map((tag) => {
     const cost = tagCosts[tag];
     const percentage = ((cost/budget) * 100).toFixed(settings.decimalPrecision);
     return `${tag} (${percentage}%)`;
-  }).concat(`Unused (${((unusedBudget/budget) * 100).toFixed(settings.decimalPrecision)}%)`);
+  }).concat(`Remaining (${((remainingBudget/budget) * 100).toFixed(settings.decimalPrecision)}%)`);
 
-  const data = [...Object.values(tagCosts), unusedBudget];
+  const data = [...Object.values(tagCosts), remainingBudget];
   const backgroundColor = labels.map(() => {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);

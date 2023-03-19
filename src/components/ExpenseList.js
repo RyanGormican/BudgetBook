@@ -10,7 +10,8 @@ return (
 					id={expense.id} 
 					name={expense.name} 
 					cost={expense.cost}
-					tag={expense.tag}/>
+					tag={expense.tag}
+					time={expense.time}/>
 			)))}
 		</ul>
 		);

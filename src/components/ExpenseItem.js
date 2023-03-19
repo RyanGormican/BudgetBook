@@ -3,11 +3,6 @@ import { Icon } from '@iconify/react';
 import { AppContext } from '../context/AppContext';
 const ExpenseItem = (props) => {
 	const { dispatch } = useContext(AppContext);
-
-	const date = props.timestamp ? new Date(props.timestamp) : new Date();
-	const dateTimeString = date.toLocaleString()
-
-
 	const handleDeleteExpense = () => {
 		dispatch({
 			type: 'DELETE_EXPENSE',
@@ -21,7 +16,7 @@ const ExpenseItem = (props) => {
 			<div>
 				{props.timestamp && (
 				<span className='btn btn-primary'>
-				{dateTimeString}
+				{props.timestamp}
 				</span> 
 				)}
 				<span className='btn btn-primary'>

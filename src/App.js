@@ -14,8 +14,10 @@ const App = () => {
 	const toggleView = () => {
 		if(view === 'expenseList') {
 			setView('analyzeList');
-		} else {
+		} else if (view === 'analyzeList'){
 			setView('expenseList');
+		} else if (view ==='addList') {
+			setView('addList');
 		}
 
 	}
@@ -58,17 +60,19 @@ const App = () => {
 					<button className = "btn btn-primary" onClick={() => setView('expenseList')}>
 					View
 					</button>
-					<button className = "btn btn-primary" onClick={toggleView}>
+					<button className = "btn btn-primary" onClick={() => setView('analyzeList')}>
 					Analyze
+					</button>
+					<button className = "btn btn-primary" onClick={() => setView('addList')}>
+					Add
 					</button>
 				</div>
 			</div>
-			<table>
-				<tbody>
-				{view === 'expenseList' && <ExpenseList />}
-				{view === 'analyzeList' && <AnalyzeList />}
-				</tbody>
-			</table>
+			<div className="table-responsive" style={{maxHeight: '40vh', overflow: 'auto'}}>
+					{view === 'expenseList' && <ExpenseList />}
+					{view === 'analyzeList' && <AnalyzeList />}
+					{view === 'addList' && <AddExpenseForm />}
+			</div>
 			
 
 

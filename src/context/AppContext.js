@@ -23,7 +23,7 @@ const AppReducer =(state, action) => {
 				budget: action.payload,
 			};
 		case 'UPDATE_SETTINGS':
-			localStorage.setItem('BudgetBook-settings', action.payload);
+			localStorage.setItem('BudgetBook-settings',  JSON.stringify(action.payload));
 			return {
 				...state,
 				settings: action.payload

@@ -57,7 +57,10 @@ const initialState= {
 	],
 	settings: {
 		decimalPrecision: 2,
-	}
+	},
+	styles: [
+		{tag:'Hey',color:'256,256,256,0.6'},
+	],
 };
 
 export const AppContext = createContext();

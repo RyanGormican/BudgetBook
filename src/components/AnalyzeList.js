@@ -29,8 +29,10 @@ const AnalyzeList = () => {
 
   const data = [...Object.values(tagCosts), remainingBudget];
   const backgroundColor = labels.map(() => {
-    const tag= label.split(' ')[0]
-    return styles[tag] || 'blue';
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgba(${r}, ${g}, ${b}, 0.6)`;
   });
 
   const costData = {

@@ -5,7 +5,7 @@ import { Pie } from 'react-chartjs-2';
 Chart.register(ArcElement, Tooltip, Legend);
 
 const AnalyzeList = () => {
-  const { expenses, settings, budget } = useContext(AppContext);
+  const { expenses, settings, styles, budget } = useContext(AppContext);
 
   const tagCosts = {};
   expenses.forEach((expense) => {
@@ -29,10 +29,8 @@ const AnalyzeList = () => {
 
   const data = [...Object.values(tagCosts), remainingBudget];
   const backgroundColor = labels.map(() => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgba(${r}, ${g}, ${b}, 0.6)`;
+    const tag= label.split(' ')[0]
+    return styles[tag] || 'blue';
   });
 
   const costData = {

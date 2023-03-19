@@ -28,6 +28,12 @@ const AppReducer =(state, action) => {
 				...state,
 				settings: action.payload
 			}
+		case 'UPDATE_STYLES':
+			localStorage.setItem('BudgetBook-styles',  JSON.stringify(action.payload));
+			return {
+				...state,
+				styles: action.payload
+			}
 		default:
 			return state;
 	}
@@ -36,10 +42,12 @@ const getStorage = () => {
 	const budget = localStorage.getItem('BudgetBook-budget') || initialState.budget;
 	const expenses = JSON.parse(localStorage.getItem('BudgetBook-expenses')) || initialState.expenses;
 	const settings = JSON.parse(localStorage.getItem('BudgetBook-settings')) || initialState.settings;
+	const styles = JSON.parse(localStorage.getItem('BudgetBook-styles')) || initialState.styles;
 	return {
 		budget:parseFloat(budget).toFixed(2),
 		expenses,
 		settings,
+		styles,
 	};
 };
 const initialState= {
@@ -61,12 +69,14 @@ export const AppProvider = (props) => {
 		localStorage.setItem('budget',state.budget);
 		localStorage.setItem('expenses',JSON.stringify(state.expenses));
 		localStorage.setItem('settings',JSON.stringify(state.settings));
+		localStorage.setItem('styles',JSON.stringify(state.settings));
 	},[state]);
 
 	return(<AppContext.Provider value={{
 		budget: state.budget,
 		expenses: state.expenses,
 		settings: state.settings,
+		styles: state.styles,
 		dispatch,
 	}}
 	> 

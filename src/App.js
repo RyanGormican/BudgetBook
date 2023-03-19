@@ -60,30 +60,18 @@ const App = () => {
 					<button className = "btn btn-primary" onClick={() => setView('expenseList')}>
 					View
 					</button>
-					<button className = "btn btn-primary" onClick={() => setView('analyzeList')}>
-					Analyze
-					</button>
 					<button className = "btn btn-primary" onClick={() => setView('addList')}>
 					Add
+					</button>
+					<button className = "btn btn-primary" onClick={() => setView('analyzeList')}>
+					Analyze
 					</button>
 				</div>
 			</div>
 			<div className="table-responsive" style={{maxHeight: '40vh', overflow: 'auto'}}>
 					{view === 'expenseList' && <ExpenseList />}
-					{view === 'analyzeList' && <AnalyzeList />}
 					{view === 'addList' && <AddExpenseForm />}
-			</div>
-			
-
-
-
-			<h3 className='mt-3'>
-			Add Expenses
-			</h3> 
-			<div className='row mt-3'>
-				<div className='col-sm'>
-					<AddExpenseForm />
-				</div>
+					{view === 'analyzeList' && <AnalyzeList />}
 			</div>
 			</div>
 		</AppProvider>

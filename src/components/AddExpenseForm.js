@@ -40,9 +40,10 @@ const onSubmit = (event) =>{
 					<label for='cost'> Cost </label>
 					<input 
 						required='required' 
-						type='text'
+						type='number'
 						className='form-control'
 						id='name'
+						min="0.01"
 						value={cost}
 						onChange={(event)=> setCost(event.target.value)}
 					/>

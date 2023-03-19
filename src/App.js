@@ -9,6 +9,7 @@ import { AppProvider} from './context/AppContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
+import Customize from './components/Customize';
 
 const App = () => {
 	const [view, setView] = useState('expenseList');
@@ -19,7 +20,9 @@ const App = () => {
 			setView('expenseList');
 		} else if (view ==='addList') {
 			setView('addList');
-		} else if (view ==='Settings') {
+		}  else if (view ==='Customize') {
+			setView('Customize');
+		}else if (view ==='Settings') {
 			setView('Settings');
 		}
 
@@ -69,7 +72,10 @@ const App = () => {
 					<button className = "btn btn-primary" onClick={() => setView('analyzeList')}>
 					Analyze
 					</button>
-						<button className = "btn btn-primary" onClick={() => setView('Settings')}>
+					<button className = "btn btn-primary" onClick={() => setView('Customize')}>
+					Customize
+					</button>
+					<button className = "btn btn-primary" onClick={() => setView('Settings')}>
 					Settings
 					</button>
 				</div>
@@ -78,6 +84,7 @@ const App = () => {
 					{view === 'expenseList' && <ExpenseList />}
 					{view === 'addList' && <AddExpenseForm />}
 					{view === 'analyzeList' && <AnalyzeList />}
+					{view === 'Customize' && <Customize />}
 					{view === 'Settings' && <Settings />}
 			</div>
 			</div>

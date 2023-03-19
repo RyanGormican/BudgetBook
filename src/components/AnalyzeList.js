@@ -20,7 +20,13 @@ const AnalyzeList = () => {
   const tags = Object.keys(tagCosts);
   const unusedBudget = budget - Object.values(tagCosts).reduce((acc, cost) => acc + cost, 0);
 
-  const labels = [...tags, 'Unused'];
+
+  const labels = tags.map((tag) => {
+    const cost = tagCosts[tag];
+    const percentage = ((cost/budget) * 100).toFixed(2);
+    return `${tag} (${percentage}%)`;
+  }).concat(`Unused (${((unusedBudget/budget) * 100).toFixed(2)}%)`);
+
   const data = [...Object.values(tagCosts), unusedBudget];
   const backgroundColor = labels.map(() => {
     const r = Math.floor(Math.random() * 256);

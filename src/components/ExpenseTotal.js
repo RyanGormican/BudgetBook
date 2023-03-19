@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react';
 import { Tooltip } from 'react-tooltip'
 import {renderToString} from 'react-dom/server';
 const ExpenseTotal = () => {
-	const {expenses,budget} = useContext(AppContext);
+	const {expenses, settings, budget} = useContext(AppContext);
 	
 	const totalExpenses = expenses.reduce((total,item) =>{
 		return (total += ((item.cost) * 1.00));
@@ -30,7 +30,7 @@ const ExpenseTotal = () => {
 	})
 
 	const tagString = tagArray.map((tag) => {
-		const percentage = ((tag.cost / parseFloat(budget)) * 100).toFixed(2);
+		const percentage = ((tag.cost / parseFloat(budget)) * 100).toFixed(settings.decimalPrecision);
 		return `${tag.tag}: $${tag.cost} (${percentage}%)`;
 	}).join(', ');
 	return (

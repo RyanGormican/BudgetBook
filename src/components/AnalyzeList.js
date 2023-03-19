@@ -5,7 +5,7 @@ import { Pie } from 'react-chartjs-2';
 Chart.register(ArcElement, Tooltip, Legend);
 
 const AnalyzeList = () => {
-  const { expenses, budget } = useContext(AppContext);
+  const { expenses, settings, budget } = useContext(AppContext);
 
   const tagCosts = {};
   expenses.forEach((expense) => {
@@ -23,9 +23,9 @@ const AnalyzeList = () => {
 
   const labels = tags.map((tag) => {
     const cost = tagCosts[tag];
-    const percentage = ((cost/budget) * 100).toFixed(2);
+    const percentage = ((cost/budget) * 100).toFixed(settings.decimalPrecision);
     return `${tag} (${percentage}%)`;
-  }).concat(`Unused (${((unusedBudget/budget) * 100).toFixed(2)}%)`);
+  }).concat(`Unused (${((unusedBudget/budget) * 100).toFixed(settings.decimalPrecision)}%)`);
 
   const data = [...Object.values(tagCosts), unusedBudget];
   const backgroundColor = labels.map(() => {
@@ -48,7 +48,7 @@ const AnalyzeList = () => {
       callbacks: {
         label: function (context) {
           const value = data[context.dataIndex];
-          const percent = ((value / budget) * 100).toFixed(2);
+          const percent = ((value / budget) * 100).toFixed(settings.decimalPrecision);
           return `${context.label}: $${value} (${percent}%)`;
         },
       },

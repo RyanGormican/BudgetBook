@@ -25,12 +25,12 @@ const Settings = () => {
 					<label for='name'> Decimal Precision </label>
 					<input 
 						required='required' 
-						type='text'
+						type='number'
 						className='form-control'
 						id='decimalPrecision'
 						value={decimalPrecision}
 						min="1"
-						max="10"
+						max="15"
 						onChange={(event)=> setDecimalPrecision(event.target.value)}
 					/>
 				</div>

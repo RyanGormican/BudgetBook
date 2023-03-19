@@ -14,9 +14,15 @@ const ExpenseItem = (props) => {
 		<li className='list-group-item d-flex justify-content-between align-items-center'>
 			{props.name}
 			<div>
+			{props.time? (
 				<span className='btn btn-primary'>
 				{props.time.toLocalDateString()}
 				</span>
+			) : (
+				<span className='btn btn-primary'>
+				{new Date().toLocaleDateString()}
+				</span>
+			)}
 				<span className='btn btn-primary'>
 				{props.tag}
 				</span>

@@ -11,7 +11,7 @@ return (
 					name={expense.name} 
 					cost={expense.cost}
 					tag={expense.tag}
-					time={expense.time}/>
+					timestamp={expense.timestamp}/>
 			)))}
 		</ul>
 		);

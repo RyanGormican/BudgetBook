@@ -10,13 +10,16 @@ const ExpenseItem = (props) => {
 		});
 	};
 	
+	const timestamp = props.timestamp ? new Date(props.timestamp) : null;
+	const dateTimeString = timestamp ? timestamp.toLocaleString(): '';
+
 	return (
 		<li className='list-group-item d-flex justify-content-between align-items-center'>
 			{props.name}
 			<div>
-				{props.timestamp && (
+				{timestamp && (
 				<span className='btn btn-primary'>
-				{props.timestamp}
+				{dateTimeString}
 				</span> 
 				)}
 				<span className='btn btn-primary'>

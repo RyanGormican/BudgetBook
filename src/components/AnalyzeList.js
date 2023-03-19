@@ -38,6 +38,17 @@ const AnalyzeList = () => {
         backgroundColor: backgroundColor,
       },
     ],
+     options: {
+    tooltips: {
+      callbacks: {
+        label: function (context) {
+          const tagCost = context.parsed.y;
+          const percent = ((tagCost / budget) * 100).toFixed(2);
+          return `${context.label}: $${tagCost} (${percent}%)`;
+        },
+      },
+    },
+  },
   };
 
   return (

@@ -5,14 +5,14 @@ const Customize = () => {
 	const { expenses, styles, dispatch } = useContext (AppContext);
 
 	useEffect(()=>{
-		const newTags=expenses
-		.map((expense)=> expense.tag)
-		.filter((tag) => !styles?.some((style)=> style.tag === tag));
+		const newTagsSet = new Set(expenses.map((expense)=> expense.tag));
+	    const stylesSet = new Set(styles.map((style) => style.tag));
+        const diffTags = [...newTagsSet].filter((tag) => !stylesSet.has(tag));
 
-		if(newTags.length > 0){
+		if (diffTags.length > 0){
 			const refreshStyles = [
 				...styles,
-				...newTags.map((tag) => ({
+				...diffTags.map((tag) => ({
 					tag,
 					color: "255,255,255,0.6",
 					})),

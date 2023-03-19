@@ -72,7 +72,7 @@ export const AppProvider = (props) => {
 		localStorage.setItem('budget',state.budget);
 		localStorage.setItem('expenses',JSON.stringify(state.expenses));
 		localStorage.setItem('settings',JSON.stringify(state.settings));
-		localStorage.setItem('styles',JSON.stringify(state.settings));
+		localStorage.setItem('styles',JSON.stringify(state.styles));
 	},[state]);
 
 	return(<AppContext.Provider value={{

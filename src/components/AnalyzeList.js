@@ -17,7 +17,7 @@ const AnalyzeList = () => {
     }
   });
 
-  const tags = Object.keys(tagCosts);
+  const tags = Object.keys(tagCosts).sort();
   const remainingBudget = budget - Object.values(tagCosts).reduce((acc, cost) => acc + cost, 0);
 
 
@@ -28,12 +28,11 @@ const AnalyzeList = () => {
   }).concat(`Remaining (${((remainingBudget/budget) * 100).toFixed(settings.decimalPrecision)}%)`);
 
   const data = [...Object.values(tagCosts), remainingBudget];
-  const backgroundColor = labels.map(() => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgba(${r}, ${g}, ${b}, 0.6)`;
-  });
+  const backgroundColor = labels.map((label, index) => {
+  const style = styles.find((s) => s.tag === label.split(' ')[0]);
+  return style ? `#${style.color}` : `rgb(0,0,255)`;
+});
+
 
   const costData = {
     labels: labels,

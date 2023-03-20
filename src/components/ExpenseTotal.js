@@ -8,13 +8,13 @@ const ExpenseTotal = () => {
 	
 	const totalExpenses = expenses.reduce((total,item) =>{
 		return (total += ((item.cost) * 1.00));
-	},0);
+	},0).toFixed(2);
 	
 	const tagList = expenses.reduce((tag,item) =>{
 		if(tag[item.tag]){
 			tag[item.tag]+=((item.cost) * 1.00);
 		} else {
-			tag[item.tag] = item.cost;
+			tag[item.tag] = item.cost * 1.00;
 		}
 		return tag;
 	},{});

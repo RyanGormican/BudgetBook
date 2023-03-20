@@ -44,6 +44,7 @@ const onSubmit = (event) =>{
 						className='form-control'
 						id='name'
 						min="0.01"
+						step="0.01"
 						value={cost}
 						onChange={(event)=> setCost(event.target.value)}
 					/>

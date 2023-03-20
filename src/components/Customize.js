@@ -14,7 +14,7 @@ const Customize = () => {
 				...styles,
 				...diffTags.map((tag) => ({
 					tag,
-					color: "255,255,255",
+					color: "0000FF",
 					})),
 			];
 			dispatch({
@@ -28,7 +28,7 @@ const Customize = () => {
 				...styles,
 				 {
 					tag:"Remaining",
-					color: "255,255,255",
+					color: "0000FF",
 				 },
 			];
 			dispatch({
@@ -54,14 +54,11 @@ const Customize = () => {
 			payload: updatedStyles,
 		});
 	};
+	const sortStyles =[...styles].sort((a,b) => a.tag.localeCompare(b.tag));
 
-	const handleFormSubmit= (e)=> {
-		e.preventDefault();
-	};
 	return (
 		<div>
-			<form onSubmit = {handleFormSubmit}>
-				{styles?.length>0 && styles.map((style) => (
+				{sortStyles?.length>0 && sortStyles.map((style) => (
 					<div className='row' key={style.tag}>
 						<div className='col-sm'>
 							<label htmlFor={style.tag}>{style.tag} : </label>
@@ -75,8 +72,6 @@ const Customize = () => {
 						</div>
 					</div>
 				))}
-				<button type="submit"  className='btn btn-primary'> Update Styles </button>
-			</form>
 		</div>
 	);
 };

@@ -9,8 +9,10 @@ const EditBudget = (props) => {
 						type='number'
 						class='form-control mr-3'
 						id='name'
+						min='0.01'
+						step='0.01'
 						value={value}
-						onChange={(event) => setValue(event.target.value)}
+						onChange={(event) => setValue((event.target.value))}
 					/>
 					<button
 						type='button'

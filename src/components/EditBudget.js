@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 
 const EditBudget = (props) => {
 		const [value, setValue] = useState(props.budget);
+		const handleValueChange = (event) => {
+			const newValue = parseFloat(event.target.value).toFixed(2);
+			setValue(newValue);
+		};
 		return (
 				<>
 					<input
@@ -12,7 +16,7 @@ const EditBudget = (props) => {
 						min='0.01'
 						step='0.01'
 						value={value}
-						onChange={(event) => setValue((event.target.value))}
+						onChange={handleValueChange}
 					/>
 					<button
 						type='button'

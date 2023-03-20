@@ -14,7 +14,7 @@ const Customize = () => {
 				...styles,
 				...diffTags.map((tag) => ({
 					tag,
-					color: "255,255,255,0.6",
+					color: "255,255,255",
 					})),
 			];
 			dispatch({
@@ -22,29 +22,56 @@ const Customize = () => {
 				payload:refreshStyles,
 			});
 		}
+
+		if (!stylesSet.has("Remaining")){
+			const refreshStyles = [
+				...styles,
+				 {
+					tag:"Remaining",
+					color: "255,255,255",
+				 },
+			];
+			dispatch({
+				type:"UPDATE_STYLES",
+				payload:refreshStyles,
+			});
+		}
+
 	}, [expenses, styles, dispatch]);
 
-
+	const handleColorChange = (tag, e) =>{
+		const updatedStyles = styles.map((style)=>{
+			if (style.tag === tag) {
+				return { 
+					...style,
+					color: e.target.value.substr(1), 
+				};
+			}
+			return style;
+		});
+		dispatch({
+			type: 'UPDATE_STYLES',
+			payload: updatedStyles,
+		});
+	};
 
 	const handleFormSubmit= (e)=> {
 		e.preventDefault();
-		const styles ={
-			... styles,
-		};
-		dispatch({
-			type: 'UPDATE_STYLES',
-			payload: styles,
-		});
 	};
 	return (
 		<div>
 			<form onSubmit = {handleFormSubmit}>
 				{styles?.length>0 && styles.map((style) => (
-					<div className='row'>
+					<div className='row' key={style.tag}>
 						<div className='col-sm'>
-							<li key={style.tag}>
-								{style.tag} : {style.color}
-							</li>
+							<label htmlFor={style.tag}>{style.tag} : </label>
+							<input
+							type="color"
+							id={style.tag}
+							name={style.tag}
+							value={`#${style.color}`}
+							onChange={(e) => handleColorChange(style.tag, e)}
+							/>
 						</div>
 					</div>
 				))}

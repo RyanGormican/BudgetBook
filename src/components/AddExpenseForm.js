@@ -13,6 +13,7 @@ const onSubmit = (event) =>{
 		name:name,
 		cost: parseFloat(cost).toFixed(2),
 		tag:tag,
+		time:new Date().getTime(),
 		timestamp:new Date().getTime(),
 	};
 

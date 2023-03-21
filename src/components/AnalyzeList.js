@@ -62,7 +62,7 @@ const AnalyzeList = () => {
     <div style={{ width:'50vw', height:'40vh'}}>
         {isOverBudget ? (
         <div> 
-            User must be within the budget in order to generate a pie chart 
+            User's costs must be within the targeted budget in order to generate a pie chart 
         </div>
        ) : ( 
       <Pie data={costData} />

@@ -1,10 +1,24 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import ExpenseItem from './ExpenseItem';
 import { AppContext } from '../context/AppContext';
 const ExpenseList = () => {
-const { expenses } = useContext(AppContext);
+const { expenses, dispatch} = useContext(AppContext);
 const [sort, setSort] = useState('sortTimestamp');
 const sortExpenses = JSON.parse(JSON.stringify(expenses));
+	useEffect(()=> {
+	const now = new Date().toISOString();
+	sortExpenses.forEach(expense => {
+	console.log(expense);
+		if (!expense.time){
+		const updatedExpense = { ...expense, time: now };
+		dispatch({ type: 'UPDATE_EXPENSE', payload: updatedExpense});
+		}
+		if (!expense.timestamp){
+		const updatedExpense = { ...expense, timestamp: Date.now() };
+		dispatch({ type: 'UPDATE_EXPENSE', payload: updatedExpense });
+		}
+		});
+	}, [expenses]);
 	switch (sort) {
 		case 'sortName':
 			sortExpenses.sort((a,b) => a.name.localeCompare(b.name));
@@ -16,7 +30,7 @@ const sortExpenses = JSON.parse(JSON.stringify(expenses));
 			sortExpenses.sort((a,b) => a.tag.localeCompare(b.tag));
 			break;
 		case 'sortTime':
-			sortExpenses.sort((a,b) => b.time - a.time);
+			sortExpenses.sort((a,b) => Date.parse(b.time) - Date.parse(a.time));
 			break;
 		case 'sortTimestamp':
 			sortExpenses.sort((a,b) => b.timestamp - a.timestamp);

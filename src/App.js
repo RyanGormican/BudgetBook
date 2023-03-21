@@ -80,7 +80,7 @@ const App = () => {
 					</button>
 				</div>
 			</div>
-			<div className="table-responsive" style={{maxHeight: '40vh', overflow: 'auto'}}>
+			<div className="table-responsive" style={{maxHeight: '60vh', overflow: 'auto'}}>
 					{view === 'expenseList' && <ExpenseList />}
 					{view === 'addList' && <AddExpenseForm />}
 					{view === 'analyzeList' && <AnalyzeList />}

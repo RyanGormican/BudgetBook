@@ -17,7 +17,7 @@ const sortExpenses = JSON.parse(JSON.stringify(expenses));
 		dispatch({ type: 'UPDATE_EXPENSE', payload: updatedExpense});
 		}
 		if (!expense.timestamp){
-		const updatedExpense = { ...expense, timestamp: now };
+		const updatedExpense = { ...expense, timestamp: new Date().getTime() };
 		dispatch({ type: 'UPDATE_EXPENSE', payload: updatedExpense });
 		}
 		});
@@ -27,7 +27,7 @@ const sortExpenses = JSON.parse(JSON.stringify(expenses));
 			sortExpenses.sort((a,b) => a.name.localeCompare(b.name));
 			break;
 		case 'sortCost':
-			sortExpenses.sort((a,b) => a.cost-b.cost);
+			sortExpenses.sort((a,b) => a.cost-b.cost).reverse();
 			break;
 		case 'sortTag':
 			sortExpenses.sort((a,b) => a.tag.localeCompare(b.tag));

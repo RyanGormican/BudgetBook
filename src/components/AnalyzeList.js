@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
@@ -6,7 +6,7 @@ Chart.register(ArcElement, Tooltip, Legend);
 
 const AnalyzeList = () => {
   const { expenses, settings, styles, budget } = useContext(AppContext);
-
+  const [isOverBudget, setIsOverBudget] = useState(false);
   const tagCosts = {};
   expenses.forEach((expense) => {
     const { tag, cost } = expense;
@@ -20,6 +20,10 @@ const AnalyzeList = () => {
   const tags = Object.keys(tagCosts).sort();
   const remainingBudget = budget - Object.values(tagCosts).reduce((acc, cost) => acc + cost, 0);
 
+  const totalCost = Object.values(tagCosts).reduce((acc,cost) => acc + cost, 0);
+  if (totalCost > budget){
+        setIsOverBudget(true);
+  }
 
   const labels = tags.map((tag) => {
     const cost = tagCosts[tag];
@@ -56,7 +60,13 @@ const AnalyzeList = () => {
 
   return (
     <div style={{ width:'50vw', height:'40vh'}}>
+        {isOverBudget ? (
+        <div> 
+            User must be within the budget in order to generate a pie chart 
+        </div>
+       ) : ( 
       <Pie data={costData} />
+       )}
     </div>
   );
 };

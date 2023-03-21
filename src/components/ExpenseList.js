@@ -43,17 +43,19 @@ return (
 					Sort By Time Added 
 					</button>
 		</div>
-		<ul className='list-group'>
-			{sortExpenses.map(((expense)=> (
-				<ExpenseItem 
-					id={expense.id} 
-					name={expense.name} 
-					cost={expense.cost}
-					tag={expense.tag}
-					time={expense.time}
-					timestamp={expense.timestamp}/>
-			)))}
-		</ul>
+		<div>
+			<ul className='list-group'>
+				{sortExpenses.map(((expense)=> (
+					<ExpenseItem 
+						id={expense.id} 
+						name={expense.name} 
+						cost={expense.cost}
+						tag={expense.tag}
+						time={expense.time}
+						timestamp={expense.timestamp}/>
+				)))}
+			</ul>
+		</div>
 		</div>
 		);
 };

@@ -23,7 +23,7 @@ const ExpenseItem = (props) => {
 			<div>
 				{props.time && (
 				<span className='btn btn-primary'>
-				<input type="datetime-local"  value = {dateTimeString} onChange = {handleTimeChange} />
+				<input type="datetime-local"  value = {props.time} onChange = {handleTimeChange} />
 				</span> 
 				)}
 				<span className='btn btn-primary'>

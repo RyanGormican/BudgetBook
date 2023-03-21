@@ -16,7 +16,7 @@ const sortExpenses = JSON.parse(JSON.stringify(expenses));
 			sortExpenses.sort((a,b) => a.tag.localeCompare(b.tag));
 			break;
 		case 'sortTime':
-			sortExpenses.sort((a,b) => b.timestamp - a.timestamp);
+			sortExpenses.sort((a,b) => b.time - a.time);
 			break;
 		case 'sortTimestamp':
 			sortExpenses.sort((a,b) => b.timestamp - a.timestamp);
@@ -36,7 +36,7 @@ return (
 					<button className = "btn btn-primary" onClick={() => setSort('sortTag')}>
 					Sort By Tag
 					</button>
-					<button className = "btn btn-primary" onClick={() => setSort('sortTimestamp')}>
+					<button className = "btn btn-primary" onClick={() => setSort('sortTime')}>
 					Sort By Expense Time
 					</button>
 					<button className = "btn btn-primary" onClick={() => setSort('sortTimestamp')}>

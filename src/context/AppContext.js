@@ -22,18 +22,25 @@ const AppReducer =(state, action) => {
 				...state,
 				budget: action.payload,
 			};
+		case 'UPDATE_EXPENSE':
+			const changedExpenses = state.expenses.map((expense) => expense.id === action.payload.id ? action.payload : expense);
+			localStorage.setItem('BudgetBook-expenses', JSON.stringify(changedExpenses));
+			return {
+				...state,
+				expenses: changedExpenses
+			};
 		case 'UPDATE_SETTINGS':
 			localStorage.setItem('BudgetBook-settings',  JSON.stringify(action.payload));
 			return {
 				...state,
 				settings: action.payload
-			}
+			};
 		case 'UPDATE_STYLES':
 			localStorage.setItem('BudgetBook-styles',  JSON.stringify(action.payload));
 			return {
 				...state,
 				styles: action.payload
-			}
+			};
 		default:
 			return state;
 	}

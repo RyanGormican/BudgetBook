@@ -9,21 +9,21 @@ const ExpenseItem = (props) => {
 			payload: props.id,
 		});
 	};
-	
-	const dateTimeString = props.timestamp ? new Date(parseInt(props.timestamp)).toLocaleString(): '';
-	const dateTimeString2 = props.timestamp ? new Date(parseInt(props.time)).toLocaleString(): '';
+	const handleTimeChange = (event) => {
+		const updatedExpense = { ...props, time: event.target.value };
+		dispatch({
+			type: 'UPDATE_EXPENSE',
+			payload: updatedExpense, 
+		});
+	};
+	const dateTimeString = props.time ? new Date(parseInt(props.time)*1000).toISOString().slice(0,-8): '';
 	return (
 		<li className='list-group-item d-flex justify-content-between align-items-center'>
 			{props.name}
 			<div>
-				{props.timestamp && (
-				<span className='btn btn-primary'>
-				{dateTimeString}
-				</span> 
-				)}
 				{props.time && (
 				<span className='btn btn-primary'>
-				{dateTimeString2}
+				<input type="datetime-local"  value = {dateTimeString} onChange = {handleTimeChange} />
 				</span> 
 				)}
 				<span className='btn btn-primary'>

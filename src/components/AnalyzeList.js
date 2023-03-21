@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
@@ -20,10 +20,10 @@ const AnalyzeList = () => {
   const tags = Object.keys(tagCosts).sort();
   const remainingBudget = budget - Object.values(tagCosts).reduce((acc, cost) => acc + cost, 0);
 
+  useEffect(()=> {
   const totalCost = Object.values(tagCosts).reduce((acc,cost) => acc + cost, 0);
-  if (totalCost > budget){
-        setIsOverBudget(true);
-  }
+       setIsOverBudget(totalCost > budget);
+  }, [tagCosts, budget]);
 
   const labels = tags.map((tag) => {
     const cost = tagCosts[tag];

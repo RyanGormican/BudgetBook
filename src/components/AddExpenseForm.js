@@ -9,12 +9,16 @@ const [tag, setTag] = useState('');
 const onSubmit = (event) =>{
 	event.preventDefault();
 	const now = new Date();
+	const offsetMinutes = now.getTimezoneOffset();
+	const offsetMilliseconds = offsetMinutes * 60 * 1000;
+	const localTimestamp = now.getTime() - offsetMilliseconds;
+	const localDate = new Date(localTimestamp);
 	const expense ={
 		id:uuidv4(),
 		name:name,
 		cost: parseFloat(cost).toFixed(2),
 		tag:tag,
-		time:now.toISOString().slice(0,16),
+		time:localDate.toISOString().slice(0,16),
 		timestamp:new Date().getTime(),
 	};
 

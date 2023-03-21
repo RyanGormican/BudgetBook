@@ -6,15 +6,18 @@ const { expenses, dispatch} = useContext(AppContext);
 const [sort, setSort] = useState('sortTimestamp');
 const sortExpenses = JSON.parse(JSON.stringify(expenses));
 	useEffect(()=> {
-	const now = new Date().toISOString();
+	const now = new Date;
+	const offsetMinutes = now.getTimezoneOffset();
+	const offsetMilliseconds = offsetMinutes * 60 * 1000;
+	const localTimestamp = now.getTime() - offsetMilliseconds;
+	const localDate = new Date(localTimestamp);
 	sortExpenses.forEach(expense => {
-	console.log(expense);
 		if (!expense.time){
-		const updatedExpense = { ...expense, time: now };
+		const updatedExpense = { ...expense, time: localDate.toISOString().slice(0,16) };
 		dispatch({ type: 'UPDATE_EXPENSE', payload: updatedExpense});
 		}
 		if (!expense.timestamp){
-		const updatedExpense = { ...expense, timestamp: Date.now() };
+		const updatedExpense = { ...expense, timestamp: now };
 		dispatch({ type: 'UPDATE_EXPENSE', payload: updatedExpense });
 		}
 		});

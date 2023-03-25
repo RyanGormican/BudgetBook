@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from 'react';
 import ExpenseItem from './ExpenseItem';
 import { AppContext } from '../context/AppContext';
 const ExpenseList = ({ sort, reverse,edit}) => {
-const { expenses, dispatch} = useContext(AppContext);
+const { expenses, styles, dispatch} = useContext(AppContext);
 const sortExpenses = JSON.parse(JSON.stringify(expenses));
 	useEffect(()=> {
 	const now = new Date;
@@ -21,6 +21,42 @@ const sortExpenses = JSON.parse(JSON.stringify(expenses));
 		}
 		});
 	}, [expenses]);
+
+	useEffect(()=>{
+		const newTagsSet = new Set(expenses.map((expense)=> expense.tag));
+	    const stylesSet = new Set(styles.map((style) => style.tag));
+        const diffTags = [...newTagsSet].filter((tag) => !stylesSet.has(tag));
+
+		if (diffTags.length > 0){
+			const refreshStyles = [
+				...styles,
+				...diffTags.map((tag) => ({
+					tag,
+					color: "0000FF",
+					})),
+			];
+			dispatch({
+				type:"UPDATE_STYLES",
+				payload:refreshStyles,
+			});
+		}
+
+		if (!stylesSet.has("Remaining")){
+			const refreshStyles = [
+				...styles,
+				 {
+					tag:"Remaining",
+					color: "0000FF",
+				 },
+			];
+			dispatch({
+				type:"UPDATE_STYLES",
+				payload:refreshStyles,
+			});
+		}
+
+	}, [expenses, styles, dispatch]);
+
 	switch (sort) {
 		case 'sortName':
 			sortExpenses.sort((a,b) => a.name.localeCompare(b.name));

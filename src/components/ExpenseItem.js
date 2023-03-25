@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Icon } from '@iconify/react';
 import { AppContext } from '../context/AppContext';
-
+import {GrabButtonColors, GrabTextColors} from './Utility';
 const ExpenseItem = (props) => {
   const { styles, dispatch } = useContext(AppContext);
 
@@ -45,7 +45,7 @@ const ExpenseItem = (props) => {
   };
 
   const tagStyle = styles.find((style) => style.tag === props.tag)?.color ? '#' + styles.find((style) => style.tag === props.tag).color : '';
-  const buttonStyle = { backgroundColor: tagStyle, color: '#FFFFFF' };
+  const buttonStyle = { backgroundColor: tagStyle, color: GrabTextColors() };
   const dateTimeString = props.time ? new Date(parseInt(props.time) * 1000).toISOString().slice(0, -8) : '';
 
   return (

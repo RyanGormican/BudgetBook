@@ -1,12 +1,13 @@
 import React, {useContext, useState} from 'react';
 import {AppContext} from '../context/AppContext';
 import {v4 as uuidv4} from 'uuid';
+import {GrabButtonColors, GrabTextColors} from './Utility';
 const AddExpenseForm = () => {
 const {dispatch, style, settings} = useContext(AppContext);
 const [name,setName] = useState('');
 const [cost,setCost] = useState('');
 const [tag, setTag] = useState('');
-const buttonStyle = { backgroundColor: settings.buttonColors, color: "#FFFFFF"};
+const buttonStyle = { backgroundColor: GrabButtonColors(), color: GrabTextColors()};
 const onSubmit = (event) =>{
 	event.preventDefault();
 	const now = new Date();
@@ -32,7 +33,7 @@ const onSubmit = (event) =>{
 		<form onSubmit={onSubmit}>
 			<div className='row'>
 				<div className='col-sm'>
-					<label for='name'> Name </label>
+					<button className='btn' style={buttonStyle}> Name </button>
 					<input 
 						required='required' 
 						type='text'
@@ -43,7 +44,7 @@ const onSubmit = (event) =>{
 					/>
 				</div>
 				<div className='col-sm'>
-					<label for='cost'> Cost </label>
+					<button className='btn' style={buttonStyle}> Cost </button>
 					<input 
 						required='required' 
 						type='number'
@@ -56,7 +57,7 @@ const onSubmit = (event) =>{
 					/>
 				</div> 
 				<div className='col-sm'>
-					<label for='cost'> Tag </label>
+					<button className='btn' style={buttonStyle}> Tag </button>
 					<input 
 						required='required' 
 						type='text'

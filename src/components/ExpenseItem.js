@@ -17,7 +17,7 @@ const ExpenseItem = (props) => {
 		});
 	};
 
-	const tagStyle =styles.find(s => s.tag === props.tag)?.color ?.color ? '#' + styles.find(s => s.tag === props.tag).color : '' ;
+	const tagStyle =styles.find(style => style.tag === props.tag)?.color ?.color ? '#' + styles.find(style => style.tag === props.tag).color : '' ;
 	const buttonStyle = { backgroundColor: tagStyle};
 	const dateTimeString = props.time ? new Date(parseInt(props.time)*1000).toISOString().slice(0,-8): '';
 	return (

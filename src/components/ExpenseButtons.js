@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './AnalyzeList';
 import Settings from './Settings';
 import Customize from './Customize';
-const MainButtons = () => {
+const ExpenseButtons = () => {
 
 
 	const [view, setView] = useState('expenseList');
@@ -83,4 +83,4 @@ const MainButtons = () => {
 		);
 };
 
-export default MainButtons;
+export default ExpenseButtons;

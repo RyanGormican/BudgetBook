@@ -11,7 +11,7 @@ import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
 import Customize from './components/Customize';
 import {GrabButtonColors} from './components/Utility';
-import MainButtons from './components/MainButtons';
+import ExpenseButtons from './components/ExpenseButtons';
 const App = () => {
 	return (
 		<AppProvider>
@@ -42,7 +42,7 @@ const App = () => {
 					<ExpenseTotal />
 				</div>
 			</div>
-			<MainButtons />
+			<ExpenseButtons />
 			</div>
 		</AppProvider>
 		

@@ -67,19 +67,19 @@ const App = () => {
 					Expenses
 				</h3>
 				<div className="d-flex mb-4 justify-content-center">
-					<button className="btn" style = {buttonStyle} onClick={() => setView('expenseList')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}} onClick={() => setView('expenseList')}>
 					View
 					</button>
-					<button className="btn"style = {buttonStyle} onClick={() => setView('addList')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setView('addList')}>
 					Add
 					</button>
-					<button className="btn"style = {buttonStyle} onClick={() => setView('analyzeList')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setView('analyzeList')}>
 					Analyze
 					</button>
-					<button className="btn"style = {buttonStyle} onClick={() => setView('Customize')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setView('Customize')}>
 					Customize
 					</button>
-					<button className="btn"style = {buttonStyle} onClick={() => setView('Settings')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setView('Settings')}>
 					Settings
 					</button>
 				</div>
@@ -87,27 +87,27 @@ const App = () => {
 		{view === 'expenseList' ? (
 		
 				<div className="d-flex mb-4 justify-content-center">
-					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortName')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setSort('sortName')}>
 					Sort By Name 
 					</button>
-					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortCost')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setSort('sortCost')}>
 					Sort By Cost 
 					</button>
-					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortTag')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setSort('sortTag')}>
 					Sort By Tag
 					</button>
-					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortTime')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setSort('sortTime')}>
 					Sort By Expense Time
 					</button>
-					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortTimestamp')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setSort('sortTimestamp')}>
 					Sort By Time Added 
 					</button>
 					{reverse === 'false' ? (
-					<button className="btn"style = {buttonStyle} onClick={() => setReverse('true')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setReverse('true')}>
 						<Icon icon="mdi:arrow-up-bold" />
 					</button>
 					) : (
-					<button className="btn"style = {buttonStyle} onClick={() => setReverse('false')}>
+					<button className="btn" style = {{ backgroundColor: settings.buttonColors, color: "#FFFFFF"}}  onClick={() => setReverse('false')}>
 						<Icon icon="mdi:arrow-down-bold" />
 					</button>
 					)}

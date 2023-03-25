@@ -10,7 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
 import Customize from './components/Customize';
-
 const App = () => {
 	const [view, setView] = useState('expenseList');
 	const [sort, setSort] = useState('sortTimestamp');
@@ -29,7 +28,7 @@ const App = () => {
 		}
 
 	}
-	const buttonStyle = { backgroundColor:"#0000FF", color: "#FFFFFF"};
+	const buttonStyle = { backgroundColor:"#0d6efd", color: "#FFFFFF"};
 	return (
 		<AppProvider>
 		<div className='container'>

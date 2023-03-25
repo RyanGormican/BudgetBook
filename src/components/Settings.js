@@ -1,4 +1,4 @@
-import React, {useContext, useState } from 'react';
+import React, {useContext, useState, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 
 
@@ -7,8 +7,7 @@ const Settings = () => {
 	const [decimalPrecision, setDecimalPrecision] = useState(settings.decimalPrecision);
 	const [buttonColors, setButtonColors] = useState(settings.buttonColors)
 	const buttonStyle = { backgroundColor: settings.buttonColors, color: "#FFFFFF"};
-	const handleFormSubmit= (e)=> {
-		e.preventDefault();
+	const updateSettings= ()=> {
 		const setting ={
 			... settings,
 			decimalPrecision:parseInt(decimalPrecision),
@@ -19,8 +18,11 @@ const Settings = () => {
 			payload: setting
 		});
 	};
+	useEffect(() => {
+		updateSettings();
+	}, [ decimalPrecision, buttonColors]);
+	
 	return (
-		<form onSubmit = {handleFormSubmit}>
 			<div className='row'>
 				<div className='col-sm'>
 					<label for='name'> Decimal Precision </label>
@@ -45,14 +47,6 @@ const Settings = () => {
 							/>
 						</div>
 				</div>
-				<div class='row mt-3'>
-				<div className='col-sm'>
-					<button type='submit' className='btn' style={buttonStyle}>
-					Save
-					</button>
-				</div>
-				</div>
-		</form>
 	);
 };
 export default Settings;

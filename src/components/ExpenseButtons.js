@@ -61,7 +61,7 @@ const ExpenseButtons = () => {
 					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setSort('sortTimestamp')}>
 					Sort By Time Added 
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setSort('sortTimeupdated')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setSort('sortUpdatedTime')}>
 					Sort By Time Updated 
 					</button>
 					{reverse === 'false' ? (

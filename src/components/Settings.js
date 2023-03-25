@@ -6,12 +6,14 @@ const Settings = () => {
 	const { settings, dispatch } = useContext (AppContext);
 	const [decimalPrecision, setDecimalPrecision] = useState(settings.decimalPrecision);
 	const [buttonColors, setButtonColors] = useState(settings.buttonColors)
+	const [textColors, setTextColors] = useState(settings.textColors)
 	const buttonStyle = { backgroundColor: settings.buttonColors, color: "#FFFFFF"};
 	const updateSettings= ()=> {
 		const setting ={
 			... settings,
 			decimalPrecision:parseInt(decimalPrecision),
 			buttonColors:buttonColors,
+			textColors:textColors,
 		};
 		dispatch({
 			type: 'UPDATE_SETTINGS',
@@ -45,8 +47,17 @@ const Settings = () => {
 							value={buttonColors}
 							onChange={(event)=> setButtonColors(event.target.value)}
 							/>
-						</div>
 				</div>
+				<div className='col-sm'>
+							<label for='color'> Text Colors </label>
+							<input
+							type="color"
+							id='textColors'
+							value={textColors}
+							onChange={(event)=> setTextColors(event.target.value)}
+							/>
+				</div>
+			</div>
 	);
 };
 export default Settings;

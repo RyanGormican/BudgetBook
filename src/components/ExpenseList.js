@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import ExpenseItem from './ExpenseItem';
 import { AppContext } from '../context/AppContext';
-const ExpenseList = ({ sort, reverse}) => {
+const ExpenseList = ({ sort, reverse,edit}) => {
 const { expenses, dispatch} = useContext(AppContext);
 const sortExpenses = JSON.parse(JSON.stringify(expenses));
 	useEffect(()=> {
@@ -54,7 +54,9 @@ return (
 						cost={expense.cost}
 						tag={expense.tag}
 						time={expense.time}
-						timestamp={expense.timestamp}/>
+						timestamp={expense.timestamp}
+						edit={edit}
+						/>
 				)))}
 			</ul>
 		</div>

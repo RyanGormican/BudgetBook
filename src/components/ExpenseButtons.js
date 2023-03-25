@@ -17,6 +17,7 @@ const ExpenseButtons = () => {
 	const [view, setView] = useState('expenseList');
 	const [sort, setSort] = useState('sortTimestamp');
 	const [reverse, setReverse] = useState('false');
+	const [edit, setEdit] = useState('false');
 		return (
 			<div>
 			<div className="container mt-4">
@@ -69,10 +70,19 @@ const ExpenseButtons = () => {
 						<Icon icon="mdi:arrow-down-bold" />
 					</button>
 					)}
+					{edit === 'false' ? (
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setEdit('true')}>
+						<Icon icon="ph:magnifying-glass-bold" />
+					</button>
+					) : (
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setEdit('false')}>
+						<Icon icon="mdi:lead-pencil" />
+					</button>
+					)}
 				</div>
 					) : null }
 			<div className="table-responsive" style={{maxHeight: '60vh', overflow: 'auto'}}>
-					{view === 'expenseList' && <ExpenseList sort={sort} reverse={reverse} />}
+					{view === 'expenseList' && <ExpenseList sort={sort} reverse={reverse} edit={edit} />}
 					{view === 'addList' && <AddExpenseForm />}
 					{view === 'analyzeList' && <AnalyzeList />}
 					{view === 'Customize' && <Customize />}

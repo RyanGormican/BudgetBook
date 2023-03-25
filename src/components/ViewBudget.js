@@ -2,8 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 const ViewBudget = (props) => {
 		const { settings, dispatch } = useContext (AppContext);
-		const [buttonColors, setButtonColors] = useState(settings.buttonColors);
-		const buttonStyle = { backgroundColor:buttonColors, color: "#FFFFFF"};
+		const buttonStyle = { backgroundColor:settings.buttonColors, color: "#FFFFFF"};
 		return (
 			<>
 				<span> 

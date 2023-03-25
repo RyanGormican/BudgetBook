@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 const EditBudget = (props) => {
 		const [value, setValue] = useState(props.budget);
 		const handleValueChange = (event) => {
 			const newValue = parseFloat(event.target.value).toFixed(2);
 			setValue(newValue);
 		};
+
+		const { settings, dispatch } = useContext (AppContext);
+		const [buttonColors, setButtonColors] = useState(settings.buttonColors);
+		const buttonStyle = { backgroundColor:buttonColors, color: "#FFFFFF"};
 		return (
 				<>
 					<input
@@ -20,7 +24,8 @@ const EditBudget = (props) => {
 					/>
 					<button
 						type='button'
-						class='btn btn-primary'
+						class='btn'
+						style={buttonStyle}
 						onClick={()=>props.handleSaveClick(value)}
 					>
 						Save

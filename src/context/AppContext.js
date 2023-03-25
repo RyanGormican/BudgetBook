@@ -64,7 +64,7 @@ const initialState= {
 	],
 	settings: {
 		decimalPrecision: 2,
-		buttonColors: '0000FF',
+		buttonColors: '0d6efd',
 	},
 	styles: [
 		{tag:'Hey',color:'0000FF'},

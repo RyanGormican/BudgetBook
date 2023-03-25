@@ -2,10 +2,11 @@ import React, {useContext, useState} from 'react';
 import {AppContext} from '../context/AppContext';
 import {v4 as uuidv4} from 'uuid';
 const AddExpenseForm = () => {
-const {dispatch} = useContext(AppContext);
+const {dispatch, style, settings} = useContext(AppContext);
 const [name,setName] = useState('');
 const [cost,setCost] = useState('');
 const [tag, setTag] = useState('');
+const buttonStyle = { backgroundColor: settings.buttonColors, color: "#FFFFFF"};
 const onSubmit = (event) =>{
 	event.preventDefault();
 	const now = new Date();
@@ -21,7 +22,6 @@ const onSubmit = (event) =>{
 		time:localDate.toISOString().slice(0,16),
 		timestamp:new Date().getTime(),
 	};
-
 	dispatch({
 		type: 'ADD_EXPENSE',
 		payload: expense,
@@ -69,7 +69,7 @@ const onSubmit = (event) =>{
 				</div> 
 				<div class='row mt-3'>
 				<div className='col-sm'>
-					<button type='submit' className='btn btn-primary'>
+					<button type='submit' className='btn' style={buttonStyle}>
 					Save
 					</button>
 				</div>

@@ -17,22 +17,22 @@ const ExpenseItem = (props) => {
 		});
 	};
 
-	const tagStyle = styles.find(style => style.tag === props.tag);
-	console.log(tagStyle);
+	const tagStyle =styles.find(s => s.tag === props.tag)?.color ?.color ? '#' + styles.find(s => s.tag === props.tag).color : '' ;
+	const buttonStyle = { backgroundColor: tagStyle};
 	const dateTimeString = props.time ? new Date(parseInt(props.time)*1000).toISOString().slice(0,-8): '';
 	return (
 		<li className='list-group-item d-flex justify-content-between align-items-center'>
 			{props.name}
 			<div>
 				{props.time && (
-				<span className='btn btn-primary'>
+				<span className='btn btn-primary' style = {buttonStyle}>
 				<input type="datetime-local"  value = {props.time} onChange = {handleTimeChange} />
 				</span> 
 				)}
-				<span className='btn btn-primary' style = {{ color:tagStyle?.color}}>
+				<span className='btn btn-primary' style = {buttonStyle}>
 				{props.tag}
 				</span>
-				<span className='btn btn-primary'>
+				<span className='btn btn-primary'  style = {buttonStyle}>
 				${props.cost}
 				</span>
 				<Icon icon="mdi:delete-circle" width="20" onClick={handleDeleteExpense}/>

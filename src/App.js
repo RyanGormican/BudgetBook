@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import Budget from './components/Budget';
 import Remaining from './components/Remaining';
@@ -10,13 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
 import Customize from './components/Customize';
-import { GetButtonColors } from './components/Color';
 const App = () => {
-	const buttonColors = GetButtonColors();
 	const [view, setView] = useState('expenseList');
 	const [sort, setSort] = useState('sortTimestamp');
 	const [reverse, setReverse] = useState('false');
-
+	const { settings } = useContext(AppContext);
 	const toggleView = () => {
 		if(view === 'expenseList') {
 			setView('analyzeList');
@@ -31,7 +29,8 @@ const App = () => {
 		}
 
 	}
-	const buttonStyle = { backgroundColor: buttonColors, color: "#FFFFFF"};
+	const buttonStyle = { backgroundColor:  useContext(AppContext).settings.buttonColors, color: "#FFFFFF"};
+
 	return (
 		<AppProvider>
 		<div className='container'>

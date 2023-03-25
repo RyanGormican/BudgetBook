@@ -10,12 +10,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
 import Customize from './components/Customize';
+import {GrabButtonColors} from './components/Utility';
 const App = () => {
+	
 	const [view, setView] = useState('expenseList');
 	const [sort, setSort] = useState('sortTimestamp');
 	const [reverse, setReverse] = useState('false');
 	const { settings } = useContext(AppContext);
-	const [buttonColors, setButtonColors] = useState(settings.buttonColors);
+	const buttonColors = GrabButtonColors();
+
 	const toggleView = () => {
 		if(view === 'expenseList') {
 			setView('analyzeList');
@@ -30,10 +33,6 @@ const App = () => {
 		}
 
 	}
-	useEffect(() => {
-		setButtonColors(settings.buttonColors);
-		console.log(settings.buttonColors);
-	}, [settings.buttonColors]);
 	return (
 		<AppProvider>
 		<div className='container'>
@@ -64,13 +63,12 @@ const App = () => {
 				</div>
 			</div>
 
-
 			<div className="container mt-4">
 				<h3 className='mt-3 text-center'> 
 					Expenses
 				</h3>
 				<div className="d-flex mb-4 justify-content-center">
-					<button className="btn" style = {{ backgroundColor: {buttonColors}, color: "#FFFFFF"}} onClick={() => setView('expenseList')}>
+					<button className="btn" style = {{ backgroundColor: buttonColors, color: "#FFFFFF"}} onClick={() => setView('expenseList')}>
 					View
 					</button>
 					<button className="btn" style = {{ backgroundColor: buttonColors, color: "#FFFFFF"}} onClick={() => setView('addList')}>

@@ -17,22 +17,7 @@ const MainButtons = () => {
 	const [view, setView] = useState('expenseList');
 	const [sort, setSort] = useState('sortTimestamp');
 	const [reverse, setReverse] = useState('false');
-	
-
-
-	const toggleView = () => {
-		if(view === 'expenseList') {
-			setView('analyzeList');
-		} else if (view === 'analyzeList'){
-			setView('expenseList');
-		} else if (view ==='addList') {
-			setView('addList');
-		}  else if (view ==='Customize') {
-			setView('Customize');
-		}else if (view ==='Settings') {
-			setView('Settings');
-		}
-		};
+	console.log(view);
 		return (
 			<div>
 			<div className="container mt-4">
@@ -57,7 +42,8 @@ const MainButtons = () => {
 					</button>
 				</div>
 			</div>
-				{view === 'expenseList' ? (
+			
+			{view === 'expenseList' ? (
 		
 				<div className="d-flex mb-4 justify-content-center">
 					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortName')}>
@@ -84,7 +70,7 @@ const MainButtons = () => {
 						<Icon icon="mdi:arrow-down-bold" />
 					</button>
 					)}
-			</div>
+				</div>
 					) : null }
 			<div className="table-responsive" style={{maxHeight: '60vh', overflow: 'auto'}}>
 					{view === 'expenseList' && <ExpenseList sort={sort} reverse={reverse} />}

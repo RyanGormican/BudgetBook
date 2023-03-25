@@ -13,27 +13,6 @@ import Customize from './components/Customize';
 import {GrabButtonColors} from './components/Utility';
 import MainButtons from './components/MainButtons';
 const App = () => {
-	
-	const [view, setView] = useState('expenseList');
-	const [sort, setSort] = useState('sortTimestamp');
-	const [reverse, setReverse] = useState('false');
-	
-
-
-	const toggleView = () => {
-		if(view === 'expenseList') {
-			setView('analyzeList');
-		} else if (view === 'analyzeList'){
-			setView('expenseList');
-		} else if (view ==='addList') {
-			setView('addList');
-		}  else if (view ==='Customize') {
-			setView('Customize');
-		}else if (view ==='Settings') {
-			setView('Settings');
-		}
-
-	}
 	return (
 		<AppProvider>
 		<div className='container'>
@@ -63,45 +42,7 @@ const App = () => {
 					<ExpenseTotal />
 				</div>
 			</div>
-
 			<MainButtons />
-			
-		{view === 'expenseList' ? (
-		
-				<div className="d-flex mb-4 justify-content-center">
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortName')}>
-					Sort By Name 
-					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortCost')}>
-					Sort By Cost 
-					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortTag')}>
-					Sort By Tag
-					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortTime')}>
-					Sort By Expense Time
-					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortTimestamp')}>
-					Sort By Time Added 
-					</button>
-					{reverse === 'false' ? (
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setReverse('true')}>
-						<Icon icon="mdi:arrow-up-bold" />
-					</button>
-					) : (
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setReverse('false')}>
-						<Icon icon="mdi:arrow-down-bold" />
-					</button>
-					)}
-			</div>
-					) : null }
-			<div className="table-responsive" style={{maxHeight: '60vh', overflow: 'auto'}}>
-					{view === 'expenseList' && <ExpenseList sort={sort} reverse={reverse} />}
-					{view === 'addList' && <AddExpenseForm />}
-					{view === 'analyzeList' && <AnalyzeList />}
-					{view === 'Customize' && <Customize />}
-					{view === 'Settings' && <Settings />}
-			</div>
 			</div>
 		</AppProvider>
 		

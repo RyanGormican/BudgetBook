@@ -4,5 +4,5 @@ import {AppContext} from "../context/AppContext";
 export const GetButtonColors = () => {
 	const { settings } = useContext(AppContext);
 
-	return settings.buttonColors;
+	return settings ? settings.buttonColors : null;
 };

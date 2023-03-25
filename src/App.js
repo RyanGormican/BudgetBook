@@ -10,8 +10,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
 import Customize from './components/Customize';
-import Color from './components/Color';
+import { GetButtonColors } from './components/Color';
 const App = () => {
+	const buttonColors = GetButtonColors();
 	const [view, setView] = useState('expenseList');
 	const [sort, setSort] = useState('sortTimestamp');
 	const [reverse, setReverse] = useState('false');
@@ -30,7 +31,7 @@ const App = () => {
 		}
 
 	}
-	const buttonStyle = { backgroundColor:GetButtonColors(), color: "#FFFFFF"};
+	const buttonStyle = { backgroundColor: buttonColors, color: "#FFFFFF"};
 	return (
 		<AppProvider>
 		<div className='container'>

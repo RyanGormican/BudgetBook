@@ -1,6 +1,16 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
-import {GrabButtonColors} from './components/Utility';
+import {GrabButtonColors} from './Utility';
+import { Icon } from '@iconify/react';
+import Budget from './Budget';
+import Remaining from './Remaining';
+import ExpenseTotal from './ExpenseTotal';
+import ExpenseList from './ExpenseList';
+import AddExpenseForm from './AddExpenseForm';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import AnalyzeList from './AnalyzeList';
+import Settings from './Settings';
+import Customize from './Customize';
 const MainButtons = () => {
 
 
@@ -22,8 +32,9 @@ const MainButtons = () => {
 		}else if (view ==='Settings') {
 			setView('Settings');
 		}
-		}
+		};
 		return (
+			<div>
 			<div className="container mt-4">
 				<h3 className='mt-3 text-center'> 
 					Expenses
@@ -81,6 +92,7 @@ const MainButtons = () => {
 					{view === 'analyzeList' && <AnalyzeList />}
 					{view === 'Customize' && <Customize />}
 					{view === 'Settings' && <Settings />}
+			</div>
 			</div>
 		);
 };

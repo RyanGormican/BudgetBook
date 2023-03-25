@@ -92,25 +92,21 @@ const Customize = () => {
 						</div>
 				))}
 				</div>
-				<div className='row d-flex justify-content-center'>
-					<div className='col-sm'>
+				<div className='d-flex justify-content-center'>
+								<input
+									type="color"
+									id='buttonColors'
+									value={buttonColor}
+									onChange={(event)=> setButtonColor(event.target.value)}
+								/>
 							<div for='color' className="btn" style={buttonStyle}> Button Color </div>
-							<input
-							type="color"
-							id='buttonColors'
-							value={buttonColor}
-							onChange={(event)=> setButtonColor(event.target.value)}
-							/>
-					</div>
-					<div className='col-sm'>
 							<div for='color2' className="btn"  style={buttonStyle}> Button Text Color </div>
 							<input
-							type="color"
-							id='textColors'
-							value={buttonTextColor}
-							onChange={(event)=> setButtonTextColor(event.target.value)}
+								type="color"
+								id='textColors'
+								value={buttonTextColor}
+								onChange={(event)=> setButtonTextColor(event.target.value)}
 							/>
-					</div>
 				</div>
 		</div>
 		

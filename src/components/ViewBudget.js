@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import {GrabButtonColors, GrabTextColors} from './Utility';
 const ViewBudget = (props) => {
 		const { settings, dispatch } = useContext (AppContext);
-		const buttonStyle = { backgroundColor:settings.buttonColors, color: "#FFFFFF"};
+		const buttonStyle = { backgroundColor:GrabButtonColors(), color: GrabTextColors()};
 		return (
 			<>
 				<span> 

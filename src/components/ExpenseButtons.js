@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
-import {GrabButtonColors} from './Utility';
+import {GrabButtonColors, GrabTextColors} from './Utility';
 import { Icon } from '@iconify/react';
 import Budget from './Budget';
 import Remaining from './Remaining';
@@ -17,7 +17,6 @@ const ExpenseButtons = () => {
 	const [view, setView] = useState('expenseList');
 	const [sort, setSort] = useState('sortTimestamp');
 	const [reverse, setReverse] = useState('false');
-	console.log(view);
 		return (
 			<div>
 			<div className="container mt-4">
@@ -25,19 +24,19 @@ const ExpenseButtons = () => {
 					Expenses
 				</h3>
 				<div className="d-flex mb-4 justify-content-center">
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setView('expenseList')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('expenseList')}>
 					View
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setView('addList')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('addList')}>
 					Add
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setView('analyzeList')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('analyzeList')}>
 					Analyze
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setView('Customize')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Customize')}>
 					Customize
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setView('Settings')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Settings')}>
 					Settings
 					</button>
 				</div>
@@ -46,27 +45,27 @@ const ExpenseButtons = () => {
 			{view === 'expenseList' ? (
 		
 				<div className="d-flex mb-4 justify-content-center">
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortName')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setSort('sortName')}>
 					Sort By Name 
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortCost')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setSort('sortCost')}>
 					Sort By Cost 
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortTag')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setSort('sortTag')}>
 					Sort By Tag
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortTime')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setSort('sortTime')}>
 					Sort By Expense Time
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setSort('sortTimestamp')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setSort('sortTimestamp')}>
 					Sort By Time Added 
 					</button>
 					{reverse === 'false' ? (
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setReverse('true')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setReverse('true')}>
 						<Icon icon="mdi:arrow-up-bold" />
 					</button>
 					) : (
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: "#FFFFFF"}} onClick={() => setReverse('false')}>
+					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setReverse('false')}>
 						<Icon icon="mdi:arrow-down-bold" />
 					</button>
 					)}

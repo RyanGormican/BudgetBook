@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import {GrabButtonColors, GrabTextColors} from './Utility';
 const EditBudget = (props) => {
 		const [value, setValue] = useState(props.budget);
 		const handleValueChange = (event) => {
@@ -9,7 +10,7 @@ const EditBudget = (props) => {
 
 		const { settings, dispatch } = useContext (AppContext);
 		const [buttonColors, setButtonColors] = useState(settings.buttonColors);
-		const buttonStyle = { backgroundColor:buttonColors, color: "#FFFFFF"};
+		const buttonStyle = { backgroundColor:GrabButtonColors(), color: GrabTextColors()};
 		return (
 				<>
 					<input

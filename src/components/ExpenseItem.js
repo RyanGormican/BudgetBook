@@ -9,7 +9,7 @@ const ExpenseItem = (props) => {
 			payload: props.id,
 		});
 	};
-	const handleTimeChange = (event) => {
+	const handleExpenseChange = (event) => {
 		const updatedExpense = { ...props, time: event.target.value };
 		dispatch({
 			type: 'UPDATE_EXPENSE',
@@ -28,14 +28,14 @@ const ExpenseItem = (props) => {
 			<div>
 				{props.time && (
 				<span className='btn' style = {buttonStyle}>
-				<input type="datetime-local"  value = {props.time} onChange = {handleTimeChange} />
+				<input type="datetime-local"  value = {props.time} onChange = {handleExpenseChange} />
 				</span> 
 				)}
 				<span className='btn' style = {buttonStyle}>
-				{props.tag}
+				<input type="text" value = {props.tag} onChange = {handleExpenseChange} />
 				</span>
 				<span className='btn'  style = {buttonStyle}>
-				${props.cost}
+				<input type='number' min="0.01" step="0.01" value={props.cost} onChange={handleExpenseChange}/>
 				</span>
 				<Icon icon="mdi:delete-circle" width="20" onClick={handleDeleteExpense}/>
 			</div>

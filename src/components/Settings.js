@@ -5,15 +5,15 @@ import { AppContext } from '../context/AppContext';
 const Settings = () => {
 	const { settings, dispatch } = useContext (AppContext);
 	const [decimalPrecision, setDecimalPrecision] = useState(settings.decimalPrecision);
-	const [buttonColors, setButtonColors] = useState(settings.buttonColors)
-	const [textColors, setTextColors] = useState(settings.textColors)
-	const buttonStyle = { backgroundColor: settings.buttonColors, color: "#FFFFFF"};
+	const [buttonColor, setButtonColor] = useState(settings.buttonColor)
+	const [buttonTextColor, setButtonTextColor] = useState(settings.buttonTextColor)
+	const buttonStyle = { backgroundColor: settings.buttonColor, color: settings.textColor};
 	const updateSettings= ()=> {
 		const setting ={
 			... settings,
 			decimalPrecision:parseInt(decimalPrecision),
-			buttonColors:buttonColors,
-			textColors:textColors,
+			buttonColor:buttonColor,
+			buttonTextColor:buttonTextColor || 'ffffff',
 		};
 		dispatch({
 			type: 'UPDATE_SETTINGS',
@@ -22,7 +22,7 @@ const Settings = () => {
 	};
 	useEffect(() => {
 		updateSettings();
-	}, [ decimalPrecision, buttonColors]);
+	}, [ decimalPrecision, buttonColor,buttonTextColor]);
 	
 	return (
 			<div className='row'>
@@ -40,21 +40,21 @@ const Settings = () => {
 					/>
 				</div>
 				<div className='col-sm'>
-							<label for='color'> Button Colors </label>
+							<label for='color'> Button Color </label>
 							<input
 							type="color"
 							id='buttonColors'
-							value={buttonColors}
-							onChange={(event)=> setButtonColors(event.target.value)}
+							value={buttonColor}
+							onChange={(event)=> setButtonColor(event.target.value)}
 							/>
 				</div>
 				<div className='col-sm'>
-							<label for='color'> Text Colors </label>
+							<label for='color2'> Button Text Color </label>
 							<input
 							type="color"
 							id='textColors'
-							value={textColors}
-							onChange={(event)=> setTextColors(event.target.value)}
+							value={buttonTextColor}
+							onChange={(event)=> setButtonTextColor(event.target.value)}
 							/>
 				</div>
 			</div>

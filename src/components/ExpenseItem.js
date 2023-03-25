@@ -49,6 +49,7 @@ const ExpenseItem = (props, {edit}) => {
   const dateTimeString = props.time ? new Date(parseInt(props.time) * 1000).toISOString().slice(0, -8) : '';
 
   return (
+  <div>
   	{edit === 'true' ? (
     <li className='list-group-item d-flex justify-content-between align-items-center'>
       <span className='btn' style={buttonStyle}>
@@ -90,6 +91,7 @@ const ExpenseItem = (props, {edit}) => {
       </div>
     </li>
     )};
+</div>
   );
 };
 

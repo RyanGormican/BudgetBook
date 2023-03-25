@@ -10,10 +10,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
 import Customize from './components/Customize';
+import Color from './components/Color';
 const App = () => {
 	const [view, setView] = useState('expenseList');
 	const [sort, setSort] = useState('sortTimestamp');
 	const [reverse, setReverse] = useState('false');
+
 	const toggleView = () => {
 		if(view === 'expenseList') {
 			setView('analyzeList');
@@ -28,7 +30,7 @@ const App = () => {
 		}
 
 	}
-	const buttonStyle = { backgroundColor:"#0d6efd", color: "#FFFFFF"};
+	const buttonStyle = { backgroundColor:GetButtonColors(), color: "#FFFFFF"};
 	return (
 		<AppProvider>
 		<div className='container'>

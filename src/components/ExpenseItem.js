@@ -87,7 +87,6 @@ const ExpenseItem = (props) => {
         <span className='btn' style={buttonStyle}>
           {props.cost} 
         </span>
-        <Icon icon='mdi:delete-circle' width='20' onClick={handleDeleteExpense} />
       </div>
     </li>
     )}

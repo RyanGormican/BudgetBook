@@ -13,7 +13,7 @@ const ExpenseItem = (props) => {
   };
 
   const handleNameChange = (event) => {
-    const updatedExpense = { ...props, name: event.target.value };
+    const updatedExpense = { ...props, name: event.target.value, lastUpdated:new Date().getTime()};
     dispatch({
       type: 'UPDATE_EXPENSE',
       payload: updatedExpense,
@@ -21,7 +21,7 @@ const ExpenseItem = (props) => {
   };
 
   const handleTimeChange = (event) => {
-    const updatedExpense = { ...props, time: event.target.value };
+    const updatedExpense = { ...props, time: event.target.value, lastUpdated:new Date().getTime() };
     dispatch({
       type: 'UPDATE_EXPENSE',
       payload: updatedExpense,
@@ -29,7 +29,7 @@ const ExpenseItem = (props) => {
   };
 
   const handleTagChange = (event) => {
-    const updatedExpense = { ...props, tag: event.target.value };
+    const updatedExpense = { ...props, tag: event.target.value, lastUpdated:new Date().getTime() };
     dispatch({
       type: 'UPDATE_EXPENSE',
       payload: updatedExpense,
@@ -37,7 +37,7 @@ const ExpenseItem = (props) => {
   };
 
   const handleCostChange = (event) => {
-    const updatedExpense = { ...props, cost: event.target.value };
+    const updatedExpense = { ...props, cost: event.target.value, lastUpdated:new Date().getTime() };
     dispatch({
       type: 'UPDATE_EXPENSE',
       payload: updatedExpense,
@@ -47,6 +47,21 @@ const ExpenseItem = (props) => {
   const tagStyle = styles.find((style) => style.tag === props.tag)?.color ? '#' + styles.find((style) => style.tag === props.tag).color : '';
   const buttonStyle = { backgroundColor: tagStyle, color: GrabTextColors() };
   const dateTimeString = props.time ? new Date(parseInt(props.time) * 1000).toISOString().slice(0, -8) : '';
+ const itemDate = props.time
+  ? new Date(props.time).toLocaleString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    })
+  : '';
+
+const itemTime = props.time
+  ? new Date(props.time).toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    })
+  : '';
 
   return (
   <div>
@@ -78,14 +93,14 @@ const ExpenseItem = (props) => {
       <div>
         {props.time && (
           <span className='btn' style={buttonStyle}>
-             {props.time}
+             {itemDate} | {itemTime}
           </span>
         )}
         <span className='btn' style={buttonStyle}>
             {props.tag}
         </span>
         <span className='btn' style={buttonStyle}>
-          {props.cost} 
+          ${props.cost} 
         </span>
       </div>
     </li>

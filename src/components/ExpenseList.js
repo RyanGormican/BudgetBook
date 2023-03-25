@@ -73,6 +73,9 @@ const sortExpenses = JSON.parse(JSON.stringify(expenses));
 		case 'sortTimestamp':
 			sortExpenses.sort((a,b) => b.timestamp - a.timestamp);
 			break;
+		case 'sortUpdatedTime':
+			sortExpenses.sort((a,b) => b.lastUpdated - a.lastUpdated);
+			break;
 		default:
 			sortExpenses.sort((a,b) => b.timestamp - a.timestamp);
 		}

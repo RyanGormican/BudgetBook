@@ -22,6 +22,7 @@ const onSubmit = (event) =>{
 		tag:tag,
 		time:localDate.toISOString().slice(0,16),
 		timestamp:new Date().getTime(),
+		lastUpdated:new Date().getTime(),
 	};
 	dispatch({
 		type: 'ADD_EXPENSE',

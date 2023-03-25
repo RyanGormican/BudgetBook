@@ -2,7 +2,9 @@ import React, {useContext, useState, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const Customize = () => {
-	const { expenses, styles, dispatch } = useContext (AppContext);
+	const { expenses, styles, settings, dispatch } = useContext (AppContext);
+	const [buttonColor, setButtonColor] = useState(settings.buttonColor);
+	const [buttonTextColor, setButtonTextColor] = useState(settings.buttonTextColor);
 
 	useEffect(()=>{
 		const newTagsSet = new Set(expenses.map((expense)=> expense.tag));
@@ -39,6 +41,22 @@ const Customize = () => {
 
 	}, [expenses, styles, dispatch]);
 
+		const updateSettings= ()=> {
+		const setting ={
+			... settings,
+			buttonColor:buttonColor,
+			buttonTextColor:buttonTextColor || 'ffffff',
+		};
+		dispatch({
+			type: 'UPDATE_SETTINGS',
+			payload: setting
+		});
+	};
+	useEffect(() => {
+		updateSettings();
+	}, [ buttonColor,buttonTextColor]);
+
+
 	const handleColorChange = (tag, e) =>{
 		const updatedStyles = styles.map((style)=>{
 			if (style.tag === tag) {
@@ -72,6 +90,24 @@ const Customize = () => {
 						</div>
 					</div>
 				))}
+					<div className='col-sm'>
+							<label for='color'> Button Color </label>
+							<input
+							type="color"
+							id='buttonColors'
+							value={buttonColor}
+							onChange={(event)=> setButtonColor(event.target.value)}
+							/>
+				</div>
+				<div className='col-sm'>
+							<label for='color2'> Button Text Color </label>
+							<input
+							type="color"
+							id='textColors'
+							value={buttonTextColor}
+							onChange={(event)=> setButtonTextColor(event.target.value)}
+							/>
+				</div>
 		</div>
 	);
 };

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Icon } from '@iconify/react';
 import Budget from './components/Budget';
 import Remaining from './components/Remaining';
 import ExpenseTotal from './components/ExpenseTotal';
 import ExpenseList from './components/ExpenseList';
 import AddExpenseForm from './components/AddExpenseForm';
-import { AppProvider} from './context/AppContext';
+import { AppProvider, AppContext} from './context/AppContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
@@ -29,6 +29,7 @@ const App = () => {
 		}
 
 	}
+	const buttonStyle = { backgroundColor:"#0000FF", color: "#FFFFFF"};
 	return (
 		<AppProvider>
 		<div className='container'>
@@ -65,19 +66,19 @@ const App = () => {
 					Expenses
 				</h3>
 				<div className="d-flex mb-4 justify-content-center">
-					<button className = "btn btn-primary" onClick={() => setView('expenseList')}>
+					<button className="btn" style = {buttonStyle} onClick={() => setView('expenseList')}>
 					View
 					</button>
-					<button className = "btn btn-primary" onClick={() => setView('addList')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setView('addList')}>
 					Add
 					</button>
-					<button className = "btn btn-primary" onClick={() => setView('analyzeList')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setView('analyzeList')}>
 					Analyze
 					</button>
-					<button className = "btn btn-primary" onClick={() => setView('Customize')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setView('Customize')}>
 					Customize
 					</button>
-					<button className = "btn btn-primary" onClick={() => setView('Settings')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setView('Settings')}>
 					Settings
 					</button>
 				</div>
@@ -85,27 +86,27 @@ const App = () => {
 		{view === 'expenseList' ? (
 		
 				<div className="d-flex mb-4 justify-content-center">
-					<button className = "btn btn-primary" onClick={() => setSort('sortName')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortName')}>
 					Sort By Name 
 					</button>
-					<button className = "btn btn-primary" onClick={() => setSort('sortCost')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortCost')}>
 					Sort By Cost 
 					</button>
-					<button className = "btn btn-primary" onClick={() => setSort('sortTag')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortTag')}>
 					Sort By Tag
 					</button>
-					<button className = "btn btn-primary" onClick={() => setSort('sortTime')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortTime')}>
 					Sort By Expense Time
 					</button>
-					<button className = "btn btn-primary" onClick={() => setSort('sortTimestamp')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setSort('sortTimestamp')}>
 					Sort By Time Added 
 					</button>
 					{reverse === 'false' ? (
-					<button className = "btn btn-primary" onClick={() => setReverse('true')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setReverse('true')}>
 						<Icon icon="mdi:arrow-up-bold" />
 					</button>
 					) : (
-					<button className = "btn btn-primary" onClick={() => setReverse('false')}>
+					<button className="btn"style = {buttonStyle} onClick={() => setReverse('false')}>
 						<Icon icon="mdi:arrow-down-bold" />
 					</button>
 					)}

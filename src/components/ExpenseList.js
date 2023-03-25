@@ -1,9 +1,8 @@
 import React, {useContext, useState, useEffect} from 'react';
 import ExpenseItem from './ExpenseItem';
 import { AppContext } from '../context/AppContext';
-const ExpenseList = () => {
+const ExpenseList = ({ sort, reverse}) => {
 const { expenses, dispatch} = useContext(AppContext);
-const [sort, setSort] = useState('sortTimestamp');
 const sortExpenses = JSON.parse(JSON.stringify(expenses));
 	useEffect(()=> {
 	const now = new Date;
@@ -41,25 +40,11 @@ const sortExpenses = JSON.parse(JSON.stringify(expenses));
 		default:
 			sortExpenses.sort((a,b) => b.timestamp - a.timestamp);
 		}
+	if (reverse === 'true'){
+		sortExpenses.reverse();
+	}
 return (
 		<div>
-		<div className="d-flex mb-4 justify-content-center">
-					<button className = "btn btn-primary" onClick={() => setSort('sortName')}>
-					Sort By Name 
-					</button>
-					<button className = "btn btn-primary" onClick={() => setSort('sortCost')}>
-					Sort By Cost 
-					</button>
-					<button className = "btn btn-primary" onClick={() => setSort('sortTag')}>
-					Sort By Tag
-					</button>
-					<button className = "btn btn-primary" onClick={() => setSort('sortTime')}>
-					Sort By Expense Time
-					</button>
-					<button className = "btn btn-primary" onClick={() => setSort('sortTimestamp')}>
-					Sort By Time Added 
-					</button>
-		</div>
 		<div>
 			<ul className='list-group'>
 				{sortExpenses.map(((expense)=> (

@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import { Icon } from '@iconify/react';
 import { AppContext } from '../context/AppContext';
 const ExpenseItem = (props) => {
-	const { dispatch } = useContext(AppContext);
+	const { styles, dispatch } = useContext(AppContext);
 	const handleDeleteExpense = () => {
 		dispatch({
 			type: 'DELETE_EXPENSE',
@@ -16,6 +16,9 @@ const ExpenseItem = (props) => {
 			payload: updatedExpense, 
 		});
 	};
+
+	const tagStyle = styles.find(style => style.tag === props.tag);
+	console.log(tagStyle);
 	const dateTimeString = props.time ? new Date(parseInt(props.time)*1000).toISOString().slice(0,-8): '';
 	return (
 		<li className='list-group-item d-flex justify-content-between align-items-center'>
@@ -26,7 +29,7 @@ const ExpenseItem = (props) => {
 				<input type="datetime-local"  value = {props.time} onChange = {handleTimeChange} />
 				</span> 
 				)}
-				<span className='btn btn-primary'>
+				<span className='btn btn-primary' style = {{ color:tagStyle?.color}}>
 				{props.tag}
 				</span>
 				<span className='btn btn-primary'>

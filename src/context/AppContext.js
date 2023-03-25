@@ -66,7 +66,7 @@ const initialState= {
 		decimalPrecision: 2,
 	},
 	styles: [
-		{tag:'Hey',color:'256,256,256,0.6'},
+		{tag:'Hey',color:'0000FF'},
 	],
 };
 

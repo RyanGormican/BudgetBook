@@ -13,6 +13,8 @@ import Customize from './components/Customize';
 
 const App = () => {
 	const [view, setView] = useState('expenseList');
+	const [sort, setSort] = useState('sortTimestamp');
+	const [reverse, setReverse] = useState('false');
 	const toggleView = () => {
 		if(view === 'expenseList') {
 			setView('analyzeList');
@@ -80,8 +82,37 @@ const App = () => {
 					</button>
 				</div>
 			</div>
+		{view === 'expenseList' ? (
+		
+				<div className="d-flex mb-4 justify-content-center">
+					<button className = "btn btn-primary" onClick={() => setSort('sortName')}>
+					Sort By Name 
+					</button>
+					<button className = "btn btn-primary" onClick={() => setSort('sortCost')}>
+					Sort By Cost 
+					</button>
+					<button className = "btn btn-primary" onClick={() => setSort('sortTag')}>
+					Sort By Tag
+					</button>
+					<button className = "btn btn-primary" onClick={() => setSort('sortTime')}>
+					Sort By Expense Time
+					</button>
+					<button className = "btn btn-primary" onClick={() => setSort('sortTimestamp')}>
+					Sort By Time Added 
+					</button>
+					{reverse === 'false' ? (
+					<button className = "btn btn-primary" onClick={() => setReverse('true')}>
+						<Icon icon="mdi:arrow-up-bold" />
+					</button>
+					) : (
+					<button className = "btn btn-primary" onClick={() => setReverse('false')}>
+						<Icon icon="mdi:arrow-down-bold" />
+					</button>
+					)}
+			</div>
+					) : null }
 			<div className="table-responsive" style={{maxHeight: '60vh', overflow: 'auto'}}>
-					{view === 'expenseList' && <ExpenseList />}
+					{view === 'expenseList' && <ExpenseList sort={sort} reverse={reverse} />}
 					{view === 'addList' && <AddExpenseForm />}
 					{view === 'analyzeList' && <AnalyzeList />}
 					{view === 'Customize' && <Customize />}

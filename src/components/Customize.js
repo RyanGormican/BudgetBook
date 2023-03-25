@@ -1,11 +1,12 @@
 import React, {useContext, useState, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
+import {GrabButtonColors, GrabTextColors} from './Utility';
 
 const Customize = () => {
 	const { expenses, styles, settings, dispatch } = useContext (AppContext);
 	const [buttonColor, setButtonColor] = useState(settings.buttonColor);
 	const [buttonTextColor, setButtonTextColor] = useState(settings.buttonTextColor);
-
+	const buttonStyle = { backgroundColor:GrabButtonColors(), color: GrabTextColors()};
 	useEffect(()=>{
 		const newTagsSet = new Set(expenses.map((expense)=> expense.tag));
 	    const stylesSet = new Set(styles.map((style) => style.tag));
@@ -76,10 +77,11 @@ const Customize = () => {
 
 	return (
 		<div>
+				<div className='row'>
 				{sortStyles?.length>0 && sortStyles.map((style) => (
-					<div className='row' key={style.tag}>
-						<div className='col-sm'>
-							<label htmlFor={style.tag}>{style.tag} : </label>
+					
+						<div className='btn col-sm' key={style.tag}>
+							<div htmlFor={style.tag}>{style.tag}  </div>
 							<input
 							type="color"
 							id={style.tag}
@@ -88,27 +90,30 @@ const Customize = () => {
 							onChange={(e) => handleColorChange(style.tag, e)}
 							/>
 						</div>
-					</div>
 				))}
+				</div>
+				<div className='row d-flex justify-content-center'>
 					<div className='col-sm'>
-							<label for='color'> Button Color </label>
+							<div for='color' className="btn" style={buttonStyle}> Button Color </div>
 							<input
 							type="color"
 							id='buttonColors'
 							value={buttonColor}
 							onChange={(event)=> setButtonColor(event.target.value)}
 							/>
-				</div>
-				<div className='col-sm'>
-							<label for='color2'> Button Text Color </label>
+					</div>
+					<div className='col-sm'>
+							<div for='color2' className="btn"  style={buttonStyle}> Button Text Color </div>
 							<input
 							type="color"
 							id='textColors'
 							value={buttonTextColor}
 							onChange={(event)=> setButtonTextColor(event.target.value)}
 							/>
+					</div>
 				</div>
 		</div>
+		
 	);
 };
 export default Customize;

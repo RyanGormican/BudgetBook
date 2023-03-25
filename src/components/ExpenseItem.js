@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Icon } from '@iconify/react';
 import { AppContext } from '../context/AppContext';
 
-const ExpenseItem = (props, {edit}) => {
+const ExpenseItem = (props) => {
   const { styles, dispatch } = useContext(AppContext);
 
   const handleDeleteExpense = () => {
@@ -50,7 +50,7 @@ const ExpenseItem = (props, {edit}) => {
 
   return (
   <div>
-  	{edit === 'true' ? (
+  	{props.edit === 'true' ? (
     <li className='list-group-item d-flex justify-content-between align-items-center'>
       <span className='btn' style={buttonStyle}>
         <input type='text' value={props.name} onChange={handleNameChange} />
@@ -73,7 +73,7 @@ const ExpenseItem = (props, {edit}) => {
     ) : (
         <li className='list-group-item d-flex justify-content-between align-items-center'>
       <span className='btn' style={buttonStyle}>
-        <input type='text' value={props.name} onChange={handleNameChange} />
+       {props.name}
       </span>
       <div>
         {props.time && (
@@ -90,7 +90,7 @@ const ExpenseItem = (props, {edit}) => {
         <Icon icon='mdi:delete-circle' width='20' onClick={handleDeleteExpense} />
       </div>
     </li>
-    )};
+    )}
 </div>
   );
 };

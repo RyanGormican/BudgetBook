@@ -33,7 +33,7 @@ const onSubmit = (event) =>{
 		id:uuidv4(),
 		name:name,
 		cost: parseFloat(cost).toFixed(2),
-		tags:tags,
+		tag:tags,
 		time:localDate.toISOString().slice(0,16),
 		timestamp:new Date().getTime(),
 		lastUpdated:new Date().getTime(),
@@ -71,10 +71,21 @@ const onSubmit = (event) =>{
 						onChange={(event)=> setCost(event.target.value)}
 					/>
 				</div> 
-				<div className='col-sm'>
+				<div className='row'>
+					<div className='col-sm'>
 					<button className='btn' style={buttonStyle}> Tags </button>
 				{tags.map((tag,index) => (
-				<div key={index}>
+					<div key={index}>
+					{index === tags.length - 1 && (
+						<button className='btn' style={buttonStyle} onClick = {handleAddTag}> 
+							<Icon icon="material-symbols:add" /> 
+						</button>
+					)}
+					{tags.length > 1 && (
+						<button className='btn' style={buttonStyle} onClick={()=> handleRemoveTag(index)}> 
+							<Icon icon="ic:twotone-minus" />
+						</button>
+					)}
 					<input 
 						required='required' 
 						type='text'
@@ -83,18 +94,9 @@ const onSubmit = (event) =>{
 						value={tag}
 						onChange={(event)=> handleTagChange(event, index)}
 					/>
-					{index === tags.length - 1 && (
-						<button className='btn' style={buttonStyle} onClick = {handleAddTag}> 
-							<Icon icon="material-symbols:add" /> 
-						</button>
-					)}
-					{tags.length > 1 && (
-						<button className='btn' style={buttonStyle} onClick={()=> handleRemoveTag(index)}> 
-							<Icon icon="material-symbols:minus" /> 
-						</button>
-					)}
 					</div> 
 				))}
+					</div>
 				</div> 
 			</div>
 				<div class='row mt-3'>

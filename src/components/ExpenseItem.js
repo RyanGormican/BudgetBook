@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { AppContext } from '../context/AppContext';
 import {GrabButtonColors, GrabTextColors} from './Utility';
@@ -62,7 +62,14 @@ const itemTime = props.time
       hour12: true,
     })
   : '';
-
+  useEffect(() => {
+    if(typeof props.tag === 'string'){
+        dispatch({
+            type:'UPDATE_EXPENSE',
+            payload:{...props, tag:[props.tag]},
+        });
+    }
+  },[dispatch,props]);
   return (
   <div>
   	{props.edit === 'true' ? (
@@ -97,7 +104,11 @@ const itemTime = props.time
           </span>
         )}
         <span className='btn' style={buttonStyle}>
-            {props.tag}
+            {Array.isArray(props.tag) && props.tag.map((tag,index) => (
+					<div key={index}>
+					{props.tag[index]}
+                    </div>
+			))}
         </span>
         <span className='btn' style={buttonStyle}>
           ${props.cost} 

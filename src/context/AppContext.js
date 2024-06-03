@@ -64,11 +64,11 @@ const initialState= {
 	],
 	settings: {
 		decimalPrecision: 2,
-		buttonColor: '0d6efd',
+		buttonColor: 'ADD8E6',
 		buttonTextColor: 'FFFFFF'
 	},
 	styles: [
-		{tag:'Hey',color:'0000FF'},
+		{tag:'Hey',color:'ADD8E5'},
 	],
 };
 

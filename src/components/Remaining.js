@@ -7,7 +7,7 @@ const Remaining = () => {
 	},0).toFixed(2);
 
 	const remainingBudget = (budget - totalExpenses).toFixed(2);
-	const alertType = totalExpenses > budget ? 'alert alert-danger' :'alert alert-success';
+	const alertType = totalExpenses > budget ? 'alert alert-success': 'alert alert-danger' ;
 	return (
 		<div className ={`alert ${alertType}` }>
 			<span>

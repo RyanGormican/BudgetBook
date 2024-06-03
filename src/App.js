@@ -12,6 +12,7 @@ import Settings from './components/Settings';
 import Customize from './components/Customize';
 import {GrabButtonColors} from './components/Utility';
 import ExpenseButtons from './components/ExpenseButtons';
+import './App.css';
 const App = () => {
 	return (
 		<AppProvider>
@@ -19,15 +20,15 @@ const App = () => {
 			<h1 className ='mt-3 text-center'>
 				BudgetBook
 			</h1>
-			<span>
+			<span className='links'>
 				<a href="https://www.linkedin.com/in/ryangormican/">
-					<Icon icon="mdi:linkedin" color="#0e76a8" width="40" />
+					<Icon icon="mdi:linkedin" color="#0e76a8" width="60" />
 				</a>
 				<a href="https://github.com/RyanGormican/BudgetBook">
-					<Icon icon="mdi:github" color="#e8eaea" width="40" />
+					<Icon icon="mdi:github" color="#e8eaea" width="60" />
 				</a>
 				<a href="https://ryangormicanportfoliohub.vercel.app/">
-					<Icon icon="teenyicons:computer-outline" color="#199c35" width="40" />
+					<Icon icon="teenyicons:computer-outline" color="#199c35" width="60" />
 				</a>
 			</span>
 
@@ -36,11 +37,11 @@ const App = () => {
 					<Budget />
 				</div>
 				<div className='col-sm'>
-					<Remaining />
-				</div>
-				<div className='col-sm'>
-					<ExpenseTotal />
-				</div>
+						<div className="d-flex flex-column">
+							<Remaining />
+							<ExpenseTotal />
+						</div>
+					</div>
 			</div>
 			<ExpenseButtons />
 			</div>

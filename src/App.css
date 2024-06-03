@@ -10,3 +10,29 @@
   z-index:5;
 
 }
+.calendar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+}
+
+.calendar-header, .calendar-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.calendar-day, .calendar-date {
+    flex: 1 0 14.28%; 
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.calendar-header {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}

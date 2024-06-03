@@ -56,6 +56,11 @@ const Calendar = () => {
         });
         return dayExpenses;
     };
+    const getTotalExpensesForDay = (day) => {
+    const expensesForDay = getExpensesForDay(day);
+    const total = expensesForDay.reduce((acc, expense) => acc + parseFloat(expense.cost), 0);
+    return total.toFixed(2);
+};
 
     // Function to generate the tooltip content for a day
 const generateTooltipContent = (day) => {
@@ -88,10 +93,18 @@ const generateTooltipContent = (day) => {
                     <div key={day} className='calendar-date'>
                         <div>{day}</div>
                         {getExpensesForDay(day).length > 0 && (
+                        <div>
+                        <div>
+                        ${getTotalExpensesForDay(day)}
+                        </div>
+                        <div>
                             <a data-tooltip-id={`expenses-${day}`} className="tooltip-icon" data-tooltip-content=   {generateTooltipContent(day)} data-tooltip-place="bottom">
                                 <Icon icon="mdi:question-mark-circle" />
                             </a>
+                        </div>
+                        </div>
                         )} 
+
                         <Tooltip id={`expenses-${day}`} className="custom-tooltip">
                             {generateTooltipContent(day)}
                         </Tooltip>

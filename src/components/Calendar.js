@@ -2,9 +2,8 @@ import React, { useState, useContext } from 'react';
 import '../App.css';
 import { AppContext } from '../context/AppContext';
 import { Icon } from '@iconify/react';
-import { Tooltip } from 'react-tooltip'
+import { Tooltip } from 'react-tooltip';
 import { renderToString } from 'react-dom/server';
-
 
 const Calendar = () => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -40,7 +39,6 @@ const Calendar = () => {
         setCurrentYear(prevYear => (currentMonth === 11 ? prevYear + 1 : prevYear));
     };
 
-    // Function to get expenses for a specific day
     const getExpensesForDay = (day) => {
         const formattedDay = day < 10 ? `0${day}` : day.toString(); // Add leading zero if needed
         const formattedMonth = currentMonth + 1 < 10 ? `0${currentMonth + 1}` : currentMonth + 1; // Add leading zero if needed
@@ -56,44 +54,41 @@ const Calendar = () => {
         });
         return dayExpenses;
     };
+
     const getTotalExpensesForDay = (day) => {
-    const expensesForDay = getExpensesForDay(day);
-    const total = expensesForDay.reduce((acc, expense) => acc + parseFloat(expense.cost), 0);
-    return total.toFixed(2);
-};
+        const expensesForDay = getExpensesForDay(day);
+        const total = expensesForDay.reduce((acc, expense) => acc + parseFloat(expense.cost) * -1, 0);
+        return total.toFixed(2);
+    };
 
-// Function to generate the tooltip content for a day
-const generateTooltipContent = (day) => {
-    const expensesForDay = getExpensesForDay(day);
-    if (expensesForDay.length === 0) return null;
+    const generateTooltipContent = (day) => {
+        const expensesForDay = getExpensesForDay(day);
+        if (expensesForDay.length === 0) return null;
 
-    return `Expenses:\n${expensesForDay.map(expense => `${expense.name} - $${expense.cost}`).join('\n')}`;
-};
+        return `Expenses:\n${expensesForDay.map(expense => `${expense.name} - $${expense.cost}`).join('\n')}`;
+    };
 
-   // Function to calculate total expenses for the month
     const getTotalExpensesForMonth = () => {
         const totalExpenses = expenses
             .filter(expense => {
                 const expenseDate = new Date(expense.time);
                 return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear;
             })
-            .reduce((acc, expense) => acc + parseFloat(expense.cost), 0);
+            .reduce((acc, expense) => acc + parseFloat(expense.cost) * -1, 0);
         return totalExpenses.toFixed(2);
     };
 
-    // Function to calculate the percentage of expenses for each tag
     const getPercentageForTag = (tag) => {
         const tagExpenses = expenses
             .filter(expense => {
                 const expenseDate = new Date(expense.time);
                 return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear && expense.tag === tag;
             });
-        const tagTotal = tagExpenses.reduce((acc, expense) => acc + parseFloat(expense.cost), 0);
+        const tagTotal = tagExpenses.reduce((acc, expense) => acc + parseFloat(expense.cost) * -1, 0);
         const totalExpenses = getTotalExpensesForMonth();
         return ((tagTotal / totalExpenses) * 100).toFixed(2);
     };
 
-    // Function to render expenses by tag
     const renderExpensesByTag = () => {
         const uniqueTags = [...new Set(expenses
             .filter(expense => {
@@ -109,6 +104,7 @@ const generateTooltipContent = (day) => {
             </p>
         ));
     };
+
     return (
         <div className='calendar'>
             <div className='calendar-nav text-center'>
@@ -131,31 +127,28 @@ const generateTooltipContent = (day) => {
                     <div key={day} className='calendar-date'>
                         <div>{day}</div>
                         {getExpensesForDay(day).length > 0 && (
-                        <div>
-                        <div>
-                        ${getTotalExpensesForDay(day)}
-                        </div>
-                        <div>
-                            <a data-tooltip-id={`expenses-${day}`} className="tooltip-icon" data-tooltip-content=   {generateTooltipContent(day)} data-tooltip-place="bottom">
-                                <Icon icon="mdi:question-mark-circle" />
-                            </a>
-                        </div>
-                        </div>
-                        )} 
-
+                            <div style={{ color: getTotalExpensesForDay(day) < 0 ? 'red' : 'green' }}>
+                                <div>
+                                    ${getTotalExpensesForDay(day)}
+                                </div>
+                                <div>
+                                    <a data-tooltip-id={`expenses-${day}`} className="tooltip-icon" data-tooltip-content={generateTooltipContent(day)} data-tooltip-place="bottom">
+                                        <Icon icon="mdi:question-mark-circle" />
+                                    </a>
+                                </div>
+                            </div>
+                        )}
                         <Tooltip id={`expenses-${day}`} className="custom-tooltip">
                             {generateTooltipContent(day)}
                         </Tooltip>
                     </div>
                 ))}
-              
-		
                 {emptyDaysAfter.map((_, index) => (
                     <div key={`empty-after-${index}`} className='calendar-date empty'></div>
                 ))}
             </div>
-         <div className='text-center'>
-                <p>Total Expenses: ${getTotalExpensesForMonth()}</p> 
+            <div className='text-center'>
+                <p>Total Expenses: ${getTotalExpensesForMonth() * -1}</p>
                 <p>
                     {renderExpensesByTag()}
                 </p>

@@ -70,8 +70,45 @@ const generateTooltipContent = (day) => {
     return `Expenses:\n${expensesForDay.map(expense => `${expense.name} - $${expense.cost}`).join('\n')}`;
 };
 
+   // Function to calculate total expenses for the month
+    const getTotalExpensesForMonth = () => {
+        const totalExpenses = expenses
+            .filter(expense => {
+                const expenseDate = new Date(expense.time);
+                return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear;
+            })
+            .reduce((acc, expense) => acc + parseFloat(expense.cost), 0);
+        return totalExpenses.toFixed(2);
+    };
 
+    // Function to calculate the percentage of expenses for each tag
+    const getPercentageForTag = (tag) => {
+        const tagExpenses = expenses
+            .filter(expense => {
+                const expenseDate = new Date(expense.time);
+                return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear && expense.tag === tag;
+            });
+        const tagTotal = tagExpenses.reduce((acc, expense) => acc + parseFloat(expense.cost), 0);
+        const totalExpenses = getTotalExpensesForMonth();
+        return ((tagTotal / totalExpenses) * 100).toFixed(2);
+    };
 
+    // Function to render expenses by tag
+    const renderExpensesByTag = () => {
+        const uniqueTags = [...new Set(expenses
+            .filter(expense => {
+                const expenseDate = new Date(expense.time);
+                return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear;
+            })
+            .map(expense => expense.tag)
+        )];
+
+        return uniqueTags.map(tag => (
+            <p key={tag}>
+                {tag}: {getPercentageForTag(tag)}%
+            </p>
+        ));
+    };
     return (
         <div className='calendar'>
             <div className='calendar-nav text-center'>
@@ -116,6 +153,12 @@ const generateTooltipContent = (day) => {
                 {emptyDaysAfter.map((_, index) => (
                     <div key={`empty-after-${index}`} className='calendar-date empty'></div>
                 ))}
+            </div>
+         <div className='text-center'>
+                <p>Total Expenses: ${getTotalExpensesForMonth()}</p> 
+                <p>
+                    {renderExpensesByTag()}
+                </p>
             </div>
         </div>
     );

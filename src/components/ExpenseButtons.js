@@ -30,9 +30,6 @@ const ExpenseButtons = () => {
 					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('addList')}>
 					Add
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('analyzeList')}>
-					Analyze
-					</button>
 					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Customize')}>
 					Customize
 					</button>
@@ -83,7 +80,6 @@ const ExpenseButtons = () => {
 			<div className="table-responsive" style={{maxHeight: '60vh', overflow: 'auto'}}>
 					{view === 'expenseList' && <ExpenseList sort={sort} reverse={reverse} edit={edit} />}
 					{view === 'addList' && <AddExpenseForm />}
-					{view === 'analyzeList' && <AnalyzeList />}
 					{view === 'Customize' && <Customize />}
 			</div>
 			</div>

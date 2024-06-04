@@ -47,6 +47,12 @@ const Container = () => {
                         <Settings />
                     </>
                 );
+                     case 'Analyze':
+                return (
+                    <>
+                        <AnalyzeList />
+                    </>
+                );
             default:
                 return null;
         }
@@ -110,6 +116,9 @@ const Container = () => {
                 >
                     Settings
                 </button>
+                		<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Analyze')}>
+					Analyze
+					</button>
             </div>
 
             {renderView()}

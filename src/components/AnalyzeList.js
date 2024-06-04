@@ -5,70 +5,78 @@ import { Pie } from 'react-chartjs-2';
 Chart.register(ArcElement, Tooltip, Legend);
 
 const AnalyzeList = () => {
-  const { expenses, settings, styles, budget } = useContext(AppContext);
-  const [isOverBudget, setIsOverBudget] = useState(false);
-  const tagCosts = {};
-  expenses.forEach((expense) => {
-    const { tag, cost } = expense;
-    if (tag in tagCosts) {
-      tagCosts[tag] += (cost * 1.00 );
-    } else {
-      tagCosts[tag] = (cost * 1.00);
-    }
-  });
+    const { expenses, settings, styles, budget } = useContext(AppContext);
+    const [isOverBudget, setIsOverBudget] = useState(false);
+    const tagCosts = {};
 
-  const tags = Object.keys(tagCosts).sort();
-  const remainingBudget = budget - Object.values(tagCosts).reduce((acc, cost) => acc + cost, 0);
+    // Calculate total cost for each tag
+    expenses.forEach((expense) => {
+        const { tag, cost } = expense;
+        const numericCost = parseFloat(cost); // Convert cost to a number
+        if (tag in tagCosts) {
+            tagCosts[tag] += numericCost;
+        } else {
+            tagCosts[tag] = numericCost;
+        }
+    });
 
-  useEffect(()=> {
-  const totalCost = Object.values(tagCosts).reduce((acc,cost) => acc + cost, 0);
-       setIsOverBudget(totalCost > budget);
-  }, [tagCosts, budget]);
+    // Calculate total cost and remaining budget
+    const totalCost = Object.values(tagCosts).reduce((acc, cost) => acc + cost, 0);
+    const remainingBudget = budget - totalCost;
 
-  const labels = tags.map((tag) => {
-    const cost = tagCosts[tag];
-    const percentage = ((cost/budget) * 100).toFixed(settings.decimalPrecision);
-    return `${tag} (${percentage}%)`;
-  }).concat(`Remaining (${((remainingBudget/budget) * 100).toFixed(settings.decimalPrecision)}%)`);
+    useEffect(() => {
+        // Determine if user is over budget
+        setIsOverBudget(totalCost > budget);
+    }, [totalCost, budget]); // Update isOverBudget when totalCost or budget changes
 
-  const data = [...Object.values(tagCosts), remainingBudget];
-  const backgroundColor = labels.map((label, index) => {
-  const style = styles.find((s) => s.tag === label.split(' ')[0]);
-  return style ? `#${style.color}` : `rgb(0,0,255)`;
-});
+    // Debugging: Log values to understand the calculations
+    console.log('tagCosts:', tagCosts);
+    console.log('totalCost:', totalCost);
+    console.log('remainingBudget:', remainingBudget);
 
+    // Generate labels and data for the pie chart, sorted by percentage
+    const sortedTags = Object.keys(tagCosts).sort((a, b) => tagCosts[b] - tagCosts[a]);
+    const labels = sortedTags.map(tag => {
+        const cost = tagCosts[tag];
+        const percentage = budget !== 0 ? ((cost / budget) * 100).toFixed(settings.decimalPrecision) : 0; // Ensure no division by zero
+        return `${tag} (${percentage}%)`;
+    }).concat(`Remaining (${((remainingBudget / budget) * 100).toFixed(settings.decimalPrecision)}%)`);
 
-  const costData = {
-    labels: labels,
-    datasets: [
-      {
-        label: 'Cost',
-        data: data,
-        backgroundColor: backgroundColor,
-      },
-    ],
-    tooltips: {
-      callbacks: {
-        label: function (context) {
-          const value = data[context.dataIndex];
-          const percent = ((value / budget) * 100).toFixed(settings.decimalPrecision);
-          return `${context.label}: $${value} (${percent}%)`;
-        },
-      },
-    },
-  };
+    const data = sortedTags.map(tag => tagCosts[tag]).concat(remainingBudget);
 
-  return (
-    <div style={{ width:'50vw', height:'40vh'}}>
-        {isOverBudget ? (
-        <div> 
-            User's costs must be within the targeted budget in order to generate a pie chart 
+    // Debugging: Log labels to check their values
+    console.log('labels:', labels);
+
+    // Generate background colors for each tag
+    const backgroundColor = sortedTags.map(tag => {
+        const style = styles.find(s => s.tag === tag);
+        return style ? `#${style.color}` : `rgb(0,0,255)`;
+    }).concat(`rgb(192,192,192)`); // Assuming a default color for "Remaining"
+
+    // Configure data for the pie chart
+    const costData = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Cost',
+                data: data,
+                backgroundColor: backgroundColor,
+            },
+        ],
+    };
+
+    // Return the pie chart component
+    return (
+        <div style={{ width: '50vw', height: '40vh' }}>
+            {isOverBudget ? (
+                <div>
+                    User's costs must be within the targeted budget in order to generate a pie chart
+                </div>
+            ) : (
+                <Pie data={costData} />
+            )}
         </div>
-       ) : ( 
-      <Pie data={costData} />
-       )}
-    </div>
-  );
+    );
 };
 
 export default AnalyzeList;

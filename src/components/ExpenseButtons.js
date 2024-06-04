@@ -9,7 +9,6 @@ import ExpenseList from './ExpenseList';
 import AddExpenseForm from './AddExpenseForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './AnalyzeList';
-import Settings from './Settings';
 import Customize from './Customize';
 const ExpenseButtons = () => {
 
@@ -36,9 +35,6 @@ const ExpenseButtons = () => {
 					</button>
 					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Customize')}>
 					Customize
-					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Settings')}>
-					Settings
 					</button>
 				</div>
 			</div>
@@ -89,7 +85,6 @@ const ExpenseButtons = () => {
 					{view === 'addList' && <AddExpenseForm />}
 					{view === 'analyzeList' && <AnalyzeList />}
 					{view === 'Customize' && <Customize />}
-					{view === 'Settings' && <Settings />}
 			</div>
 			</div>
 		);

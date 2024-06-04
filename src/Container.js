@@ -41,6 +41,12 @@ const Container = () => {
                         <Export />
                     </>
                 );
+                case 'Settings':
+                return (
+                    <>
+                        <Settings />
+                    </>
+                );
             default:
                 return null;
         }
@@ -96,6 +102,13 @@ const Container = () => {
                     onClick={() => setView('Export')}
                 >
                     Export
+                </button>
+                        <button
+                    className="btn"
+                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
+                    onClick={() => setView('Settings')}
+                >
+                    Settings
                 </button>
             </div>
 

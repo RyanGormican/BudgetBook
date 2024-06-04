@@ -29,10 +29,6 @@ const AnalyzeList = () => {
         setIsOverBudget(totalCost > budget);
     }, [totalCost, budget]); // Update isOverBudget when totalCost or budget changes
 
-    // Debugging: Log values to understand the calculations
-    console.log('tagCosts:', tagCosts);
-    console.log('totalCost:', totalCost);
-    console.log('remainingBudget:', remainingBudget);
 
     // Generate labels and data for the pie chart, sorted by percentage
     const sortedTags = Object.keys(tagCosts).sort((a, b) => tagCosts[b] - tagCosts[a]);
@@ -44,14 +40,13 @@ const AnalyzeList = () => {
 
     const data = sortedTags.map(tag => tagCosts[tag]).concat(remainingBudget);
 
-    // Debugging: Log labels to check their values
-    console.log('labels:', labels);
+   
 
     // Generate background colors for each tag
     const backgroundColor = sortedTags.map(tag => {
         const style = styles.find(s => s.tag === tag);
         return style ? `#${style.color}` : `rgb(0,0,255)`;
-    }).concat(`rgb(192,192,192)`); // Assuming a default color for "Remaining"
+    }).concat(`rgb(192,192,192)`); // default color for "Remaining"
 
     // Configure data for the pie chart
     const costData = {

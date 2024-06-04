@@ -62,13 +62,14 @@ const Calendar = () => {
     return total.toFixed(2);
 };
 
-    // Function to generate the tooltip content for a day
+// Function to generate the tooltip content for a day
 const generateTooltipContent = (day) => {
     const expensesForDay = getExpensesForDay(day);
     if (expensesForDay.length === 0) return null;
 
-    return expensesForDay.map(expense => `${expense.name} - $${expense.cost}`).join('\n');
+    return `Expenses:\n${expensesForDay.map(expense => `${expense.name} - $${expense.cost}`).join('\n')}`;
 };
+
 
 
     return (

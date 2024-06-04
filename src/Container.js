@@ -13,6 +13,7 @@ import Settings from './components/Settings';
 import Customize from './components/Customize';
 import ExpenseButtons from './components/ExpenseButtons';
 import Calendar from './components/Calendar';
+import Export from './components/Export';
 import './App.css';
 
 const Container = () => {
@@ -32,6 +33,12 @@ const Container = () => {
                 return (
                     <>
                         <Calendar />
+                    </>
+                );
+            case 'Export':
+                return (
+                    <>
+                        <Export />
                     </>
                 );
             default:
@@ -82,6 +89,13 @@ const Container = () => {
                     onClick={() => setView('Calendar')}
                 >
                     Calendar
+                </button>
+                        <button
+                    className="btn"
+                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
+                    onClick={() => setView('Export')}
+                >
+                    Export
                 </button>
             </div>
 

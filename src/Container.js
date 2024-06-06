@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
 import Customize from './components/Customize';
+import Income from './components/Income';
 import ExpenseButtons from './components/ExpenseButtons';
 import Calendar from './components/Calendar';
 import Export from './components/Export';
@@ -22,7 +23,11 @@ const Container = () => {
     const renderView = () => {
         switch (view) {
             case 'Income':
-                return <div>Income View</div>;
+                return (
+                    <>
+                        <Income />
+                    </>
+                );
             case 'Expenses':
                 return (
                     <>
@@ -88,6 +93,13 @@ const Container = () => {
             </div>
 
             <div className='view-buttons mt-3 text-center'>
+                    <button
+                    className="btn"
+                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
+                    onClick={() => setView('Income')}
+                >
+                    Income
+                </button>
                 <button
                     className="btn"
                     style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}

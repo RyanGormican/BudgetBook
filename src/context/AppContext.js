@@ -14,16 +14,34 @@ const AppReducer = (state, action) => {
                 ...state,
                 expenses: updatedExpenses
             };
-        case 'SET_BUDGET':
-            return {
-                ...state,
-                budget: action.payload,
-            };
         case 'UPDATE_EXPENSE':
             const changedExpenses = state.expenses.map((expense) => expense.id === action.payload.id ? action.payload : expense);
             return {
                 ...state,
                 expenses: changedExpenses
+            };
+        case 'ADD_INCOME':
+            const incomes = [...state.incomes, action.payload];
+            return {
+                ...state,
+                incomes: incomes,
+            };
+        case 'DELETE_INCOME':
+            const updatedIncome = state.incomes.filter((income) => income.id !== action.payload);
+            return {
+                ...state,
+                incomes: updatedIncome
+            };
+        case 'UPDATE_INCOME':
+            const changedIncome = state.incomes.map((income) => income.id === action.payload.id ? action.payload : income);
+            return {
+                ...state,
+                incomes: changedIncome
+            };
+        case 'SET_BUDGET':
+            return {
+                ...state,
+                budget: action.payload,
             };
         case 'UPDATE_SETTINGS':
             return {
@@ -40,6 +58,7 @@ const AppReducer = (state, action) => {
     }
 };
 
+
 const getStorage = () => {
     const appData = JSON.parse(localStorage.getItem('BudgetBook')) || initialState;
     return appData;
@@ -55,6 +74,9 @@ const initialState = {
         buttonColor: 'ADD8E6',
         buttonTextColor: 'FFFFFF'
     },
+    incomes: [
+    { id: 1, name: 'Click on the Add button to get started with adding income!', cost: 20, tag: 'Hey', timestamp: new Date().getTime() },
+    ],
     styles: [
         { tag: 'Hey', color: 'ADD8E5' },
     ],
@@ -130,12 +152,26 @@ useEffect(() => {
         localStorage.setItem('BudgetBook', JSON.stringify(state));
     }, [state]);
 
+
+    const initializeIncomes = () => {
+    const storedData = JSON.parse(localStorage.getItem('BudgetBook'));
+    if (!storedData || !storedData.hasOwnProperty('incomes')) {
+        localStorage.setItem('BudgetBook', JSON.stringify({ ...storedData, incomes: [] }));
+    }
+};
+
+     // Initialize incomes if missing
+    useEffect(() => {
+        initializeIncomes();
+    }, []);
+
     return (
         <AppContext.Provider value={{
             budget: state.budget,
             expenses: state.expenses,
             settings: state.settings,
             styles: state.styles,
+            incomes: state.incomes,
             dispatch,
         }}>
             {props.children}

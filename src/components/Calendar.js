@@ -9,7 +9,7 @@ const Calendar = () => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-    const { expenses } = useContext(AppContext);
+    const { expenses,incomes, settings } = useContext(AppContext);
 
     const getDaysInMonth = (month, year) => {
         return new Date(year, month + 1, 0).getDate();
@@ -107,18 +107,55 @@ const getExpensesForDay = (day) => {
 };
 
 
-    const getTotalExpensesForDay = (day) => {
-        const expensesForDay = getExpensesForDay(day);
-        const total = expensesForDay.reduce((acc, expense) => acc + parseFloat(expense.cost) * -1, 0);
-        return total.toFixed(2);
-    };
+   const getIncomesForDay = (day) => {
+    const formattedDay = day < 10 ? `0${day}` : day.toString(); // Add leading zero if needed
+    const formattedMonth = currentMonth + 1 < 10 ? `0${currentMonth + 1}` : currentMonth + 1; // Add leading zero if needed
+    const formattedDate = `${currentYear}-${formattedMonth}-${formattedDay}`;
 
-    const generateTooltipContent = (day) => {
-        const expensesForDay = getExpensesForDay(day);
-        if (expensesForDay.length === 0) return null;
+    // Filter incomes for the day
+    const dayIncomes = incomes.filter(income => {
+        const incomeDate = new Date(income.time);
+        const incomeYear = incomeDate.getFullYear();
+        const incomeMonth = incomeDate.getMonth() + 1 < 10 ? `0${incomeDate.getMonth() + 1}` : incomeDate.getMonth() + 1; // Add leading zero if needed
+        const incomeDay = incomeDate.getDate() < 10 ? `0${incomeDate.getDate()}` : incomeDate.getDate(); // Add leading zero if needed
+        const incomeDateString = `${incomeYear}-${incomeMonth}-${incomeDay}`;
+        return incomeDateString === formattedDate;
+    });
 
-        return `Expenses:\n${expensesForDay.map(expense => `${expense.name} - $${expense.cost}`).join('\n')}`;
-    };
+    return dayIncomes;
+};
+
+const getTotalTransactionsForDay = (day) => {
+    const expensesForDay = getExpensesForDay(day);
+    const incomesForDay = getIncomesForDay(day);
+
+    const totalExpenses = expensesForDay.reduce((acc, expense) => acc + parseFloat(expense.cost) * -1, 0);
+    const totalIncomes = incomesForDay.reduce((acc, income) => acc + parseFloat(income.cost), 0);
+
+    return (totalExpenses + totalIncomes).toFixed(2);
+};
+
+const generateTooltipContent = (day) => {
+    const expensesForDay = getExpensesForDay(day);
+    const incomesForDay = getIncomesForDay(day);
+
+    let tooltipContent = '';
+     if (incomesForDay.length > 0) {
+        tooltipContent += 'Incomes:\n';
+        tooltipContent += incomesForDay.map(income => `${income.name} - $${income.cost}`).join('\n');
+    }
+    if (expensesForDay.length > 0) {
+        tooltipContent += 'Expenses:\n';
+        tooltipContent += expensesForDay.map(expense => `${expense.name} - $${expense.cost}`).join('\n');
+        tooltipContent += '\n';
+    }
+
+   
+
+    return tooltipContent || null;
+};
+
+
 const getTotalExpensesForMonth = () => {
     let totalExpenses = 0;
 
@@ -162,7 +199,7 @@ const getTotalExpensesForMonth = () => {
         }
     });
 
-    return totalExpenses.toFixed(2);
+    return totalExpenses.toFixed(settings.decimalPrecision);
 };
 
 const getPercentageForTag = (tag) => {
@@ -213,8 +250,8 @@ const getPercentageForTag = (tag) => {
     const tagTotal = tagExpenses.reduce((acc, expense) => {
         if (expense.isRecurring && expense.recurringFrequency === 'daily') {
               const expenseDate = new Date(expense.time);
-    expenseDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to zero
-    const expenseTimestamp = expenseDate.getTime();
+             expenseDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to zero
+            const expenseTimestamp = expenseDate.getTime();
             const monthStartTimestamp = new Date(currentYear, currentMonth, 1).getTime();
             const monthEndTimestamp = new Date(currentYear, currentMonth + 1, 0).getTime();
             const intervalMillis = expense.recurringInterval * 24 * 60 * 60 * 1000; // Convert days to milliseconds
@@ -235,7 +272,7 @@ const getPercentageForTag = (tag) => {
     }, 0);
 
     // Calculate the percentage for the tag
-    const percentage = ((tagTotal / totalExpenses) * 100).toFixed(2);
+    const percentage = ((tagTotal / totalExpenses) * 100).toFixed(settings.decimalPrecision);
 
     return percentage;
 };
@@ -307,26 +344,34 @@ const renderExpensesByTag = () => {
                 {emptyDaysBefore.map((_, index) => (
                     <div key={`empty-before-${index}`} className='calendar-date empty'></div>
                 ))}
-                {calendarDays.map(day => (
-                    <div key={day} className='calendar-date'>
-                        <div>{day}</div>
-                        {getExpensesForDay(day).length > 0 && (
-                            <div style={{ color: getTotalExpensesForDay(day) < 0 ? 'red' : 'green' }}>
-                                <div>
-                                    ${getTotalExpensesForDay(day)}
-                                </div>
-                                <div>
-                                    <a data-tooltip-id={`expenses-${day}`} className="tooltip-icon" data-tooltip-content={generateTooltipContent(day)} data-tooltip-place="bottom">
-                                        <Icon icon="mdi:question-mark-circle" />
-                                    </a>
-                                </div>
-                            </div>
-                        )}
-                        <Tooltip id={`expenses-${day}`} className="custom-tooltip">
-                            {generateTooltipContent(day)}
-                        </Tooltip>
-                    </div>
-                ))}
+              {calendarDays.map(day => (
+    <div key={day} className='calendar-date'>
+        <div>{day}</div>
+        {getExpensesForDay(day).length > 0 || getIncomesForDay(day).length > 0 ? (
+            <div style={{ color: getTotalTransactionsForDay(day) < 0 ? 'red' : 'green' }}>
+                <div>
+                    ${getTotalTransactionsForDay(day)}
+                </div>
+                <div>
+                    <a
+                        data-tooltip-id={`transactions-${day}`}
+                        className="tooltip-icon"
+                        data-tooltip-content={generateTooltipContent(day)}
+                        data-tooltip-place="bottom"
+                    >
+                        <Icon icon="mdi:question-mark-circle" />
+                    </a>
+                </div>
+            </div>
+        ) : (
+            <div> {/* days without transactions */}</div>
+        )}
+        <Tooltip id={`transactions-${day}`} className="custom-tooltip">
+            {generateTooltipContent(day)}
+        </Tooltip>
+    </div>
+))}
+
                 {emptyDaysAfter.map((_, index) => (
                     <div key={`empty-after-${index}`} className='calendar-date empty'></div>
                 ))}

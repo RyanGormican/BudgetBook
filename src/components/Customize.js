@@ -73,7 +73,7 @@ const Customize = () => {
 			payload: updatedStyles,
 		});
 	};
-	const sortStyles =[...styles].sort((a,b) => a.tag.localeCompare(b.tag));
+	const sortStyles =[...styles].sort((a,b) => a.tag?.localeCompare(b.tag));
 
 	return (
 		<div>

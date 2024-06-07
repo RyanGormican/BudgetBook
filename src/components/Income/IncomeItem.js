@@ -1,46 +1,46 @@
 import React, { useContext } from 'react';
 import { Icon } from '@iconify/react';
-import { AppContext } from '../context/AppContext';
-import {GrabButtonColors, GrabTextColors} from './Utility';
-const ExpenseItem = (props) => {
+import { AppContext } from '../../context/AppContext';
+import {GrabTextColors} from '../Utility';
+const IncomeItem = (props) => {
   const { styles, dispatch } = useContext(AppContext);
 
-  const handleDeleteExpense = () => {
+  const handleDeleteIncome = () => {
     dispatch({
-      type: 'DELETE_EXPENSE',
+      type: 'DELETE_INCOME',
       payload: props.id,
     });
   };
 
   const handleNameChange = (event) => {
-    const updatedExpense = { ...props, name: event.target.value, lastUpdated:new Date().getTime()};
+    const updatedIncome = { ...props, name: event.target.value, lastUpdated:new Date().getTime()};
     dispatch({
-      type: 'UPDATE_EXPENSE',
-      payload: updatedExpense,
+      type: 'UPDATE_INCOME',
+      payload: updatedIncome,
     });
   };
 
   const handleTimeChange = (event) => {
-    const updatedExpense = { ...props, time: event.target.value, lastUpdated:new Date().getTime() };
+    const updatedIncome = { ...props, time: event.target.value, lastUpdated:new Date().getTime() };
     dispatch({
-      type: 'UPDATE_EXPENSE',
-      payload: updatedExpense,
+      type: 'UPDATE_INCOME',
+      payload: updatedIncome,
     });
   };
 
   const handleTagChange = (event) => {
-    const updatedExpense = { ...props, tag: event.target.value, lastUpdated:new Date().getTime() };
+    const updatedIncome = { ...props, tag: event.target.value, lastUpdated:new Date().getTime() };
     dispatch({
-      type: 'UPDATE_EXPENSE',
-      payload: updatedExpense,
+      type: 'UPDATE_INCOME',
+      payload: updatedIncome,
     });
   };
 
   const handleCostChange = (event) => {
-    const updatedExpense = { ...props, cost: event.target.value, lastUpdated:new Date().getTime() };
+    const updatedIncome = { ...props, cost: event.target.value, lastUpdated:new Date().getTime() };
     dispatch({
-      type: 'UPDATE_EXPENSE',
-      payload: updatedExpense,
+      type: 'UPDATE_INCOME',
+      payload: updatedIncome,
     });
   };
 
@@ -82,7 +82,7 @@ const itemTime = props.time
         <span className='btn' style={buttonStyle}>
           <input type='number' min='0.01' step='0.01' value={props.cost} onChange={handleCostChange} />
         </span>
-        <Icon icon='mdi:delete-circle' width='20' onClick={handleDeleteExpense} />
+        <Icon icon='mdi:delete-circle' width='20' onClick={handleDeleteIncome} />
       </div>
     </li>
     ) : (
@@ -109,4 +109,4 @@ const itemTime = props.time
   );
 };
 
-export default ExpenseItem;
+export default IncomeItem;

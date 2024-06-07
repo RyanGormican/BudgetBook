@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import Budget from './components/Budget';
 import Remaining from './components/Remaining';
-import ExpenseTotal from './components/ExpenseTotal';
-import ExpenseList from './components/ExpenseList';
-import AddExpenseForm from './components/AddExpenseForm';
+import ExpenseTotal from './components/Expense/ExpenseTotal';
+import ExpenseList from './components/Expense/ExpenseList';
+import AddExpenseForm from './components/Expense/AddExpenseForm';
 import { GrabButtonColors, GrabTextColors } from './components/Utility';
 import { AppProvider } from './context/AppContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AnalyzeList from './components/AnalyzeList';
 import Settings from './components/Settings';
 import Customize from './components/Customize';
-import Income from './components/Income';
-import ExpenseButtons from './components/ExpenseButtons';
+import Income from './components/Income/Income';
+import ExpenseButtons from './components/Expense/ExpenseButtons';
 import Calendar from './components/Calendar';
 import Export from './components/Export';
 import './App.css';
@@ -57,6 +57,12 @@ const Container = () => {
                     <>
                         <AnalyzeList />
                     </>
+                );
+                case 'Customize':
+                return ( 
+                <>
+              <Customize />
+                </>
                 );
             default:
                 return null;
@@ -130,6 +136,9 @@ const Container = () => {
                 </button>
                 		<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Analyze')}>
 					Analyze
+					</button>
+                    	<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Customize')}>
+					Customize
 					</button>
             </div>
 

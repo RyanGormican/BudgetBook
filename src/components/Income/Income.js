@@ -1,42 +1,52 @@
-import React, { useState, useContext } from 'react';
-import { AppContext } from '../context/AppContext';
-import {GrabButtonColors, GrabTextColors} from './Utility';
+import React, {useContext,useState} from 'react';
+import { AppContext } from '../../context/AppContext';
+import { GrabButtonColors, GrabTextColors } from '../Utility';
+import ViewBudget from '../ViewBudget';
+import EditBudget from '../EditBudget';
+import AddIncomeForm from './AddIncomeForm';
+import IncomeList from './IncomeList';
 import { Icon } from '@iconify/react';
-import Budget from './Budget';
-import Remaining from './Remaining';
-import ExpenseTotal from './ExpenseTotal';
-import ExpenseList from './ExpenseList';
-import AddExpenseForm from './AddExpenseForm';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import AnalyzeList from './AnalyzeList';
-import Customize from './Customize';
-const ExpenseButtons = () => {
-
-
-	const [view, setView] = useState('expenseList');
-	const [sort, setSort] = useState('sortTimestamp');
+const Income = () => {
+    const {budget, dispatch  } = useContext(AppContext);
+	const [isEditing, setIsEditing]= useState(false);
+		const [sort, setSort] = useState('sortTimestamp');
 	const [reverse, setReverse] = useState('false');
 	const [edit, setEdit] = useState('false');
-		return (
-			<div>
-			<div className="container mt-4">
-				<h3 className='mt-3 text-center'> 
-					Expenses
+	const [view, setView] = useState('IncomeList');
+	const handleEditClick = () => {
+		setIsEditing(true)
+	};
+
+	const handleSaveClick = (value) => {
+		dispatch({
+			type: 'SET_BUDGET',
+			payload: value,
+		});
+		setIsEditing(false);
+	};
+   
+
+    return (
+        <div>
+		<div className="text-center">
+			<h3 className='mt-3 text-center'> 
+					Income
 				</h3>
-				<div className="d-flex mb-4 justify-content-center">
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('expenseList')}>
+           {isEditing ? (
+				<EditBudget handleSaveClick={handleSaveClick} budget={budget} />
+			) : (
+				<ViewBudget handleEditClick={handleEditClick} budget={budget} />
+			)}
+			</div>
+			<div className="text-center">
+				<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('IncomeList')}>
 					View
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('addList')}>
+			<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('addIncome')}>
 					Add
 					</button>
-					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Customize')}>
-					Customize
-					</button>
-				</div>
 			</div>
-			
-			{view === 'expenseList' ? (
+				{view === 'IncomeList' ? (
 		
 				<div className="d-flex mb-4 justify-content-center">
 					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setSort('sortName')}>
@@ -77,13 +87,13 @@ const ExpenseButtons = () => {
 					)}
 				</div>
 					) : null }
-			<div className="table-responsive" style={{maxHeight: '60vh', overflow: 'auto'}}>
-					{view === 'expenseList' && <ExpenseList sort={sort} reverse={reverse} edit={edit} />}
-					{view === 'addList' && <AddExpenseForm />}
-					{view === 'Customize' && <Customize />}
+				<div className="table-responsive text-center" style={{maxHeight: '60vh', overflow: 'auto'}}>
+					{view === 'addIncome' && <AddIncomeForm /> }
+				    {view === 'IncomeList' && <IncomeList sort={sort} reverse={reverse} edit={edit} />}
 			</div>
-			</div>
-		);
+   
+        </div>
+    );
 };
 
-export default ExpenseButtons;
+export default Income;

@@ -1,6 +1,6 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext,  useEffect} from 'react';
 import ExpenseItem from './ExpenseItem';
-import { AppContext } from '../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 const ExpenseList = ({ sort, reverse,edit}) => {
 const { expenses, styles, dispatch} = useContext(AppContext);
 const sortExpenses = JSON.parse(JSON.stringify(expenses));
@@ -95,6 +95,7 @@ return (
 						time={expense.time}
 						timestamp={expense.timestamp}
 						edit={edit}
+					    isRecurring={expense.isRecurring || false} 
 						/>
 				)))}
 			</ul>

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { AppContext } from '../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 
 const AddIncomeForm = () => {
     const { dispatch } = useContext(AppContext);

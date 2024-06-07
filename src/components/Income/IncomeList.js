@@ -1,6 +1,6 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext,  useEffect} from 'react';
 import IncomeItem from './IncomeItem';
-import { AppContext } from '../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 const IncomeList = ({ sort, reverse,edit}) => {
 const { incomes, styles, dispatch} = useContext(AppContext);
 const sortIncomes = JSON.parse(JSON.stringify(incomes));
@@ -21,7 +21,7 @@ const sortIncomes = JSON.parse(JSON.stringify(incomes));
 		}
 		});
 	}, [incomes]);
-
+	
 	useEffect(()=>{
 		const newTagsSet = new Set(incomes.map((income)=> income.tag));
 	    const stylesSet = new Set(styles.map((style) => style.tag));

@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
-import {AppContext} from '../context/AppContext';
+import React, { useContext} from 'react';
+import {AppContext} from '../../context/AppContext';
 import { Icon } from '@iconify/react';
 import { Tooltip } from 'react-tooltip'
-import {renderToString} from 'react-dom/server';
 const ExpenseTotal = () => {
 	const {expenses, settings, budget} = useContext(AppContext);
 	

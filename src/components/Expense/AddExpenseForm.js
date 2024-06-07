@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { AppContext } from '../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import { v4 as uuidv4 } from 'uuid';
-import { GrabButtonColors, GrabTextColors } from './Utility';
+import { GrabButtonColors, GrabTextColors } from '../Utility';
 
 const AddExpenseForm = () => {
   const { dispatch } = useContext(AppContext);

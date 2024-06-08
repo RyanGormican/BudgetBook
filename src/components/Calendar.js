@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext';
 import { Icon } from '@iconify/react';
 import { Tooltip } from 'react-tooltip';
 import { renderToString } from 'react-dom/server';
-
+import {getTotalExpenses, renderExpensesByTag,getPercentageForTag} from './Expense/ExpenseTotal'
 const Calendar = () => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -156,183 +156,13 @@ const generateTooltipContent = (day) => {
 };
 
 
-const getTotalExpensesForMonth = () => {
-    let totalExpenses = 0;
-
-    expenses.forEach(expense => {
-        const expenseDate = new Date(expense.time);
-        const monthsElapsed = (currentYear - expenseDate.getFullYear()) * 12 + (currentMonth - expenseDate.getMonth());
-
-        // Calculate total recurring expenses for the month
-        if (expense.isRecurring) {
-            if (expense.recurringFrequency === 'monthly' && expenseDate.getTime() <= new Date(currentYear, currentMonth, 1).getTime()) {
-                const intervalMonths = expense.recurringInterval;
-
-                if (monthsElapsed >= 0 && monthsElapsed % intervalMonths === 0) {
-                    totalExpenses += parseFloat(expense.cost) * -1;
-                }
-
-            } else if (expense.recurringFrequency === 'daily') {
-    const expenseDate = new Date(expense.time);
-    expenseDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to zero
-    const expenseTimestamp = expenseDate.getTime();
-    const monthStartTimestamp = new Date(currentYear, currentMonth, 1).getTime();
-    const monthEndTimestamp = new Date(currentYear, currentMonth + 1, 0).getTime();
-    const intervalMillis = expense.recurringInterval * 24 * 60 * 60 * 1000; // Convert days to milliseconds
-
-    let timestamp = expenseTimestamp;
-
-    // Count the number of recurring expenses within the month
-    while (timestamp <= monthEndTimestamp) {
-        if (timestamp >= monthStartTimestamp) {
-            totalExpenses += parseFloat(expense.cost) * -1;
-        }
-        timestamp += intervalMillis;
-    }
-}
-
-        } else {
-            // Add one-time expense to total if it falls within the month
-            if (expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear) {
-                totalExpenses += parseFloat(expense.cost) * -1;
-            }
-        }
-    });
-
-    return totalExpenses.toFixed(settings.decimalPrecision);
-};
-
-const getPercentageForTag = (tag) => {
-    const tagExpenses = expenses.filter(expense => {
-        const expenseDate = new Date(expense.time);
-
-        if (expense.isRecurring && expense.recurringFrequency === 'monthly') {
-            const monthsElapsed = (currentYear - expenseDate.getFullYear()) * 12 + (currentMonth - expenseDate.getMonth());
-            const intervalMonths = expense.recurringInterval;
-            return (
-                expense.tag === tag &&
-                expenseDate.getTime() <= new Date(currentYear, currentMonth, 1).getTime() &&
-                monthsElapsed >= 0 &&
-                monthsElapsed % intervalMonths === 0
-            );
-        } else if (expense.isRecurring && expense.recurringFrequency === 'daily') {
-           const expenseDate = new Date(expense.time);
-    expenseDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to zero
-    const expenseTimestamp = expenseDate.getTime();
-
-            const monthStartTimestamp = new Date(currentYear, currentMonth, 1).getTime();
-            const monthEndTimestamp = new Date(currentYear, currentMonth + 1, 0).getTime();
-            const intervalMillis = expense.recurringInterval * 24 * 60 * 60 * 1000; // Convert days to milliseconds
-            let timestamp = expenseTimestamp;
-            let totalRecurringExpenses = 0;
-
-            while (timestamp <= monthEndTimestamp) {
-                if (timestamp >= monthStartTimestamp) {
-                    totalRecurringExpenses++;
-                }
-                timestamp += intervalMillis;
-            }
-
-            return expense.tag === tag && totalRecurringExpenses > 0;
-        } else {
-            return (
-                expenseDate.getMonth() === currentMonth &&
-                expenseDate.getFullYear() === currentYear &&
-                expense.tag === tag
-            );
-        }
-    });
-
-    // Calculate the total expenses for the month, including recurring expenses
-    const totalExpenses = getTotalExpensesForMonth();
-
-    // Calculate the total expenses for the tag
-    const tagTotal = tagExpenses.reduce((acc, expense) => {
-        if (expense.isRecurring && expense.recurringFrequency === 'daily') {
-              const expenseDate = new Date(expense.time);
-             expenseDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to zero
-            const expenseTimestamp = expenseDate.getTime();
-            const monthStartTimestamp = new Date(currentYear, currentMonth, 1).getTime();
-            const monthEndTimestamp = new Date(currentYear, currentMonth + 1, 0).getTime();
-            const intervalMillis = expense.recurringInterval * 24 * 60 * 60 * 1000; // Convert days to milliseconds
-            let timestamp = expenseTimestamp;
-            let totalRecurringExpenses = 0;
-
-            while (timestamp <= monthEndTimestamp) {
-                if (timestamp >= monthStartTimestamp) {
-                    totalRecurringExpenses++;
-                }
-                timestamp += intervalMillis;
-            }
-
-            return acc + (parseFloat(expense.cost) * -1 * totalRecurringExpenses);
-        } else {
-            return acc + parseFloat(expense.cost) * -1;
-        }
-    }, 0);
-
-    // Calculate the percentage for the tag
-    const percentage = ((tagTotal / totalExpenses) * 100).toFixed(settings.decimalPrecision);
-
-    return percentage;
-};
-
-const renderExpensesByTag = () => {
-    const uniqueTags = [...new Set(expenses
-        .filter(expense => {
-            const expenseDate = new Date(expense.time);
-            if (expense.isRecurring && expense.recurringFrequency === 'monthly') {
-                const monthsElapsed = (currentYear - expenseDate.getFullYear()) * 12 + (currentMonth - expenseDate.getMonth());
-                const intervalMonths = expense.recurringInterval;
-                return (
-                    expenseDate.getTime() <= new Date(currentYear, currentMonth, 1).getTime() &&
-                    monthsElapsed >= 0 &&
-                    monthsElapsed % intervalMonths === 0
-                );
-            } else if (expense.isRecurring && expense.recurringFrequency === 'daily') {
-                const expenseTimestamp = expenseDate.getTime();
-                const monthStartTimestamp = new Date(currentYear, currentMonth, 1).getTime();
-                const monthEndTimestamp = new Date(currentYear, currentMonth + 1, 0).getTime();
-                const intervalMillis = expense.recurringInterval * 24 * 60 * 60 * 1000; // Convert days to milliseconds
-                let timestamp = expenseTimestamp;
-
-                while (timestamp <= monthEndTimestamp) {
-                    if (timestamp >= monthStartTimestamp) {
-                        return true;
-                    }
-                    timestamp += intervalMillis;
-                }
-
-                return false;
-            } else {
-                return (
-                    expenseDate.getMonth() === currentMonth &&
-                    expenseDate.getFullYear() === currentYear
-                );
-            }
-        })
-        .map(expense => expense.tag)
-    )];
-
-    return uniqueTags.map(tag => (
-        <p key={tag}>
-            {tag}: {getPercentageForTag(tag)}%
-        </p>
-    ));
-};
-
-
-
-
-
-
     return (
         <div className='calendar'>
-            <div className='calendar-nav text-center'>
-                <button onClick={goToPreviousMonth}>&lt;</button>
-                <div>{`${currentMonth + 1}/${currentYear}`}</div>
-                <button onClick={goToNextMonth}>&gt;</button>
-            </div>
+          <div className='calendar-nav text-center'>
+    <button onClick={goToPreviousMonth} style={{ display: 'inline-block' }}>&lt;</button>
+    <div style={{ display: 'inline-block', margin: '0 10px' }}>{`${currentMonth + 1}/${currentYear}`}</div>
+    <button onClick={goToNextMonth} style={{ display: 'inline-block' }}>&gt;</button>
+</div>
             <div className='calendar-header'>
                 {daysOfWeek.map(day => (
                     <div key={day} className='calendar-day'>
@@ -377,9 +207,9 @@ const renderExpensesByTag = () => {
                 ))}
             </div>
             <div className='text-center'>
-                <p>Total Expenses: ${getTotalExpensesForMonth() * -1}</p>
+                <p>Total Expenses: ${getTotalExpenses(expenses,currentMonth,currentYear) }</p>
                 <p>
-                    {renderExpensesByTag()}
+                    {renderExpensesByTag(expenses,settings, currentMonth,currentYear)}
                 </p>
             </div>
         </div>

@@ -99,7 +99,7 @@ const Customize = () => {
 									value={buttonColor}
 									onChange={(event)=> setButtonColor(event.target.value)}
 								/>
-							<div for='color' className="btn" style={buttonStyle}> Button Color </div>
+							<div for='color' className="btn" style={buttonStyle}> Primary Color </div>
 							<div for='color2' className="btn"  style={buttonStyle}> Button Text Color </div>
 							<input
 								type="color"

@@ -20,6 +20,24 @@ import './App.css';
 
 const Container = () => {
     const [view, setView] = useState('Expenses');
+    const [year, setYear] = useState(new Date().getFullYear());
+    const [month, setMonth] = useState(new Date().getMonth()+1);
+const handleYearChange = (e) => {
+    const value = e.target.value;
+    const roundedValue = Math.round(Number(value));
+    setYear(roundedValue);
+};
+const handleMonthChange = (e) => {
+    let newMonth = Number(e.target.value);
+    if (newMonth > 12) {
+        setYear(year + Math.floor(newMonth / 12));
+        newMonth = newMonth % 12;
+    } else if (newMonth < 1) {
+        setYear(year - 1);
+        newMonth = 12 + (newMonth % 12);
+    }
+    setMonth(newMonth);
+};
 
     const renderView = () => {
         switch (view) {
@@ -92,18 +110,45 @@ const Container = () => {
                     <Icon icon="teenyicons:computer-outline" color="#199c35" width="60" />
                 </a>
             </span>
+ <div className='row text-center' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 0, backgroundColor: GrabButtonColors(), width: '40vw', height: '15vh', margin: '0 auto' }}>
+                <div className='d-flex flex-column' style={{ flex: 1, alignItems: 'flex-start', position: 'relative' }}>
+                    <div style={{ minHeight: '25px', padding: 0, minWidth: '25%', backgroundColor: 'white', padding: '2px' }}>
+                        <BudgetVisual />
+                    </div>
+                    <div style={{ minHeight: '25px', padding: 0, minWidth: '25%', backgroundColor: 'white', padding: '2px' }}>
+                        <Remaining  month={month-1} year={year} />
+                    </div>
+                    <div style={{ minHeight: '25px', padding: 0, minWidth: '25%', backgroundColor: 'white', padding: '2px' }}>
+                        <ExpenseTotal month={month-1} year={year}/>
+                    </div>
+                 <div style={{ minHeight: '25px', padding: 0, width: '25%', backgroundColor: 'white', padding: '2px' }}>
+        <input
+        type="number"
+        value={month}
+        onChange={handleMonthChange}
+        style={{width:'50%'}}
+        step={1}
+    />
+                 <input
+        type="number"
+        value={year}
+        onChange={handleYearChange}
+        style={{width:'50%'}}
+        step={1}
+    />
+</div>
 
-            <div className='row text-center' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <div className='col-sm-4 d-flex justify-content-center align-items-center' style={{ minHeight: '50px' }}>
-                    <BudgetVisual />
-                </div>
-                <div className='col-sm-4 d-flex justify-content-center align-items-center' style={{ minHeight: '50px' }}>
-                    <Remaining />
-                </div>
-                <div className='col-sm-4 d-flex justify-content-center align-items-center' style={{ minHeight: '50px' }}>
-                    <ExpenseTotal />
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
 
             <div className='view-buttons mt-3 text-center'>
                     <button

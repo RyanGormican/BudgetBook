@@ -32,11 +32,7 @@ const Income = () => {
 			<h3 className='mt-3 text-center'> 
 					Income
 				</h3>
-           {isEditing ? (
-				<EditBudget handleSaveClick={handleSaveClick} budget={budget} />
-			) : (
-				<ViewBudget handleEditClick={handleEditClick} budget={budget} />
-			)}
+          
 			</div>
 			<div className="text-center">
 				<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('IncomeList')}>

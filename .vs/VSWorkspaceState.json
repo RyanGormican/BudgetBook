@@ -5,8 +5,10 @@
     "\\public",
     "\\src",
     "\\src\\components",
+    "\\src\\components\\Expense",
+    "\\src\\components\\Income",
     "\\src\\context"
   ],
-  "SelectedNode": "\\src\\components\\Customize.js",
+  "SelectedNode": "\\src\\components\\Expense\\ExpenseList.js",
   "PreviewInSolutionExplorer": false
 }

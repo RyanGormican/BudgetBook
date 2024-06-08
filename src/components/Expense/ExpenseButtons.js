@@ -17,7 +17,7 @@ const ExpenseButtons = () => {
 				<h3 className='mt-3 text-center'> 
 					Expenses
 				</h3>
-				<div className="d-flex mb-4 justify-content-center">
+				<div className="d-flex justify-content-center">
 					<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('expenseList')}>
 					View
 					</button>

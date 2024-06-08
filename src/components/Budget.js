@@ -1,12 +1,13 @@
-import React, {useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
+import { GrabButtonColors, GrabTextColors } from './Utility';
 import ViewBudget from './ViewBudget';
 import EditBudget from './EditBudget';
 
 const Budget = () => {
-	const { budget, dispatch } = useContext(AppContext);
+    const {budget, dispatch  } = useContext(AppContext);
 	const [isEditing, setIsEditing]= useState(false);
-
+	
 	const handleEditClick = () => {
 		setIsEditing(true)
 	};
@@ -18,10 +19,17 @@ const Budget = () => {
 		});
 		setIsEditing(false);
 	};
-	return (
-		<div className = 'alert alert-secondary p-3 d-flex align-items-center justify-content-between'>
-			Budget: {budget}
-		</div>
-	);
+
+    return (
+        <div >
+		<div className='text-center'>
+      {isEditing ? (
+				<EditBudget handleSaveClick={handleSaveClick} budget={budget} />
+			) : (
+				<ViewBudget handleEditClick={handleEditClick} budget={budget} />
+			)}
+			</div>
+        </div>
+    );
 };
 export default Budget;

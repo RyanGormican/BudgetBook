@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
+import BudgetVisual from './components/BudgetVisual';
 import Budget from './components/Budget';
 import Remaining from './components/Remaining';
 import ExpenseTotal from './components/Expense/ExpenseTotal';
@@ -52,6 +53,12 @@ const Container = () => {
                         <Settings />
                     </>
                 );
+                      case 'Budget':
+                return (
+                    <>
+                        <Budget />
+                    </>
+                );
                      case 'Analyze':
                 return (
                     <>
@@ -88,7 +95,7 @@ const Container = () => {
 
             <div className='row text-center' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <div className='col-sm-4 d-flex justify-content-center align-items-center' style={{ minHeight: '50px' }}>
-                    <Budget />
+                    <BudgetVisual />
                 </div>
                 <div className='col-sm-4 d-flex justify-content-center align-items-center' style={{ minHeight: '50px' }}>
                     <Remaining />
@@ -119,6 +126,13 @@ const Container = () => {
                     onClick={() => setView('Calendar')}
                 >
                     Calendar
+                </button>
+                  <button
+                    className="btn"
+                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
+                    onClick={() => setView('Budget')}
+                >
+                    Budget
                 </button>
                         <button
                     className="btn"

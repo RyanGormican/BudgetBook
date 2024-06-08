@@ -11,16 +11,22 @@ const ExpenseTotal = ({month,year}) => {
 
 	
 	return (
-		<div>
-			<span>
-			Spent: ${getTotalExpenses(expenses,month,year)}
-			</span>
-			<a data-tooltip-id="tagList" data-tooltip-content={renderExpensesByTag(expenses,settings, month,year)} data-tooltip-place="bottom">
-				<Icon icon="mdi:question-mark-circle"/>
-			</a>
-			<Tooltip id="tagList" />
-		</div>
-	);
+    <div>
+        <span>
+            Spent: ${getTotalExpenses(expenses, month, year)}
+        </span>
+        {getTotalExpenses(expenses, month, year) > 0 && (
+            <a data-tooltip-id="tagList" data-tooltip-content={renderExpensesByTag(expenses, settings, month, year)} data-tooltip-place="bottom">
+                <Icon icon="mdi:question-mark-circle"/>
+            </a>
+        )}
+        {getTotalExpenses(expenses, month, year) > 0 && (
+            <Tooltip id="tagList" />
+        )}
+    </div>
+);
+
+
 };
 export default ExpenseTotal;
 

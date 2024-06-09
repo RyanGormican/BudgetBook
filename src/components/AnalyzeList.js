@@ -133,9 +133,7 @@ const AnalyzeList = () => {
         	<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('pie')}>
 					Pie
 			</button>
-            <button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('line')}>
-					Line
-			</button>
+           
 			</div>
          {view === 'pie' && (
     <div style={{ justifyContent: 'center', textAlign: 'center', display: 'flex', alignItems: 'center', height: '50vh' }}>

@@ -197,3 +197,70 @@ export  const getPercentageForTag = (expenses,settings, month, year, tag) => {
 
     return percentage;
 };
+export const getExpensesForDay = (expenses,day,currentMonth,currentYear) => {
+    const formattedDay = day < 10 ? `0${day}` : day.toString(); // Add leading zero if needed
+    const formattedMonth = currentMonth + 1 < 10 ? `0${currentMonth + 1}` : currentMonth + 1; // Add leading zero if needed
+    const formattedDate = `${currentYear}-${formattedMonth}-${formattedDay}`;
+
+    // Filter regular expenses for the day
+
+    const dayExpenses = expenses.filter(expense => {
+      if (!expense.isRecurring){
+        const expenseDate = new Date(expense.time);
+        const expenseYear = expenseDate.getFullYear();
+        const expenseMonth = expenseDate.getMonth() + 1 < 10 ? `0${expenseDate.getMonth() + 1}` : expenseDate.getMonth() + 1; // Add leading zero if needed
+        const expenseDay = expenseDate.getDate() < 10 ? `0${expenseDate.getDate()}` : expenseDate.getDate(); // Add leading zero if needed
+        const expenseDateString = `${expenseYear}-${expenseMonth}-${expenseDay}`;
+        return expenseDateString === formattedDate;
+        }
+    });
+
+    // Filter recurring expenses for the day and after the start date
+    const recurringDayExpenses = expenses.filter(expense => {
+        if (!expense.isRecurring) return false;
+        if (expense.recurringFrequency === 'monthly') {
+            const [year, month, dayOfMonth] = expense.time.split('T')[0].split('-');
+    const expenseDate = new Date(expense.time);
+    const expenseYear = expenseDate.getFullYear();
+    const expenseMonth = expenseDate.getMonth();
+    const expenseDay = expenseDate.getDate();
+    
+    // Check if the expense is for the current month and day and not the same as the current day
+    if (currentMonth === expenseMonth && day === expenseDay && currentYear === expenseYear && day !== dayOfMonth) {
+        return true;
+    }
+
+    // Calculate the difference in months between the current date and the expense date
+    const differenceInMonths = (currentYear - expenseYear) * 12 + (currentMonth - expenseMonth);
+    // Check if the difference in months is divisible by the recurring interval
+    if (differenceInMonths >= 0 && differenceInMonths % parseInt(expense.recurringInterval) === 0) {
+        // Check if the current day matches the expense day
+        if (day === expenseDay) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+      if (expense.recurringFrequency === 'daily') {
+    const [year, month, dayOfMonth] = expense.time.split('T')[0].split('-');
+    const expenseDate = new Date(year, month - 1, dayOfMonth); // Month is 0-indexed in Date constructor
+    const currentDate = new Date(currentYear, currentMonth, day);
+    // Calculate the difference in days between the current date and the expense date
+    const differenceInDays = Math.floor((currentDate.getTime() - expenseDate.getTime()) / (1000 * 60 * 60 * 24));
+    // Check if the difference in days is divisible by the recurring interval
+    if (differenceInDays >= 0 && differenceInDays % parseInt(expense.recurringInterval) === 0) {
+        return true;
+    }
+    return false;
+}
+
+
+
+
+
+    });
+
+    return [...dayExpenses, ...recurringDayExpenses];
+};

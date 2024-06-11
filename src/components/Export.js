@@ -1,9 +1,8 @@
-import React,{useContext} from 'react';
-import { AppContext } from '../context/AppContext';
+import React from 'react';
 import { GrabButtonColors, GrabTextColors } from './Utility';
 
 const Export = () => {
-    const { expenses } = useContext(AppContext);
+
 
     const handleExportData = () => {
         // Retrieve all data from local storage

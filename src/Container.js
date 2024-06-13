@@ -151,7 +151,7 @@ const handleMonthChange = (e) => {
 
 
             <div className='view-buttons mt-3 text-center'>
-                    <button
+                <button
                     className="btn"
                     style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                     onClick={() => setView('Income')}

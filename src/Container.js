@@ -16,12 +16,15 @@ import Income from './components/Income/Income';
 import ExpenseButtons from './components/Expense/ExpenseButtons';
 import Calendar from './components/Calendar';
 import Export from './components/Export';
+import Feedback from './components/Feedback/Feedback';
 import './App.css';
+
 
 const Container = () => {
     const [view, setView] = useState('Expenses');
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth()+1);
+     const [isModalOpen, setIsModalOpen] = useState(false);
 const handleYearChange = (e) => {
     const value = e.target.value;
     const roundedValue = Math.round(Number(value));
@@ -93,12 +96,17 @@ const handleMonthChange = (e) => {
                 return null;
         }
     };
-
+const toggleFeedbackModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
     return (
         <>
             <h1 className='mt-3 text-center'>
                 BudgetBook
             </h1>
+             {isModalOpen && (
+          <Feedback  isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
+          )}
             <span className='links'>
                 <a href="https://www.linkedin.com/in/ryangormican/">
                     <Icon icon="mdi:linkedin" color="#0e76a8" width="60" />
@@ -109,6 +117,9 @@ const handleMonthChange = (e) => {
                 <a href="https://ryangormicanportfoliohub.vercel.app/">
                     <Icon icon="teenyicons:computer-outline" color="#199c35" width="60" />
                 </a>
+                 <div className="cursor-pointer" onClick={() => toggleFeedbackModal()}>
+          <Icon icon="material-symbols:feedback"  width="60" />
+        </div>
             </span>
  <div className='row text-center' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 0, backgroundColor: GrabButtonColors(), width: '40vw', height: '15vh', margin: '0 auto' }}>
                 <div className='d-flex flex-column' style={{ flex: 1, alignItems: 'flex-start', position: 'relative' }}>

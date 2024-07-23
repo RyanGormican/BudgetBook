@@ -12,7 +12,7 @@ const Feedback = ({ isModalOpen, setIsModalOpen }) => {
     try {
       await addDoc(collection(firestore, 'suggestions'), {
         name: name.trim(),
-        topic: 'SimplyCharts',
+        topic: 'BudgetBook',
         suggestion: suggestion.trim(),
         timestamp: serverTimestamp(),
         status: 'incomplete'
@@ -26,7 +26,7 @@ const Feedback = ({ isModalOpen, setIsModalOpen }) => {
   const handleProjectClick = async () => {
     try {
       const docRef = await addDoc(collection(firestore, 'feedback'), {
-        project: 'SimplyCharts',
+        project: 'BudgetBook',
         timestamp: serverTimestamp()
       });
     } catch (error) {

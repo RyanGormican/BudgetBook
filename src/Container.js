@@ -118,7 +118,7 @@ const toggleFeedbackModal = () => {
                     <Icon icon="teenyicons:computer-outline" color="#199c35" width="60" />
                 </a>
                  <div className="cursor-pointer" onClick={() => toggleFeedbackModal()}>
-          <Icon icon="material-symbols:feedback"  width="60" />
+          <Icon icon="material-symbols:feedback"  color="#e8eaea" width="60" />
         </div>
             </span>
  <div className='row text-center' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 0, backgroundColor: GrabButtonColors(), width: '40vw', height: '15vh', margin: '0 auto' }}>

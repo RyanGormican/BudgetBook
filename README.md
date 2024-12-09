@@ -52,5 +52,7 @@ BudgetBook is a react app designed for managing expenses. Users are able to mana
 
 
 
+
+
 [Linkedin](https://www.linkedin.com/ln/ryangormican/)
 

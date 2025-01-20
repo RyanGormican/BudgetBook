@@ -71,8 +71,8 @@ const initialState = {
     ],
     settings: {
         decimalPrecision: 2,
-        buttonColor: 'ADD8E6',
-        buttonTextColor: 'FFFFFF'
+        buttonColor: '#ADD8E5',
+        buttonTextColor: '#FFFFFF'
     },
     incomes: [
     { id: 1, name: 'Click on the Add button to get started with adding income!', cost: 20, tag: 'Hey', timestamp: new Date().getTime() },

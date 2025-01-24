@@ -4,8 +4,17 @@ import { Chart, ArcElement, Tooltip, Legend, LineElement, CategoryScale, LinearS
 import { Pie, Line } from 'react-chartjs-2';
 import { renderExpensesByTag, getTotalExpenses, getExpensesForDay } from './Expense/ExpenseTotal';
 import { GrabButtonColors, GrabTextColors } from './Utility';
+import { Bar } from 'react-chartjs-2';
+import { BarElement } from 'chart.js';
+import { Radar, Scatter, Doughnut, PolarArea } from 'react-chartjs-2';
+import { RadarController, PolarAreaController,   RadialLinearScale } from 'chart.js';
+
+Chart.register(BarElement);
 
 Chart.register(ArcElement, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement);
+
+
+Chart.register(RadarController, PolarAreaController,RadialLinearScale);
 
 const AnalyzeList = () => {
     const { expenses, settings, styles, budget } = useContext(AppContext);
@@ -23,7 +32,29 @@ const AnalyzeList = () => {
         const value = Math.round(Number(e.target.value));
         setter(value);
     };
-
+    const barChartLabels = Object.keys(tagCosts); // Tags/categories as labels
+const barChartData = Object.values(tagCosts); // Total expenses per tag
+useEffect(() => {
+    if (endYear < startYear || (endYear === startYear && endMonth < startMonth)) {
+        setEndYear(startYear);
+        setEndMonth(startMonth);
+    }
+}, [startYear, startMonth, endYear, endMonth]); 
+const barChartConfig = {
+    labels: barChartLabels,
+    datasets: [
+        {
+            label: 'Expenses by Tag',
+            data: barChartData,
+            backgroundColor: barChartLabels.map((tag) => {
+                const style = styles.find((s) => s.tag === tag);
+                return style ? `#${style.color}` : 'rgb(75, 192, 192)';
+            }),
+            borderColor: 'rgb(0, 0, 0)',
+            borderWidth: 1,
+        },
+    ],
+};
     const handleMonthChange = (setter, relatedYearSetter) => (e) => {
         let newMonth = Number(e.target.value);
         if (newMonth > 12) {
@@ -47,18 +78,23 @@ const AnalyzeList = () => {
 
     let totalMonths = 0; // Variable to store the total number of months in the time range
 
+    // Define start date for the range
+    const startDate = new Date(startYear, startMonth - 1, 1); // Start of the period
+
     while (currentYear < endYear || (currentYear === endYear && currentMonth <= endMonth - 1)) {
         totalMonths++; // Increment the total number of months for each month iteration
 
         const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
         let isFirstDay = true; // Flag to include the first day even if it's 0
         for (let day = 1; day <= daysInMonth; day++) {
+            const currentDate = new Date(currentYear, currentMonth, day);
             const expensesForDay = getExpensesForDay(expenses, day, currentMonth, currentYear);
             const totalExpenses = expensesForDay.reduce((acc, expense) => acc + parseFloat(expense.cost) * 1, 0);
             if (isFirstDay || totalExpenses > 0) {
                 isFirstDay = false;
                 cumulativeTotal += totalExpenses;
-                dailyExpenses.push({ date: new Date(currentYear, currentMonth, day), dailyTotal: totalExpenses, cumulativeTotal: cumulativeTotal });
+                const daysSinceStart = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24)); // Calculate days since start
+                dailyExpenses.push({ date: currentDate, dailyTotal: totalExpenses, cumulativeTotal: cumulativeTotal, daysSinceStart });
             }
         }
 
@@ -144,6 +180,73 @@ const AnalyzeList = () => {
         ],
     };
 
+    const radarChartConfig = {
+    labels: barChartLabels,
+    datasets: [
+        {
+            label: 'Category Comparison',
+            data: barChartData,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+            pointBorderColor: '#fff',
+        },
+    ],
+};
+const pointRadius = 1 * window.innerHeight / 100; 
+const scatterChartConfig = {
+    datasets: [
+        {
+            label: 'Daily Expenses',
+            data: lineChartData.map((item) => ({
+                x: item.daysSinceStart, 
+                y: item.dailyTotal,
+            })),
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            pointRadius:pointRadius,
+        },
+    ],
+    options: {
+        scales: {
+            x: {
+                type: 'linear',  
+                title: {
+                    display: true,
+                    text: 'Days Since Start',
+                },
+                ticks: {
+                    stepSize: 1,  
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Daily Expenses ($)',
+                },
+            },
+        },
+    },
+};
+
+
+
+const doughnutChartConfig = { ...costData }; 
+const polarAreaChartConfig = {
+    labels: barChartLabels,
+    datasets: [
+        {
+            data: barChartData,
+            backgroundColor: barChartLabels.map((tag) => {
+                const style = styles.find((s) => s.tag === tag);
+                return style ? `#${style.color}` : 'rgb(75, 192, 192)';
+            }),
+            borderColor: '#fff',
+        },
+    ],
+};
+
+
     return (
         <div>
             <div className="text-center" style={{ marginBottom: '20px' }}>
@@ -179,12 +282,16 @@ const AnalyzeList = () => {
                 />
             </div>
             <div className="d-flex justify-content-center">
-                <button className="btn" style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }} onClick={() => setView('pie')}>
-                    Pie
-                </button>
-                <button className="btn" style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }} onClick={() => setView('line')}>
-                    Line
-                </button>
+             <div className="d-flex justify-content-center">
+    <button className="btn" style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }} onClick={() => setView('pie')}>Pie</button>
+    <button className="btn" style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }} onClick={() => setView('line')}>Line</button>
+    <button className="btn" style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }} onClick={() => setView('bar')}>Bar</button>
+    <button className="btn" style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }} onClick={() => setView('radar')}>Radar</button>
+    <button className="btn" style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }} onClick={() => setView('scatter')}>Scatter</button>
+    <button className="btn" style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }} onClick={() => setView('doughnut')}>Doughnut</button>
+    <button className="btn" style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }} onClick={() => setView('polarArea')}>Polar Area</button>
+</div>
+
             </div>
             {view === 'pie' && (
                 <div style={{ justifyContent: 'center', textAlign: 'center', display: 'flex', alignItems: 'center', height: '50vh' }}>
@@ -202,6 +309,41 @@ const AnalyzeList = () => {
                     <Line data={lineChartConfig} />
                 </div>
             )}
+
+            {view === 'bar' && (
+    <div
+        style={{
+            justifyContent: 'center',
+            textAlign: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            height: '50vh',
+        }}
+    >
+        <Bar data={barChartConfig} />
+    </div>
+)}
+{view === 'radar' && (
+    <div style={{ justifyContent: 'center', textAlign: 'center', display: 'flex', alignItems: 'center', height: '50vh' }}>
+        <Radar data={radarChartConfig} />
+    </div>
+)}
+{view === 'scatter' && (
+    <div style={{ justifyContent: 'center', textAlign: 'center', display: 'flex', alignItems: 'center', height: '50vh' }}>
+        <Scatter data={scatterChartConfig} />
+    </div>
+)}
+{view === 'doughnut' && (
+    <div style={{ justifyContent: 'center', textAlign: 'center', display: 'flex', alignItems: 'center', height: '50vh' }}>
+        <Doughnut data={doughnutChartConfig} />
+    </div>
+)}
+{view === 'polarArea' && (
+    <div style={{ justifyContent: 'center', textAlign: 'center', display: 'flex', alignItems: 'center', height: '50vh' }}>
+        <PolarArea data={polarAreaChartConfig} />
+    </div>
+)}
+
         </div>
     );
 };

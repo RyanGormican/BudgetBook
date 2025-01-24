@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import { Icon } from '@iconify/react';
+import { AppContext } from './context/AppContext';
 import BudgetVisual from './components/BudgetVisual';
 import Budget from './components/Budget';
 import Remaining from './components/Remaining';
@@ -18,18 +19,77 @@ import Calendar from './components/Calendar';
 import Export from './components/Export';
 import Feedback from './components/Feedback/Feedback';
 import './App.css';
-
+import { renderExpensesByTag, getTotalExpenses, getExpensesForDay } from './components/Expense/ExpenseTotal';
 
 const Container = () => {
     const [view, setView] = useState('Expenses');
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth()+1);
      const [isModalOpen, setIsModalOpen] = useState(false);
+         const { expenses, settings, styles, budget } = useContext(AppContext);  
+    const [dailyExpenses, setDailyExpenses] = useState(0);
 const handleYearChange = (e) => {
     const value = e.target.value;
     const roundedValue = Math.round(Number(value));
     setYear(roundedValue);
 };
+ const [prevDay, setPrevDay] = useState(null);
+    const [prevMonth, setPrevMonth] = useState(null);
+    const [prevYear, setPrevYear] = useState(null);
+
+
+    useEffect(() => {
+        const checkDateChange = () => {
+            const currentDate = new Date(Date.now());
+            const currentDay = currentDate.getDate();
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+
+ 
+            if (currentDay !== prevDay || currentMonth !== prevMonth || currentYear !== prevYear) {
+                const Dailyexpense = getExpensesForDay(expenses, currentDay, currentMonth, currentYear);
+                const totalCost = Object.values(Dailyexpense)
+                    .filter(expense => expense.cost)
+                    .map(expense => parseFloat(expense.cost))
+                    .map(cost => Math.round(cost * 100) / 100) 
+                    .reduce((acc, curr) => acc + curr, 0);  
+
+                setDailyExpenses(totalCost);
+
+                setPrevDay(currentDay);
+                setPrevMonth(currentMonth);
+                setPrevYear(currentYear);
+            }
+        };
+
+        checkDateChange();
+
+
+        const intervalId = setInterval(checkDateChange, 60000);
+
+
+        return () => clearInterval(intervalId);
+
+    }, [prevDay, prevMonth, prevYear]);  
+
+
+
+
+
+    useEffect(()=> {
+         const currentDate = new Date(Date.now());
+            const currentDay = currentDate.getDate();
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+  const Dailyexpense = getExpensesForDay(expenses, currentDay, currentMonth, currentYear);
+                const totalCost = Object.values(Dailyexpense)
+                    .filter(expense => expense.cost)
+                    .map(expense => parseFloat(expense.cost))
+                    .map(cost => Math.round(cost * 100) / 100) 
+                    .reduce((acc, curr) => acc + curr, 0);  
+
+                setDailyExpenses(totalCost);
+    },[expenses]);
 const handleMonthChange = (e) => {
     let newMonth = Number(e.target.value);
     if (newMonth > 12) {
@@ -121,36 +181,56 @@ const toggleFeedbackModal = () => {
           <Icon icon="material-symbols:feedback"  color="#e8eaea" width="60" />
         </div>
             </span>
- <div className='row text-center' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 0, backgroundColor: GrabButtonColors(), width: '40vw', height: '15vh', margin: '0 auto' }}>
-                <div className='d-flex flex-column' style={{ flex: 1, alignItems: 'flex-start', position: 'relative' }}>
-                    <div style={{ minHeight: '25px', padding: 0, minWidth: '25%', backgroundColor: 'white', padding: '2px' }}>
-                        <BudgetVisual />
+<div className='row text-center' style={{ display: 'flex', backgroundColor: GrabButtonColors(), width: '50vw', height: '15vh', margin: '0 auto' }}>
+    {/* Left Section for stacking visuals */}
+    <div className='d-flex flex-column' style={{ flex: 1, alignItems: 'flex-start', position: 'relative', paddingTop:'2vh',width: '15vw', height: '15vh' }}>
+        <div style={{ minHeight: '25px', padding: 0, width: '50%', backgroundColor: 'white', padding: '2px' }}>
+            <BudgetVisual />
+        </div>
+        <div style={{ minHeight: '25px', padding: 0, width: '50%', backgroundColor: 'white', padding: '2px' }}>
+            <Remaining month={month - 1} year={year} />
+        </div>
+        <div style={{ minHeight: '25px', padding: 0, width: '50%', backgroundColor: 'white', padding: '2px' }}>
+            <ExpenseTotal month={month - 1} year={year} />
+        </div>
+        <div style={{ minHeight: '25px', padding: 0, width: '50%', backgroundColor: 'white', padding: '2px' }}>
+            <input
+                type="number"
+                value={month}
+                onChange={handleMonthChange}
+                style={{ width: '50%' }}
+                step={1}
+            />
+            <input
+                type="number"
+                value={year}
+                onChange={handleYearChange}
+                style={{ width: '50%' }}
+                step={1}
+            />
+        </div>
+    </div>
+
+    
+      <div style={{ flex: 1, paddingTop: '2vh' }}>
+                    <div
+                        className="expenses-scroll"
+                        style={{
+                            backgroundColor: 'white',
+                            padding: '2vh',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            position: 'relative',
+                          
+                        }}
+                    >
+                        <span style={{ display: 'inline-block', paddingLeft: '100%' ,  animation: 'scrollText 10s linear infinite', }} >
+                            Your expenses for the day are ${dailyExpenses}
+                        </span>
                     </div>
-                    <div style={{ minHeight: '25px', padding: 0, minWidth: '25%', backgroundColor: 'white', padding: '2px' }}>
-                        <Remaining  month={month-1} year={year} />
-                    </div>
-                    <div style={{ minHeight: '25px', padding: 0, minWidth: '25%', backgroundColor: 'white', padding: '2px' }}>
-                        <ExpenseTotal month={month-1} year={year}/>
-                    </div>
-                 <div style={{ minHeight: '25px', padding: 0, width: '25%', backgroundColor: 'white', padding: '2px' }}>
-        <input
-        type="number"
-        value={month}
-        onChange={handleMonthChange}
-        style={{width:'50%'}}
-        step={1}
-    />
-                 <input
-        type="number"
-        value={year}
-        onChange={handleYearChange}
-        style={{width:'50%'}}
-        step={1}
-    />
+                </div>
 </div>
 
-                </div>
-            </div>
 
 
 

@@ -6,9 +6,10 @@
     "\\src",
     "\\src\\components",
     "\\src\\components\\Expense",
+    "\\src\\components\\Feedback",
     "\\src\\components\\Income",
     "\\src\\context"
   ],
-  "SelectedNode": "\\src\\Container.js",
+  "SelectedNode": "\\src\\components\\AnalyzeList.js",
   "PreviewInSolutionExplorer": false
 }

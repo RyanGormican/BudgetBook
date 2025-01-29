@@ -1,5 +1,6 @@
 *{
-	 font-family: 'Roboto Slab'
+	 font-family: 'Roboto Slab';
+     font-weight: 600;
 }
 .links {
   display: flex;
@@ -14,9 +15,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 600px;
+    max-width: 90%;
     margin: 0 auto;
     border: 1px solid #ddd;
+    justify-content: space-between;
+    position: relative; 
 }
 
 .calendar-header, .calendar-body {
@@ -24,18 +27,111 @@
     flex-wrap: wrap;
 }
 
+.calendar-body {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.calendar-details {
+    display: none;
+    position: relative;
+    top: 0;
+    width: 20vw;
+    padding: 2%;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out; 
+}
+
+.calendar-details.show {
+    display: block;
+    right: 0;
+}
+
+.details-box {
+    background: #f9f9f9;
+    padding: 3%;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
 .calendar-day, .calendar-date {
-    flex: 1 0 14.28%; 
+    flex: 1 0 14.28%;
     box-sizing: border-box;
     border: 1px solid #ddd;
     text-align: center;
-    padding: 10px 0;
+    padding: 1% 0;
+}
+
+.details-box h3 {
+    margin-top: 0;
+    font-size: 1.125rem;
+}
+
+.income-list, .expense-list {
+    margin-bottom: 3%;
+}
+
+.income-list h4, .expense-list h4 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+
+.income-table, .expense-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.income-table th, .expense-table th, .income-table td, .expense-table td {
+    padding: 1% 2%;
+    text-align: left;
+}
+
+.income-table th, .expense-table th {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+.income-table td {
+    color: green;
+}
+
+.expense-table td {
+    color: red;
+}
+
+.income-list p, .expense-list p {
+    font-style: italic;
+    color: #888;
 }
 
 .calendar-header {
     background-color: #f9f9f9;
     font-weight: bold;
 }
+
+.tooltip-icon {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-icon:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    z-index: 100;
+}
+
 @keyframes scrollText {
     0% {
         transform: translateX(-100%);
@@ -43,4 +139,18 @@
     100% {
         transform: translateX(100%);
     }
+}
+.btn {
+    padding: 0.6em 1.2em;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-0.2em);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0.9;
 }

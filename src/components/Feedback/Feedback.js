@@ -28,7 +28,7 @@ const Feedback = ({ isModalOpen, setIsModalOpen }) => {
   const handleProjectClick = async () => {
     try {
       await addDoc(collection(firestore, 'feedback'), {
-        project: 'UserUnit',
+        project: 'BudgetBook',
         timestamp: serverTimestamp(),
       });
     } catch (error) {

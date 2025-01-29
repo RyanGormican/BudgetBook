@@ -20,7 +20,7 @@ import Export from './components/Export';
 import Feedback from './components/Feedback/Feedback';
 import './App.css';
 import { renderExpensesByTag, getTotalExpenses, getExpensesForDay } from './components/Expense/ExpenseTotal';
-
+import ViewButtons from './components/ViewButtons';
 const Container = () => {
     const [view, setView] = useState('Expenses');
     const [year, setYear] = useState(new Date().getFullYear());
@@ -230,68 +230,7 @@ const toggleFeedbackModal = () => {
                     </div>
                 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-            <div className='view-buttons mt-3 text-center'>
-                <button
-                    className="btn"
-                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
-                    onClick={() => setView('Income')}
-                >
-                    Income
-                </button>
-                <button
-                    className="btn"
-                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
-                    onClick={() => setView('Expenses')}
-                >
-                    Expenses
-                </button>
-                <button
-                    className="btn"
-                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
-                    onClick={() => setView('Calendar')}
-                >
-                    Calendar
-                </button>
-                  <button
-                    className="btn"
-                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
-                    onClick={() => setView('Budget')}
-                >
-                    Budget
-                </button>
-                        <button
-                    className="btn"
-                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
-                    onClick={() => setView('Export')}
-                >
-                    Export
-                </button>
-                        <button
-                    className="btn"
-                    style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
-                    onClick={() => setView('Settings')}
-                >
-                    Settings
-                </button>
-                		<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Analyze')}>
-					Analyze
-					</button>
-                    	<button className="btn" style = {{ backgroundColor: GrabButtonColors(), color: GrabTextColors()}} onClick={() => setView('Customize')}>
-					Customize
-					</button>
-            </div>
-
+    <ViewButtons setView={setView} />
             {renderView()}
         </>
     );

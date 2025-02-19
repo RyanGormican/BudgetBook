@@ -181,19 +181,19 @@ const toggleFeedbackModal = () => {
           <Icon icon="material-symbols:feedback"  color="#e8eaea" width="60" />
         </div>
             </span>
-<div className='row text-center' style={{ display: 'flex', backgroundColor: GrabButtonColors(), width: '50vw', height: '15vh', margin: '0 auto' }}>
+<div className='row text-center' style={{ display: 'flex', backgroundColor: GrabButtonColors(), width: '50vw', margin: '0 auto', alignItems: 'stretch' }}>
     {/* Left Section for stacking visuals */}
-    <div className='d-flex flex-column' style={{ flex: 1, alignItems: 'flex-start', position: 'relative', paddingTop:'2vh',width: '15vw', height: '15vh' }}>
-        <div style={{ minHeight: '25px', padding: 0, width: '50%', backgroundColor: 'white', padding: '2px' }}>
+    <div className='d-flex flex-column' style={{ flex: 1, position: 'relative', paddingTop: '2vh', maxWidth: '8vw' ,paddingBottom:'1rem' }}>
+        <div style={{ minHeight: '25px', padding: 0, backgroundColor: 'white', padding: '2px' }}>
             <BudgetVisual />
         </div>
-        <div style={{ minHeight: '25px', padding: 0, width: '50%', backgroundColor: 'white', padding: '2px' }}>
+        <div style={{ minHeight: '25px', backgroundColor: 'white', padding: '2px' }}>
             <Remaining month={month - 1} year={year} />
         </div>
-        <div style={{ minHeight: '25px', padding: 0, width: '50%', backgroundColor: 'white', padding: '2px' }}>
+        <div style={{ minHeight: '25px',  backgroundColor: 'white', padding: '2px' }}>
             <ExpenseTotal month={month - 1} year={year} />
         </div>
-        <div style={{ minHeight: '25px', padding: 0, width: '50%', backgroundColor: 'white', padding: '2px' }}>
+        <div style={{ minHeight: '25px', backgroundColor: 'white', padding: '2px' }}>
             <input
                 type="number"
                 value={month}
@@ -211,24 +211,32 @@ const toggleFeedbackModal = () => {
         </div>
     </div>
 
-    
-      <div style={{ flex: 1, paddingTop: '2vh' }}>
-                    <div
-                        className="expenses-scroll"
-                        style={{
-                            backgroundColor: 'white',
-                            padding: '2vh',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            position: 'relative',
-                          
-                        }}
-                    >
-                        <span style={{ display: 'inline-block', paddingLeft: '100%' ,  animation: 'scrollText 10s linear infinite', }} >
-                            Your expenses for the day are ${dailyExpenses}
-                        </span>
-                    </div>
-                </div>
+    {/* Right Section for expenses scroll */}
+    <div style={{ flex: 1, minWidth: '30vw', paddingTop: '2vh' }}>
+        <div
+            className="expenses-scroll"
+            style={{
+                backgroundColor: 'white',
+                padding: '2vh',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                position: 'relative',
+            }}
+        >
+            <span
+                style={{
+                    display: 'inline-block',
+                    paddingLeft: '100%',
+                    animation: 'scrollText 10s linear infinite',
+                }}
+            >
+                Your expenses for the day are ${dailyExpenses}
+            </span>
+        </div>
+    </div>
+
+
+               
 </div>
     <ViewButtons setView={setView} />
             {renderView()}

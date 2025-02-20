@@ -1,6 +1,6 @@
 import React from 'react';
 import { GrabButtonColors, GrabTextColors } from './Utility';
-
+import { Icon } from '@iconify/react';
 const ViewButtons = ({ setView }) => {
     return (
         <div className='view-buttons mt-3 text-center'>
@@ -9,59 +9,60 @@ const ViewButtons = ({ setView }) => {
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Income')}
             >
-                Income
+                Income <Icon icon="majesticons:money-plus-line"/>
             </button>
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Expenses')}
             >
-                Expenses
+                Expenses <Icon icon="majesticons:money-minus-line" />
             </button>
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Calendar')}
             >
-                Calendar
+                Calendar <Icon icon="mdi:calendar" />
             </button>
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Budget')}
             >
-                Budget
+                Budget <Icon icon="majesticons:money-line" />
             </button>
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Export')}
             >
-                Export
+                Export <Icon icon="mdi:export"  />
             </button>
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Settings')}
             >
-                Settings
+                Settings <Icon icon="material-symbols:settings" />
             </button>
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Analyze')}
             >
-                Analyze
+                Analyze <Icon icon="mdi:chart-line" />
             </button>
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Customize')}
             >
-                Customize
+                Customize <Icon icon="mdi:art" />
             </button>
         </div>
     );
 };
+
 
 export default ViewButtons;

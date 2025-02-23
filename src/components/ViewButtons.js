@@ -8,6 +8,20 @@ const ViewButtons = ({ setView }) => {
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
+                onClick={() => setView('Settings')}
+            >
+                Settings <Icon icon="material-symbols:settings" />
+            </button>
+            <button
+                className="btn"
+                style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
+                onClick={() => setView('Customize')}
+            >
+                Customize <Icon icon="mdi:art" />
+            </button>
+            <button
+                className="btn"
+                style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Income')}
             >
                 Income <Icon icon="majesticons:money-plus-line"/>
@@ -29,13 +43,6 @@ const ViewButtons = ({ setView }) => {
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
-                onClick={() => setView('Analyze')}
-            >
-                Analyze <Icon icon="mdi:chart-line" />
-            </button>
-            <button
-                className="btn"
-                style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
                 onClick={() => setView('Calendar')}
             >
                 Calendar <Icon icon="mdi:calendar" />
@@ -43,16 +50,9 @@ const ViewButtons = ({ setView }) => {
             <button
                 className="btn"
                 style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
-                onClick={() => setView('Customize')}
+                onClick={() => setView('Analyze')}
             >
-                Customize <Icon icon="mdi:art" />
-            </button>
-            <button
-                className="btn"
-                style={{ backgroundColor: GrabButtonColors(), color: GrabTextColors() }}
-                onClick={() => setView('Settings')}
-            >
-                Settings <Icon icon="material-symbols:settings" />
+                Analyze <Icon icon="mdi:chart-line" />
             </button>
             <button
                 className="btn"

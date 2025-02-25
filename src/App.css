@@ -1,25 +1,48 @@
-*{
-	 font-family: 'Roboto Slab';
-     font-weight: 600;
+* {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 600;
+    box-sizing: border-box;
 }
-.links {
-  display: flex;
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  height: 10vh; 
-  z-index:5;
 
+:root {
+    --primary-bg: #f9f9f9;
+    --border-color: #ddd;
+    --tooltip-bg: rgba(0, 0, 0, 0.7);
+    --income-color: green;
+    --expense-color: red;
+    --transition-speed: 0.3s ease-in-out;
 }
+
+.links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    height: auto;
+    z-index: 5;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .links {
+        position: relative;
+        top: 0;
+        right: 0;
+        justify-content: center;
+    }
+}
+
 .calendar {
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 90%;
     margin: 0 auto;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     justify-content: space-between;
-    position: relative; 
+    position: relative;
 }
 
 .calendar-header, .calendar-body {
@@ -35,13 +58,14 @@
 
 .calendar-details {
     display: none;
-    position: relative;
+    position: absolute;
+    right: -100%;
     top: 0;
     width: 20vw;
     padding: 2%;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: right 0.3s ease-in-out; 
+    transition: right var(--transition-speed);
 }
 
 .calendar-details.show {
@@ -50,18 +74,10 @@
 }
 
 .details-box {
-    background: #f9f9f9;
+    background: var(--primary-bg);
     padding: 3%;
     border-radius: 8px;
     font-size: 1rem;
-}
-
-.calendar-day, .calendar-date {
-    flex: 1 0 14.28%;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    text-align: center;
-    padding: 1% 0;
 }
 
 .details-box h3 {
@@ -90,15 +106,15 @@
 
 .income-table th, .expense-table th {
     font-weight: bold;
-    background-color: #f0f0f0;
+    background-color: var(--primary-bg);
 }
 
 .income-table td {
-    color: green;
+    color: var(--income-color);
 }
 
 .expense-table td {
-    color: red;
+    color: var(--expense-color);
 }
 
 .income-list p, .expense-list p {
@@ -106,8 +122,17 @@
     color: #888;
 }
 
+.calendar-day, .calendar-date {
+    flex: 1 0 calc(100% / 7);
+    min-height: 5rem;
+    box-sizing: border-box;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    padding: 0.5rem;
+}
+
 .calendar-header {
-    background-color: #f9f9f9;
+    background-color: var(--primary-bg);
     font-weight: bold;
 }
 
@@ -120,16 +145,24 @@
 .tooltip-icon:hover::after {
     content: attr(data-tooltip);
     position: absolute;
-    top: -10px;
+    bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--tooltip-bg);
     color: white;
-    padding: 5px;
+    padding: 0.5rem;
     border-radius: 4px;
     font-size: 0.875rem;
     white-space: nowrap;
     z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed);
+}
+
+.tooltip-icon:hover::after {
+    opacity: 1;
+    visibility: visible;
 }
 
 @keyframes scrollText {
@@ -140,17 +173,20 @@
         transform: translateX(100%);
     }
 }
+
 .btn {
-    padding: 0.6em 1.2em;
+    padding: 0.6rem 1.2rem;
     font-size: 1rem;
     border-radius: 0.5rem;
     font-weight: 600;
-    transition: all 0.3s ease-in-out;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
 }
 
 .btn:hover {
-    transform: translateY(-0.2em);
+    transform: translateY(-0.2rem);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     opacity: 0.9;
 }

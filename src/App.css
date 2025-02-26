@@ -45,19 +45,17 @@
     position: relative;
 }
 
-.calendar-header, .calendar-body {
+.calendar-header,
+.calendar-body {
     display: flex;
     flex-wrap: wrap;
 }
 
 .calendar-body {
     flex: 1;
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .calendar-details {
-    display: none;
     position: absolute;
     right: -100%;
     top: 0;
@@ -65,12 +63,15 @@
     padding: 2%;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: right var(--transition-speed);
+    transition: right var(--transition-speed), opacity var(--transition-speed);
+    opacity: 0;
+    visibility: hidden;
 }
 
 .calendar-details.show {
-    display: block;
     right: 0;
+    opacity: 1;
+    visibility: visible;
 }
 
 .details-box {
@@ -85,26 +86,33 @@
     font-size: 1.125rem;
 }
 
-.income-list, .expense-list {
+.income-list,
+.expense-list {
     margin-bottom: 3%;
 }
 
-.income-list h4, .expense-list h4 {
+.income-list h4,
+.expense-list h4 {
     font-size: 1.125rem;
     margin-bottom: 1rem;
 }
 
-.income-table, .expense-table {
+.income-table,
+.expense-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.income-table th, .expense-table th, .income-table td, .expense-table td {
+.income-table th,
+.expense-table th,
+.income-table td,
+.expense-table td {
     padding: 1% 2%;
     text-align: left;
 }
 
-.income-table th, .expense-table th {
+.income-table th,
+.expense-table th {
     font-weight: bold;
     background-color: var(--primary-bg);
 }
@@ -117,12 +125,14 @@
     color: var(--expense-color);
 }
 
-.income-list p, .expense-list p {
+.income-list p,
+.expense-list p {
     font-style: italic;
     color: #888;
 }
 
-.calendar-day, .calendar-date {
+.calendar-day,
+.calendar-date {
     flex: 1 0 calc(100% / 7);
     min-height: 5rem;
     box-sizing: border-box;
@@ -155,14 +165,9 @@
     font-size: 0.875rem;
     white-space: nowrap;
     z-index: 100;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity var(--transition-speed);
-}
-
-.tooltip-icon:hover::after {
     opacity: 1;
     visibility: visible;
+    transition: opacity var(--transition-speed);
 }
 
 @keyframes scrollText {
@@ -183,10 +188,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: none;
     cursor: pointer;
+    background: white;
 }
 
 .btn:hover {
     transform: translateY(-0.2rem);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     opacity: 0.9;
 }

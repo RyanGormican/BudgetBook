@@ -18,6 +18,8 @@
 
 body {
     background: var(--primary-bg);
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
 /* Navigation Links */
@@ -35,8 +37,6 @@ body {
 @media (max-width: 768px) {
     .links {
         position: relative;
-        top: 0;
-        right: 0;
         justify-content: center;
     }
 }
@@ -61,8 +61,6 @@ body {
 
 .calendar-body {
     flex: 1;
-    display: flex;
-    flex-wrap: wrap;
 }
 
 /* Calendar Days and Dates */

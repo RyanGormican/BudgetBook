@@ -222,19 +222,19 @@ body {
 @media (max-width: 768px) {
     .calendar-day,
     .calendar-date {
-min-height: 4rem;
-}
+        min-height: 4rem;
+    }
 
-.calendar-details {
-    width: 100%;
-    max-width: 100%;
-}
+    .calendar-details {
+        width: 100%;
+        max-width: 100%;
+    }
 
-.details-box {
-    font-size: 0.9rem;
-}
+    .details-box {
+        font-size: 0.9rem;
+    }
 
-.btn {
-    font-size: 0.875rem;
+    .btn {
+        font-size: 0.875rem;
+    }
 }
-

@@ -13,11 +13,14 @@
     --income-color: green;
     --expense-color: red;
     --transition-speed: 0.3s ease-in-out;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-sm: 0.875rem;
 }
 
 body {
     background: var(--primary-bg);
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     line-height: 1.5;
 }
 
@@ -48,6 +51,7 @@ body {
     border: 1px solid var(--border-color);
     justify-content: space-between;
     position: relative;
+    overflow: hidden;
 }
 
 .calendar-header,
@@ -70,6 +74,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color var(--transition-speed);
+}
+
+.calendar-day:hover,
+.calendar-date:hover {
+    background-color: #f0f0f0;
 }
 
 .calendar-header {
@@ -103,12 +113,12 @@ body {
     background: var(--primary-bg);
     padding: 3%;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: var(--font-size-base);
 }
 
 .details-box h3 {
     margin-top: 0;
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
 }
 
 .income-list,
@@ -118,7 +128,7 @@ body {
 
 .income-list h4,
 .expense-list h4 {
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
     margin-bottom: 1rem;
 }
 
@@ -172,7 +182,7 @@ body {
     color: white;
     padding: 0.5rem;
     border-radius: 4px;
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     white-space: nowrap;
     z-index: 100;
     opacity: 0;
@@ -203,7 +213,7 @@ body {
 
 .btn {
     padding: 0.6rem 1.2rem;
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     border-radius: 0.5rem;
     font-weight: 600;
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
@@ -231,10 +241,10 @@ body {
     }
 
     .details-box {
-        font-size: 0.9rem;
+        font-size: var(--font-size-sm);
     }
 
     .btn {
-        font-size: 0.875rem;
+        font-size: var(--font-size-sm);
     }
 }

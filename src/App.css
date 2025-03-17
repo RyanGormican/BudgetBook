@@ -22,6 +22,7 @@ body {
     background: var(--primary-bg);
     font-size: var(--font-size-base);
     line-height: 1.5;
+    color: #333;
 }
 
 .links {
@@ -49,7 +50,6 @@ body {
     max-width: 90%;
     margin: 0 auto;
     border: 1px solid var(--border-color);
-    justify-content: space-between;
     position: relative;
     overflow: hidden;
 }
@@ -58,10 +58,6 @@ body {
 .calendar-body {
     display: flex;
     flex-wrap: wrap;
-}
-
-.calendar-body {
-    flex: 1;
 }
 
 .calendar-day,
@@ -85,6 +81,7 @@ body {
 .calendar-header {
     background-color: var(--primary-bg);
     font-weight: bold;
+    padding: 0.5rem 0;
 }
 
 .calendar-details {

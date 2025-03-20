@@ -52,6 +52,7 @@ body {
     border: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .calendar-header,
@@ -70,12 +71,13 @@ body {
     justify-content: center;
     padding: 0.5rem;
     text-align: center;
-    transition: background-color var(--transition-speed);
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
 .calendar-day:hover,
 .calendar-date:hover {
     background-color: #f0f0f0;
+    transform: scale(1.05);
 }
 
 .calendar-header {

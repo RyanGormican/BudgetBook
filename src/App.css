@@ -38,8 +38,8 @@ body {
 
 @media (max-width: 768px) {
     .links {
-        position: relative;
         justify-content: center;
+        position: relative;
     }
 }
 
@@ -55,14 +55,12 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-.calendar-header,
-.calendar-body {
+.calendar-header, .calendar-body {
     display: flex;
     flex-wrap: wrap;
 }
 
-.calendar-day,
-.calendar-date {
+.calendar-day, .calendar-date {
     flex: 1 0 calc(100% / 7);
     min-height: 5rem;
     border: 1px solid var(--border-color);
@@ -74,8 +72,7 @@ body {
     transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
-.calendar-day:hover,
-.calendar-date:hover {
+.calendar-day:hover, .calendar-date:hover {
     background-color: #f0f0f0;
     transform: scale(1.05);
 }
@@ -120,33 +117,27 @@ body {
     font-size: var(--font-size-lg);
 }
 
-.income-list,
-.expense-list {
+.income-list, .expense-list {
     margin-bottom: 3%;
 }
 
-.income-list h4,
-.expense-list h4 {
+.income-list h4, .expense-list h4 {
     font-size: var(--font-size-lg);
     margin-bottom: 1rem;
 }
 
-.income-table,
-.expense-table {
+.income-table, .expense-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.income-table th,
-.expense-table th,
-.income-table td,
-.expense-table td {
+.income-table th, .expense-table th,
+.income-table td, .expense-table td {
     padding: 1% 2%;
     text-align: left;
 }
 
-.income-table th,
-.expense-table th {
+.income-table th, .expense-table th {
     font-weight: bold;
     background-color: var(--primary-bg);
 }
@@ -159,8 +150,7 @@ body {
     color: var(--expense-color);
 }
 
-.income-list p,
-.expense-list p {
+.income-list p, .expense-list p {
     font-style: italic;
     color: #888;
 }
@@ -229,8 +219,7 @@ body {
 }
 
 @media (max-width: 768px) {
-    .calendar-day,
-    .calendar-date {
+    .calendar-day, .calendar-date {
         min-height: 4rem;
     }
 
